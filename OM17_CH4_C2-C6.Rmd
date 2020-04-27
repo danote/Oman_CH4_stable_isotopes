@@ -78,41 +78,6 @@ iso_files <- iso_files_raw %>%
   )
 ```
 
-## Chromatograms
-
-Display chromatograms of samples and standards for CH$_4$ analyses.
-```{r chroms-CH4}
-# plot the chromatograms
-chroms_C1 <- iso_files %>%
-  # select CH4 analyses
-  iso_filter_files(str_detect(`GC Method`, "C2") == FALSE) %>% 
-  iso_plot_continuous_flow_data(
-     # select data and aesthetics
-    data = c(44),
-    color = id1
-  )
-
-# print
-chroms_C1
-```
-
-Display chromatograms of samples for C$_2$-C$_6$ alkane analyses.
-```{r chroms-C2-C6}
-# plot the chromatograms
-chroms_C2_C6 <- iso_files %>%
-    # select C2-C6 alkane analyses
-  iso_filter_files(str_detect(`GC Method`, "C2") == TRUE) %>% 
-  iso_plot_continuous_flow_data(
-    # select data and aesthetics
-    data = c(44),
-    color = id1
-  ) +
-  # customize resulting ggplot
-  theme(legend.position = "bottom")
-
-# print
-chroms_C2_C6
-```
 
 ## Peak maps
 ```{r set-peak-maps}
@@ -149,53 +114,6 @@ peak_table_w_ids <- iso_files %>%
   iso_get_peak_table(include_file_info = everything())
 ```
 
-Display an example chromatogram for CH$_4$.
-```{r chrom-CH4-labeled}
-chroms_C1_labeled <- iso_files %>%
-  iso_filter_files(str_detect(id1, "188") == TRUE) %>% 
-  iso_plot_continuous_flow_data(
-    # select data and aesthetics
-    data = c(44),
-    color = id1,
-    # provide our peak table with ids
-    peak_table = peak_table_w_ids, 
-    # define peak labels, this can be any valid expression
-    peak_label = iso_format(id = peak_info), 
-    # specify which labels to show (removing the !is_identified or putting a 
-    # restriction by retention time can help a lot with busy chromatograms)
-    peak_label_filter = is_identified | !is_identified | is_missing
-  )
-
-chroms_C1_labeled
-```
-
-Display chromatograms of samples for C$_2$-C$_6$ alkane analyses.
-```{r chrom-C2-C6-labeled}
-# plot the chromatograms
-chroms_C2_C6_labeled <- iso_files %>%
-    # select C2-C6 alkane analyses
-  iso_filter_files(str_detect(`GC Method`, "C2") == TRUE) %>% 
-  iso_plot_continuous_flow_data(
-    # select data and aesthetics
-    data = c(44),
-    color = id1,
-    # zoom in on time interval
-    time_interval = c(1250, 2100),
-    # provide our peak table with ids
-    peak_table = peak_table_w_ids, 
-    # define peak labels, this can be any valid expression
-    peak_label = iso_format(id = peak_info), 
-    # specify which labels to show (removing the !is_identified or putting a 
-    # restriction by retention time can help a lot with busy chromatograms)
-    peak_label_filter = is_identified
-  ) +
-  # customize resulting ggplot
-  theme(legend.position = "bottom")
-
-# print
-chroms_C2_C6_labeled
-```
-
 ## Select analyte peaks
 ```{r select-analyte-peaks}
 # focus on analyte peaks
@@ -211,7 +129,7 @@ peak_table_analytes <- peak_table_analytes %>%
   filter(compound == "CH4" | compound == "C2" | compound == "C3")
 
 # print
-peak_table_analytes
+peak_table_analytes %>% select(file_id, compound, amp44) %>%  knitr::kable(d=0)
 ```
 
 # Isotope standard values
@@ -240,52 +158,9 @@ standards %>% knitr::kable(digits = 2)
 peak_table_w_stds <- 
   peak_table_analytes %>% 
   iso_add_standards(stds = standards, match_by = c("id1")) 
-```
-
-## Initial overview plots of data
-
-Plot of standards, accepted versus measured $\delta^{13}\text{C}$. Coefficients and $\text{r}^2$ value of regression reported further below.
-```{r plot-stnds-accepted-measured}
-# generate plot
-plot_stnds_accepted_measured <- peak_table_w_stds %>% filter(is_std_peak == TRUE) %>% 
-  # use generic data plot function
-  iso_plot_data(
-    x = true_d13C,
-    y = d13C,
-    color = id1,
-    points = TRUE
-  )
 
 # print
-plot_stnds_accepted_measured
-```
-
-Standards cover most of sample amplitude range.
-```{r plot-amp-d13C}
-# generate plot
-plot_amp_d13C <- peak_table_w_stds %>% 
-  # use generic data plot function
-  iso_plot_data(
-    x = amp44, y = d13C, color = is_std_peak,
-    points = TRUE
-  )
-
-# print
-plot_amp_d13C
-```
-
-Standards cover most of sample time range. $\delta^{13}$C of standards appears pretty constant over time.
-```{r plot-d13C-time}
-# generate plot
-plot_d13C_time <- peak_table_w_stds %>% 
-  # use generic data plot function
-  iso_plot_data(
-    x = file_datetime, y = d13C, color = is_std_peak,
-    points = TRUE
-  )
-
-# print
-plot_d13C_time
+peak_table_w_stds %>% select(file_id, compound, amp44) %>%  knitr::kable(d=0)
 ```
 
 # Calibration
@@ -311,29 +186,6 @@ global_calibs <- peak_table_w_stds %>%
   ) 
 ```
 
-## Coefficients
-
-```{r get-coefs, fig.width=7, fig.height=8}
-# look at coefficients and summary
-global_calibs %>% 
-  # unnest calibration parameters
-  iso_get_calibration_parameters(
-    select_from_coefs = 
-      c(term, estimate, SE = std.error, signif),
-    select_from_summary = 
-      c(fit_R2 = adj.r.squared, fit_RMSD = deviance, residual_df = df.residual)) %>%
-  arrange(term) %>% 
-  knitr::kable(digits = 4)
-```
-
-## Visualize Calibration Parameters
-
-The visualization of the calibration parameters reveals that as expected the scale contraction is statistically relevant (`***` = p.value < 0.001). DT (drift) is not significant.
-
-```{r plot-calib-params, fig.width = 8, fig.height = 11, message=FALSE}
-global_calibs %>% iso_plot_calibration_parameters()
-```
-
 ## Apply global calibration
 ```{r apply-calibs, cache=TRUE}
 global_calibs_applied <- 
@@ -345,96 +197,79 @@ global_calibs_applied <-
   iso_apply_calibration(true_d13C, calculate_error = TRUE)
 # calibration ranges
 global_calibs_with_ranges <-
-  global_calibs_applied %>% 
+  global_calibs_applied %>%
   # evaluate calibration range for the measured amplitude and predicted d13C
-  iso_evaluate_calibration_range(amp44, true_d13C_pred) 
+  iso_evaluate_calibration_range(amp44, true_d13C_pred)
 # show calibration ranges
-global_calibs_with_ranges %>% 
-  iso_get_calibration_range() %>% 
-  iso_remove_list_columns() %>% 
+global_calibs_with_ranges %>%
+  iso_get_calibration_range() %>%
+  iso_remove_list_columns() %>%
   knitr::kable(d = 2)
 # create calibrated peak table
-peak_table_calibrated <- global_calibs_with_ranges %>% 
+peak_table_calibrated <- global_calibs_with_ranges %>%
   iso_get_calibration_data()
+
+# # create calibrated peak table
+# peak_table_calibrated <- global_calibs_applied %>%
+#   iso_get_calibration_data()
 ```
+
+```{r}
+peak_table_calibrated  %>% select(file_id, compound, amp44) %>%  knitr::kable(d=0)
+```
+
 
 # Inspect calibration
 
-## Overview
-
-Most points are within range of standard peak amplitudes. Several points are above calibrated delta range, but it is hard to find standards as $^{13}$C-enriched as these samples, so there is not much that can be done about that. Anyway, the calibration is pretty linear, so these data are probably OK.
-```{r inspect-calib, fig.width=7, fig.height=9}
-# replicate earlier overview plot but now with the calibrated delta values
-# and with a highlight of the calibration ranges and which points are in range
-peak_table_calibrated %>% 
-  # focus on identified peaks (comment out this line to see ALL peaks)
-  filter(!is.na(compound)) %>% 
-  # visualize with convenience function iso_plot_data
-  iso_plot_data(
-    # choose x and y (multiple y possible)
-    x = amp44, y = true_d13C_pred,
-    # choose aesthetics
-    color = in_range, shape = is_std_peak, label = compound, size = 3,
-    # decide what geoms to include
-    points = TRUE
-  ) %>% 
-  # highlight calibration range
-  iso_mark_calibration_range() +
-  # legend
-  theme(legend.position = "bottom", legend.direction = "vertical")
-```
-
 ## Summary
-
-```{r summarize-calibrated-data}
+```{r}
 # generate data summary
-peak_data <- 
-  peak_table_calibrated %>% 
+peak_data <-
+  peak_table_calibrated %>%
   # focus on identified peaks in the samples
   filter(!is.na(compound))
 
-# Add simpler sample names
-peak_data <- peak_data %>% mutate(sample = case_when(
-  str_detect(id1, "Bio") == TRUE ~ "Bio 1.0 mid",
-  str_detect(id1, "H-ISO1") == TRUE ~ "H-ISO1",
-  str_detect(id1, "T-ISO1") == TRUE ~ "T-ISO1",
-  str_detect(id1, "14") == TRUE ~ "NSHQ14",
-  str_detect(id1, "OM17-4_DBN_DC") == TRUE ~ "NSHQ04",
-  str_detect(id1, "71") == TRUE ~ "WAB71",
-  str_detect(id1, "188") == TRUE ~ "WAB188"
-))
-
-# summarize replicates
-peak_data_summary <- 
-  peak_data %>% 
-  # summarize for each sample and compound
-  group_by(sample, compound) %>% 
-  iso_summarize_data_table(amp44, true_d13C_pred, true_d13C_pred_se) %>% select(-`true_d13C_pred_se sd`)
-
-# add column in which d13C is rounded to tenth of permil place
-peak_data_summary <- peak_data_summary %>% mutate(`d13C rounded tenth` = round(`true_d13C_pred mean`, 1))
-
-  # re-apply filters just to be certain no inadequate data gets exported
-
-# peak_data_summary <- peak_data_summary %>%
-#     filter(`amp44 mean` > 300)
-# 
-# peak_data_summary <- peak_data_summary %>%
-#   filter(compound == "CH4" | compound == "C2" | compound == "C3")
-
-# print
-peak_data_summary %>% iso_make_units_explicit() %>% knitr::kable(d = 2)
+peak_data  %>% select(file_id, compound, amp44) %>%  knitr::kable(d=0)
 ```
 
-# Export
 
-Save data to xlsx spreadsheet.
-```{r export}
-# export the global calibration with all its information and data to Excel
-peak_table_calibrated %>% 
-  iso_export_calibration_to_excel(
-    filepath = format(Sys.Date(), "data_output/%Y%m%d_OM17_CH4_C2-C6_data_calibrated.xlsx"),
-    # include data summary as an additional useful tab
-    `data summary` = peak_data_summary
-  )
+
+```{r summarize-calibrated-data}
+# # generate data summary
+# peak_data <- 
+#   peak_table_calibrated %>% 
+#   # focus on identified peaks in the samples
+#   filter(!is.na(compound))
+# 
+# # Add simpler sample names
+# peak_data <- peak_data %>% mutate(sample = case_when(
+#   str_detect(id1, "Bio") == TRUE ~ "Bio 1.0 mid",
+#   str_detect(id1, "H-ISO1") == TRUE ~ "H-ISO1",
+#   str_detect(id1, "T-ISO1") == TRUE ~ "T-ISO1",
+#   str_detect(id1, "14") == TRUE ~ "NSHQ14",
+#   str_detect(id1, "OM17-4_DBN_DC") == TRUE ~ "NSHQ04",
+#   str_detect(id1, "71") == TRUE ~ "WAB71",
+#   str_detect(id1, "188") == TRUE ~ "WAB188"
+# ))
+# 
+# # summarize replicates
+# peak_data_summary <- 
+#   peak_data %>% 
+#   # summarize for each sample and compound
+#   group_by(sample, compound) %>% 
+#   iso_summarize_data_table(amp44, true_d13C_pred, true_d13C_pred_se) %>% select(-`true_d13C_pred_se sd`)
+# 
+# # add column in which d13C is rounded to tenth of permil place
+# peak_data_summary <- peak_data_summary %>% mutate(`d13C rounded tenth` = round(`true_d13C_pred mean`, 1))
+# 
+#   # re-apply filters just to be certain no inadequate data gets exported
+# 
+# # peak_data_summary <- peak_data_summary %>%
+# #     filter(`amp44 mean` > 300)
+# # 
+# # peak_data_summary <- peak_data_summary %>%
+# #   filter(compound == "CH4" | compound == "C2" | compound == "C3")
+# 
+# # print
+# peak_data_summary %>% iso_make_units_explicit() %>% knitr::kable(d = 2)
 ```
