@@ -27,6 +27,14 @@ C$_1$-C$_6$ alkane $\delta^{13}$C was measured by GC-C-IRMS as described in the 
 library(tidyverse) # dplyr, tidyr, ggplot
 library(isoreader) # reading isotope data files
 library(isoprocessor) # processing isotope data files
+
+# global knitting options for automatic saving of all plots as .png and .pdf. Also sets cache directory.
+knitr::opts_chunk$set(
+  dev = c("png", "pdf"), fig.keep = "all",
+  dev.args = list(pdf = list(encoding = "WinAnsi", useDingbats = FALSE)),
+  fig.path = file.path("fig_output/", paste0(gsub("\\.[Rr]md", "/", knitr::current_input()))),
+  cache.path = file.path("cache/", paste0(gsub("\\.[Rr]md", "/", knitr::current_input())))
+)
 ```
 
 Data processed using the packages [isoreader](http://isoreader.kopflab.org) version `r packageVersion("isoreader")` and [isoprocessor](http://isoprocessor.kopflab.org/) version `r packageVersion("isoprocessor")`.
@@ -41,14 +49,6 @@ iso_files_raw <-
   ) %>% 
     # read data files in parallel for fast read
   iso_read_continuous_flow(parallel = TRUE)
-
-# global knitting options for automatic saving of all plots as .png and .pdf. Also sets cache directory.
-knitr::opts_chunk$set(
-  dev = c("png", "pdf"), fig.keep = "all",
-  dev.args = list(pdf = list(encoding = "WinAnsi", useDingbats = FALSE)),
-  fig.path = file.path("fig_output/", paste0(gsub("\\.[Rr]md", "/", knitr::current_input()))),
-  cache.path = file.path("cache/", paste0(gsub("\\.[Rr]md", "/", knitr::current_input())))
-)
 ```
 
 # Process file info & peak table

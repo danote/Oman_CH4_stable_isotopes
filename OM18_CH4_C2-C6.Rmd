@@ -15,6 +15,7 @@ output:
 editor_options:
   chunk_output_type: inline
 ---
+
 # Oman 2018 C$_1$-C$_6$ alkane $\delta^{13}$C - Introduction
 
 C$_1$-C$_6$ alkane $\delta^{13}$C was measured by GC-C-IRMS as described in the methods section of the manuscript. The following code steps through the data processing and calibration to convert measured values to values vs. the international reference standard (Vienna Pee Dee Belemnite, VPDB). The gas samples processed in this document were collected in Oman in the February-March 2018 field season, except for sample OM17_14C_BS2. OM17_14C_BS2 was previously analyzed with a different chromatographic method. The re-analyzis here yielded results that were compatible results with the prior analysis.
@@ -26,6 +27,14 @@ C$_1$-C$_6$ alkane $\delta^{13}$C was measured by GC-C-IRMS as described in the 
 library(tidyverse) # dplyr, tidyr, ggplot
 library(isoreader) # reading isotope data files
 library(isoprocessor) # processing isotope data files
+
+# global knitting options for automatic saving of all plots as .png and .pdf. Also sets cache directory.
+knitr::opts_chunk$set(
+  dev = c("png", "pdf"), fig.keep = "all",
+  dev.args = list(pdf = list(encoding = "WinAnsi", useDingbats = FALSE)),
+  fig.path = file.path("fig_output/", paste0(gsub("\\.[Rr]md", "/", knitr::current_input()))),
+  cache.path = file.path("cache/", paste0(gsub("\\.[Rr]md", "/", knitr::current_input())))
+)
 ```
 
 Data processed using the packages [isoreader](http://isoreader.kopflab.org) version `r packageVersion("isoreader")` and [isoprocessor](http://isoprocessor.kopflab.org/) version `r packageVersion("isoprocessor")`.
@@ -40,14 +49,6 @@ iso_files_raw <-
   ) %>%
     # read data files in parallel for fast read
   iso_read_continuous_flow(parallel = TRUE)
-
-# global knitting options for automatic saving of all plots as .png and .pdf. Also sets cache directory.
-knitr::opts_chunk$set(
-  dev = c("png", "pdf"), fig.keep = "all",
-  dev.args = list(pdf = list(encoding = "WinAnsi", useDingbats = FALSE)),
-  fig.path = file.path("fig_output/", paste0(gsub("\\.[Rr]md", "/", knitr::current_input()))),
-  cache.path = file.path("cache/", paste0(gsub("\\.[Rr]md", "/", knitr::current_input())))
-)
 ```
 
 # Process file info & peak table
@@ -197,7 +198,7 @@ chroms_C2_C6_mapped
 ```{r select-analyte-peaks}
 # focus on analyte peaks
 
- # We separately tested and determined the limit of quantitation (defined here as amplitude yielding d13C sample standard deviation of 0.6 per mil over studied amplitude range) for our intrument setup. Note: NSHQ14 was only gas sample with C2-C6 above LOQ in 2017.
+ # We separately tested and determined the limit of quantitation (defined here as amplitude yielding d13C sample standard deviation of 0.6 per mil over studied amplitude range) for our intrument setup.
 
 peak_table_analytes <- peak_table_w_ids %>% 
     filter(amp44 > 300)
