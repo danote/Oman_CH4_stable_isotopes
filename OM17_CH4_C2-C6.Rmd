@@ -414,14 +414,6 @@ peak_data_summary <-
 # add column in which d13C is rounded to tenth of permil place
 peak_data_summary <- peak_data_summary %>% mutate(`d13C rounded tenth` = round(`true_d13C_pred mean`, 1))
 
-  # re-apply filters just to be certain no inadequate data gets exported
-
-peak_data_summary <- peak_data_summary %>%
-    filter(`amp44 mean` > 300)
-
-peak_data_summary <- peak_data_summary %>%
-  filter(compound == "CH4" | compound == "C2" | compound == "C3")
-
 # print
 peak_data_summary %>% iso_make_units_explicit() %>% knitr::kable(d = 2)
 ```
