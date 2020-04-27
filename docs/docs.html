@@ -1712,9 +1712,9 @@ docs_files %&gt;% select(-target_folder) %&gt;% knitr::kable()</code></pre>
 <td align="left">docs/rmarkdown/OM17_CH4_C2-C6.Rmd</td>
 <td align="left">50da7cda1fd015f7aa659aa514a510cb</td>
 <td align="left">docs/rmarkdown/OM17_CH4_C2-C6.html</td>
-<td align="left">2020-04-27 12:23:40 MDT</td>
+<td align="left">2020-04-27 13:41:53 MDT</td>
 <td align="left">NA</td>
-<td align="left">TRUE</td>
+<td align="left">FALSE</td>
 </tr>
 <tr class="even">
 <td align="left">RMarkdown</td>
@@ -1727,6 +1727,16 @@ docs_files %&gt;% select(-target_folder) %&gt;% knitr::kable()</code></pre>
 <td align="left">FALSE</td>
 </tr>
 <tr class="odd">
+<td align="left">RMarkdown</td>
+<td align="left">OM18_16S_taxa_assignment_DADA2_Silva138_Bayesian.Rmd</td>
+<td align="left">docs/rmarkdown/OM18_16S_taxa_assignment_DADA2_Silva138_Bayesian.Rmd</td>
+<td align="left">2f32ac08ae11e10475ea6f67ad3e9c2d</td>
+<td align="left">docs/rmarkdown/OM18_16S_taxa_assignment_DADA2_Silva138_Bayesian.html</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
 <td align="left">RMarkdown</td>
 <td align="left">OM18_CH4_C2-C6.Rmd</td>
 <td align="left">docs/rmarkdown/OM18_CH4_C2-C6.Rmd</td>
@@ -1839,82 +1849,57 @@ example.Rmd (NC)
 </h1>
 <pre><code>source file has not changed, docs file will not be re-generated (delete file in docs folder to force re-generation)</code></pre>
 <h1>
-OM17_CH4_C2-C6.Rmd (OK)
+OM17_CH4_C2-C6.Rmd (NC)
+</h1>
+<pre><code>source file has not changed, docs file will not be re-generated (delete file in docs folder to force re-generation)</code></pre>
+<h1>
+OM17-18_CH4_H.Rmd (NC)
+</h1>
+<pre><code>source file has not changed, docs file will not be re-generated (delete file in docs folder to force re-generation)</code></pre>
+<h1>
+OM18_16S_taxa_assignment_DADA2_Silva138_Bayesian.Rmd (OK)
 </h1>
 <pre><code>
 
-processing file: OM17_CH4_C2-C6.Rmd
+processing file: OM18_16S_taxa_assignment_DADA2_Silva138_Bayesian.Rmd
 
   |                                                                            
   |                                                                      |   0%
   |                                                                            
-  |..                                                                    |   2%
+  |.                                                                     |   2%
    inline R code fragments
 
 
   |                                                                            
-  |...                                                                   |   5%
-label: setup (with options) 
-List of 2
- $ warning: logi FALSE
- $ message: logi FALSE
+  |..                                                                    |   4%
+label: setup
 
-── Attaching packages ─────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──
-✓ ggplot2 3.2.1     ✓ purrr   0.3.3
-✓ tibble  2.1.3     ✓ dplyr   0.8.4
-✓ tidyr   1.0.2     ✓ stringr 1.4.0
-✓ readr   1.3.1     ✓ forcats 0.4.0
-── Conflicts ────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-x dplyr::filter() masks stats::filter()
-x dplyr::lag()    masks stats::lag()
-
-Attaching package: &#39;isoreader&#39;
-
-The following object is masked from &#39;package:stats&#39;:
-
-    filter
-
-
-Attaching package: &#39;isoprocessor&#39;
-
-The following objects are masked from &#39;package:isoreader&#39;:
-
-    iso_calculate_ratios, iso_convert_signals, iso_convert_time,
-    iso_plot_continuous_flow_data, iso_plot_dual_inlet_data,
-    iso_plot_raw_data
-
-The following object is masked from &#39;package:stats&#39;:
-
-    filter
+  |                                                                            
+  |....                                                                  |   5%
+  ordinary text without R code
 
 
   |                                                                            
   |.....                                                                 |   7%
-   inline R code fragments
-
+label: set-fastq-files-directory
 
   |                                                                            
   |......                                                                |   9%
-label: load-data (with options) 
-List of 1
- $ message: logi FALSE
+  ordinary text without R code
 
-Info: preparing to read 1 data files (all will be cached), setting up 1 par...
-Info (process 1): reading file &#39;data_raw/OM17_CH4_C2-C6_data/OM17_CH4_C2-C6...
-Info (process 1): loaded data for 43 data files from R Data Storage - check...
-Warning (process 1): version mismatch - 43 of the 43 data files stored in t...
-Warning (process 1): Consider re-reading the original data files using the ...
-Info: finished reading 1 files in 4.16 secs
-Info: encountered 88 problems in total
 
   |                                                                            
   |........                                                              |  11%
+label: read-fastq-files
+
+  |                                                                            
+  |.........                                                             |  12%
   ordinary text without R code
 
 
   |                                                                            
   |..........                                                            |  14%
-label: process-file-info
+label: extract-sample-names
 
   |                                                                            
   |...........                                                           |  16%
@@ -1922,8 +1907,8 @@ label: process-file-info
 
 
   |                                                                            
-  |.............                                                         |  18%
-label: chroms-CH4
+  |............                                                          |  18%
+label: trim-sample-names
 
   |                                                                            
   |..............                                                        |  20%
@@ -1931,17 +1916,26 @@ label: chroms-CH4
 
 
   |                                                                            
-  |................                                                      |  23%
-label: chroms-C2-C6
+  |...............                                                       |  21%
+label: plot-quality-profile-forward
 
   |                                                                            
-  |..................                                                    |  25%
+  |................                                                      |  23%
   ordinary text without R code
 
 
   |                                                                            
+  |..................                                                    |  25%
+label: plot-quality-profile-reverse
+
+  |                                                                            
   |...................                                                   |  27%
-label: set-peak-maps
+  ordinary text without R code
+
+
+  |                                                                            
+  |....................                                                  |  29%
+label: create-directory-for-filtered-files
 
   |                                                                            
   |.....................                                                 |  30%
@@ -1950,7 +1944,7 @@ label: set-peak-maps
 
   |                                                                            
   |......................                                                |  32%
-label: fetch-peak-table
+label: filter-and-trim
 
   |                                                                            
   |........................                                              |  34%
@@ -1959,61 +1953,218 @@ label: fetch-peak-table
 
   |                                                                            
   |.........................                                             |  36%
-label: chrom-CH4-labeled
+label: learn-errors-forward
 
   |                                                                            
-  |...........................                                           |  39%
+  |..........................                                            |  38%
   ordinary text without R code
 
+
+  |                                                                            
+  |............................                                          |  39%
+label: learn-errors-reverse
 
   |                                                                            
   |.............................                                         |  41%
-label: chrom-C2-C6-labeled
-
-  |                                                                            
-  |..............................                                        |  43%
   ordinary text without R code
 
 
   |                                                                            
-  |................................                                      |  45%
-label: select-analyte-peaks
+  |..............................                                        |  43%
+label: visualize-estimated-error-rates
 
   |                                                                            
-  |.................................                                     |  48%
+  |...............................                                       |  45%
+  ordinary text without R code
+
+
+  |                                                                            
+  |................................                                      |  46%
+label: dereplicate (with options) 
+List of 1
+ $ message: logi FALSE
+
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/BA1A100_45_2C_F_filt.fastq.gz
+Encountered 6567 unique sequences from 30161 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/BA1A5566_45_1J_F_filt.fastq.gz
+Encountered 7465 unique sequences from 29863 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/CM2A_45_9D_F_filt.fastq.gz
+Encountered 6783 unique sequences from 35672 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NSHQ14_45_7J_F_filt.fastq.gz
+Encountered 5499 unique sequences from 25488 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NSHQ4_S_11D_F_filt.fastq.gz
+Encountered 9399 unique sequences from 34512 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NTC_1_F_filt.fastq.gz
+Encountered 439 unique sequences from 812 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NTC_10_F_filt.fastq.gz
+Encountered 1043 unique sequences from 1942 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NTC_11_F_filt.fastq.gz
+Encountered 523 unique sequences from 2258 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NTC_12_F_filt.fastq.gz
+Encountered 1053 unique sequences from 2247 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NTC_13_F_filt.fastq.gz
+Encountered 1615 unique sequences from 3240 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NTC_14_F_filt.fastq.gz
+Encountered 532 unique sequences from 1366 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NTC_15_F_filt.fastq.gz
+Encountered 184 unique sequences from 297 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NTC_16_F_filt.fastq.gz
+Encountered 463 unique sequences from 881 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NTC_17_F_filt.fastq.gz
+Encountered 893 unique sequences from 1393 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NTC_18_F_filt.fastq.gz
+Encountered 158 unique sequences from 250 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NTC_19_F_filt.fastq.gz
+Encountered 517 unique sequences from 559 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NTC_2_F_filt.fastq.gz
+Encountered 1562 unique sequences from 4835 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NTC_20_F_filt.fastq.gz
+Encountered 377 unique sequences from 674 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NTC_3_F_filt.fastq.gz
+Encountered 707 unique sequences from 1682 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NTC_4_F_filt.fastq.gz
+Encountered 106 unique sequences from 249 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NTC_5_F_filt.fastq.gz
+Encountered 317 unique sequences from 924 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NTC_6_F_filt.fastq.gz
+Encountered 361 unique sequences from 1017 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NTC_7_F_filt.fastq.gz
+Encountered 416 unique sequences from 1104 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NTC_8_F_filt.fastq.gz
+Encountered 512 unique sequences from 1096 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NTC_9_F_filt.fastq.gz
+Encountered 70 unique sequences from 120 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/OM18_BC_F_filt.fastq.gz
+Encountered 1291 unique sequences from 4634 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/OM18_BD_F_filt.fastq.gz
+Encountered 1017 unique sequences from 2034 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/OM18_BJ_F_filt.fastq.gz
+Encountered 801 unique sequences from 1063 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/WAB103_45_10J_F_filt.fastq.gz
+Encountered 11896 unique sequences from 29455 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/WAB104_45_5C_F_filt.fastq.gz
+Encountered 15038 unique sequences from 41822 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/WAB105_45_6D_F_filt.fastq.gz
+Encountered 7478 unique sequences from 36055 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/WAB188_45_4J_F_filt.fastq.gz
+Encountered 12178 unique sequences from 37100 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/WAB55_45_8C_F_filt.fastq.gz
+Encountered 9510 unique sequences from 29361 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/WAB71_45_3D_F_filt.fastq.gz
+Encountered 10008 unique sequences from 41759 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/BA1A100_45_2C_R_filt.fastq.gz
+Encountered 5700 unique sequences from 30161 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/BA1A5566_45_1J_R_filt.fastq.gz
+Encountered 6373 unique sequences from 29863 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/CM2A_45_9D_R_filt.fastq.gz
+Encountered 6413 unique sequences from 35672 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NSHQ14_45_7J_R_filt.fastq.gz
+Encountered 5245 unique sequences from 25488 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NSHQ4_S_11D_R_filt.fastq.gz
+Encountered 7098 unique sequences from 34512 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NTC_1_R_filt.fastq.gz
+Encountered 405 unique sequences from 812 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NTC_10_R_filt.fastq.gz
+Encountered 926 unique sequences from 1942 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NTC_11_R_filt.fastq.gz
+Encountered 478 unique sequences from 2258 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NTC_12_R_filt.fastq.gz
+Encountered 969 unique sequences from 2247 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NTC_13_R_filt.fastq.gz
+Encountered 1558 unique sequences from 3240 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NTC_14_R_filt.fastq.gz
+Encountered 531 unique sequences from 1366 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NTC_15_R_filt.fastq.gz
+Encountered 178 unique sequences from 297 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NTC_16_R_filt.fastq.gz
+Encountered 442 unique sequences from 881 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NTC_17_R_filt.fastq.gz
+Encountered 843 unique sequences from 1393 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NTC_18_R_filt.fastq.gz
+Encountered 157 unique sequences from 250 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NTC_19_R_filt.fastq.gz
+Encountered 513 unique sequences from 559 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NTC_2_R_filt.fastq.gz
+Encountered 1271 unique sequences from 4835 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NTC_20_R_filt.fastq.gz
+Encountered 391 unique sequences from 674 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NTC_3_R_filt.fastq.gz
+Encountered 561 unique sequences from 1682 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NTC_4_R_filt.fastq.gz
+Encountered 106 unique sequences from 249 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NTC_5_R_filt.fastq.gz
+Encountered 238 unique sequences from 924 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NTC_6_R_filt.fastq.gz
+Encountered 265 unique sequences from 1017 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NTC_7_R_filt.fastq.gz
+Encountered 423 unique sequences from 1104 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NTC_8_R_filt.fastq.gz
+Encountered 414 unique sequences from 1096 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/NTC_9_R_filt.fastq.gz
+Encountered 60 unique sequences from 120 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/OM18_BC_R_filt.fastq.gz
+Encountered 1151 unique sequences from 4634 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/OM18_BD_R_filt.fastq.gz
+Encountered 1021 unique sequences from 2034 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/OM18_BJ_R_filt.fastq.gz
+Encountered 790 unique sequences from 1063 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/WAB103_45_10J_R_filt.fastq.gz
+Encountered 10981 unique sequences from 29455 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/WAB104_45_5C_R_filt.fastq.gz
+Encountered 14043 unique sequences from 41822 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/WAB105_45_6D_R_filt.fastq.gz
+Encountered 7201 unique sequences from 36055 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/WAB188_45_4J_R_filt.fastq.gz
+Encountered 11254 unique sequences from 37100 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/WAB55_45_8C_R_filt.fastq.gz
+Encountered 8313 unique sequences from 29361 total sequences read.
+Dereplicating sequence entries in Fastq file: ~/Desktop/Boulder/2018_fall/molecular_methods_ebio/Molecular-Methods/dada2/attempt_1_files/demux_extracted_OM18/data_for_Oman_CH4_stable_isotope_paper/fastq_files/filtered/WAB71_45_3D_R_filt.fastq.gz
+Encountered 9902 unique sequences from 41759 total sequences read.
+
+  |                                                                            
+  |..................................                                    |  48%
   ordinary text without R code
 
 
   |                                                                            
   |...................................                                   |  50%
-label: set-stnd-d13C
+label: infer-samples-forward
 
   |                                                                            
-  |.....................................                                 |  52%
+  |....................................                                  |  52%
   ordinary text without R code
 
 
   |                                                                            
-  |......................................                                |  55%
-label: add-stnds-to-peak-table
+  |......................................                                |  54%
+label: infer-samples-reverse
+
+  |                                                                            
+  |.......................................                               |  55%
+  ordinary text without R code
+
 
   |                                                                            
   |........................................                              |  57%
+label: inspect-returned-dada-object-forward
+
+  |                                                                            
+  |.........................................                             |  59%
   ordinary text without R code
 
 
   |                                                                            
-  |.........................................                             |  59%
-label: plot-stnds-accepted-measured
+  |..........................................                            |  61%
+label: merge-paired-ends
 
   |                                                                            
-  |...........................................                           |  61%
+  |............................................                          |  62%
   ordinary text without R code
 
 
   |                                                                            
   |.............................................                         |  64%
-label: plot-amp-d13C
+label: construct-sequence-table
 
   |                                                                            
   |..............................................                        |  66%
@@ -2022,7 +2173,7 @@ label: plot-amp-d13C
 
   |                                                                            
   |................................................                      |  68%
-label: plot-d13C-time
+label: inspect-seq-lengths
 
   |                                                                            
   |.................................................                     |  70%
@@ -2030,21 +2181,26 @@ label: plot-d13C-time
 
 
   |                                                                            
-  |...................................................                   |  73%
-label: generate-calibs
+  |..................................................                    |  71%
+label: remove-chimeras
 
   |                                                                            
-  |....................................................                  |  75%
+  |...................................................                   |  73%
   ordinary text without R code
 
 
   |                                                                            
-  |......................................................                |  77%
-label: get-coefs (with options) 
-List of 2
- $ fig.width : num 7
- $ fig.height: num 8
+  |....................................................                  |  75%
+label: check-chimera-proportion
 
+  |                                                                            
+  |......................................................                |  77%
+  ordinary text without R code
+
+
+  |                                                                            
+  |.......................................................               |  79%
+label: check-pipeline-filtering
 
   |                                                                            
   |........................................................              |  80%
@@ -2052,13 +2208,8 @@ List of 2
 
 
   |                                                                            
-  |.........................................................             |  82%
-label: plot-calib-params (with options) 
-List of 3
- $ fig.width : num 8
- $ fig.height: num 11
- $ message   : logi FALSE
-
+  |..........................................................            |  82%
+label: assign-taxonomy
 
   |                                                                            
   |...........................................................           |  84%
@@ -2067,51 +2218,49 @@ List of 3
 
   |                                                                            
   |............................................................          |  86%
-label: apply-calibs (with options) 
-List of 1
- $ cache: logi TRUE
+label: add-species
+
+  |                                                                            
+  |.............................................................         |  88%
+  ordinary text without R code
 
 
   |                                                                            
   |..............................................................        |  89%
-  ordinary text without R code
-
+label: inspect-taxa-assignments
 
   |                                                                            
   |................................................................      |  91%
-label: inspect-calib (with options) 
-List of 2
- $ fig.width : num 7
- $ fig.height: num 9
+  ordinary text without R code
 
 
   |                                                                            
   |.................................................................     |  93%
+label: create-output-tables
+
+  |                                                                            
+  |..................................................................    |  95%
   ordinary text without R code
 
 
   |                                                                            
-  |...................................................................   |  95%
-label: summarize-calibrated-data
+  |....................................................................  |  96%
+label: format-output-tables-for-mctoolsr
 
   |                                                                            
-  |....................................................................  |  98%
+  |..................................................................... |  98%
   ordinary text without R code
 
 
   |                                                                            
   |......................................................................| 100%
-label: export
+label: export-output-table
 
-output file: OM17_CH4_C2-C6.knit.md
+output file: OM18_16S_taxa_assignment_DADA2_Silva138_Bayesian.knit.md
 
-/usr/local/bin/pandoc +RTS -K512m -RTS OM17_CH4_C2-C6.utf8.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash+smart --output docs/rmarkdown/OM17_CH4_C2-C6.html --email-obfuscation none --self-contained --standalone --section-divs --table-of-contents --toc-depth 3 --variable toc_float=1 --variable toc_selectors=h1,h2,h3 --variable toc_collapsed=1 --variable toc_smooth_scroll=1 --variable toc_print=1 --template /Library/Frameworks/R.framework/Versions/3.6/Resources/library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --number-sections --css stylesheet.css --variable &#39;theme:bootstrap&#39; --include-in-header /var/folders/pw/9fk_chms0jl85nfldy5rgfyc0000gn/T//Rtmp9jowpJ/rmarkdown-str453b710b1a92.html --mathjax --variable &#39;mathjax-url:https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&#39; --lua-filter /Library/Frameworks/R.framework/Versions/3.6/Resources/library/rmarkdown/rmd/lua/pagebreak.lua --lua-filter /Library/Frameworks/R.framework/Versions/3.6/Resources/library/rmarkdown/rmd/lua/latex-div.lua --variable code_folding=show --variable code_menu=1 
+/usr/local/bin/pandoc +RTS -K512m -RTS OM18_16S_taxa_assignment_DADA2_Silva138_Bayesian.utf8.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash+smart --output docs/rmarkdown/OM18_16S_taxa_assignment_DADA2_Silva138_Bayesian.html --email-obfuscation none --self-contained --standalone --section-divs --table-of-contents --toc-depth 3 --variable toc_float=1 --variable toc_selectors=h1,h2,h3 --variable toc_collapsed=1 --variable toc_smooth_scroll=1 --variable toc_print=1 --template /Library/Frameworks/R.framework/Versions/3.6/Resources/library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --number-sections --css stylesheet.css --variable &#39;theme:bootstrap&#39; --include-in-header /var/folders/pw/9fk_chms0jl85nfldy5rgfyc0000gn/T//RtmpBL43aV/rmarkdown-str573f324090af.html --mathjax --variable &#39;mathjax-url:https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&#39; --lua-filter /Library/Frameworks/R.framework/Versions/3.6/Resources/library/rmarkdown/rmd/lua/pagebreak.lua --lua-filter /Library/Frameworks/R.framework/Versions/3.6/Resources/library/rmarkdown/rmd/lua/latex-div.lua --variable code_folding=show --variable code_menu=1 
 
-Output created: docs/rmarkdown/OM17_CH4_C2-C6.html</code></pre>
-<h1>
-OM17-18_CH4_H.Rmd (NC)
-</h1>
-<pre><code>source file has not changed, docs file will not be re-generated (delete file in docs folder to force re-generation)</code></pre>
+Output created: docs/rmarkdown/OM18_16S_taxa_assignment_DADA2_Silva138_Bayesian.html</code></pre>
 <h1>
 OM18_CH4_C2-C6.Rmd (NC)
 </h1>
@@ -2199,8 +2348,8 @@ summary %&gt;% knitr::kable()</code></pre>
 <td align="left">docs/rmarkdown/OM17_CH4_C2-C6.html</td>
 <td align="left">2020-04-27 13:41:53 MDT</td>
 <td align="left">NA</td>
-<td align="left">TRUE</td>
-<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">NA</td>
 </tr>
 <tr class="even">
 <td align="left">RMarkdown</td>
@@ -2214,6 +2363,17 @@ summary %&gt;% knitr::kable()</code></pre>
 <td align="left">NA</td>
 </tr>
 <tr class="odd">
+<td align="left">RMarkdown</td>
+<td align="left">OM18_16S_taxa_assignment_DADA2_Silva138_Bayesian.Rmd</td>
+<td align="left">docs/rmarkdown/OM18_16S_taxa_assignment_DADA2_Silva138_Bayesian.Rmd</td>
+<td align="left">2f32ac08ae11e10475ea6f67ad3e9c2d</td>
+<td align="left">docs/rmarkdown/OM18_16S_taxa_assignment_DADA2_Silva138_Bayesian.html</td>
+<td align="left">2020-04-27 16:46:43 MDT</td>
+<td align="left">NA</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
 <td align="left">RMarkdown</td>
 <td align="left">OM18_CH4_C2-C6.Rmd</td>
 <td align="left">docs/rmarkdown/OM18_CH4_C2-C6.Rmd</td>
