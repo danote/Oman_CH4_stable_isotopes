@@ -1668,6 +1668,36 @@ docs_files %&gt;% select(-target_folder) %&gt;% knitr::kable()</code></pre>
 <tbody>
 <tr class="odd">
 <td align="left">RMarkdown</td>
+<td align="left">180228_OM18_DIC.Rmd</td>
+<td align="left">docs/rmarkdown/180228_OM18_DIC.Rmd</td>
+<td align="left">566ac686f97fdfade6919c893b930256</td>
+<td align="left">docs/rmarkdown/180228_OM18_DIC.html</td>
+<td align="left">2020-04-23 16:32:22 MDT</td>
+<td align="left">NA</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">RMarkdown</td>
+<td align="left">180306_OM18_DIC.Rmd</td>
+<td align="left">docs/rmarkdown/180306_OM18_DIC.Rmd</td>
+<td align="left">7fe840793969b0aa172a6adf827fd60b</td>
+<td align="left">docs/rmarkdown/180306_OM18_DIC.html</td>
+<td align="left">2020-04-24 12:20:01 MDT</td>
+<td align="left">NA</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="odd">
+<td align="left">RMarkdown</td>
+<td align="left">200228_DBN_Oman_CH4_paper_figs.Rmd</td>
+<td align="left">docs/rmarkdown/200228_DBN_Oman_CH4_paper_figs.Rmd</td>
+<td align="left">5e6f6368650ebb602ab213b285895361</td>
+<td align="left">docs/rmarkdown/200228_DBN_Oman_CH4_paper_figs.html</td>
+<td align="left">2020-04-24 16:34:13 MDT</td>
+<td align="left">NA</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">RMarkdown</td>
 <td align="left">example.Rmd</td>
 <td align="left">docs/rmarkdown/example.Rmd</td>
 <td align="left">01a53dccf83e6483de2310a941c223bf</td>
@@ -1675,6 +1705,16 @@ docs_files %&gt;% select(-target_folder) %&gt;% knitr::kable()</code></pre>
 <td align="left">2020-02-17 00:40:27 MST</td>
 <td align="left">NA</td>
 <td align="left">FALSE</td>
+</tr>
+<tr class="odd">
+<td align="left">RMarkdown</td>
+<td align="left">OM17_CH4_C2-C6.Rmd</td>
+<td align="left">docs/rmarkdown/OM17_CH4_C2-C6.Rmd</td>
+<td align="left">ac971f9a4237aad25db14fa183efba3a</td>
+<td align="left">docs/rmarkdown/OM17_CH4_C2-C6.html</td>
+<td align="left">2020-04-24 16:50:19 MDT</td>
+<td align="left">NA</td>
+<td align="left">TRUE</td>
 </tr>
 </tbody>
 </table>
@@ -1763,9 +1803,291 @@ rendered_doc_files &lt;- docs_files %&gt;%
     render_file
   ))</code></pre>
 <h1>
+180228_OM18_DIC.Rmd (NC)
+</h1>
+<pre><code>source file has not changed, docs file will not be re-generated (delete file in docs folder to force re-generation)</code></pre>
+<h1>
+180306_OM18_DIC.Rmd (NC)
+</h1>
+<pre><code>source file has not changed, docs file will not be re-generated (delete file in docs folder to force re-generation)</code></pre>
+<h1>
+200228_DBN_Oman_CH4_paper_figs.Rmd (NC)
+</h1>
+<pre><code>source file has not changed, docs file will not be re-generated (delete file in docs folder to force re-generation)</code></pre>
+<h1>
 example.Rmd (NC)
 </h1>
 <pre><code>source file has not changed, docs file will not be re-generated (delete file in docs folder to force re-generation)</code></pre>
+<h1>
+OM17_CH4_C2-C6.Rmd (OK)
+</h1>
+<pre><code>
+
+processing file: OM17_CH4_C2-C6.Rmd
+
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |..                                                                    |   2%
+   inline R code fragments
+
+
+  |                                                                            
+  |...                                                                   |   5%
+label: setup (with options) 
+List of 2
+ $ warning: logi FALSE
+ $ message: logi FALSE
+
+── Attaching packages ─────────────────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──
+✓ ggplot2 3.2.1     ✓ purrr   0.3.3
+✓ tibble  2.1.3     ✓ dplyr   0.8.4
+✓ tidyr   1.0.2     ✓ stringr 1.4.0
+✓ readr   1.3.1     ✓ forcats 0.4.0
+── Conflicts ────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+x dplyr::filter() masks stats::filter()
+x dplyr::lag()    masks stats::lag()
+
+Attaching package: &#39;isoreader&#39;
+
+The following object is masked from &#39;package:stats&#39;:
+
+    filter
+
+
+Attaching package: &#39;isoprocessor&#39;
+
+The following objects are masked from &#39;package:isoreader&#39;:
+
+    iso_calculate_ratios, iso_convert_signals, iso_convert_time,
+    iso_plot_continuous_flow_data, iso_plot_dual_inlet_data,
+    iso_plot_raw_data
+
+The following object is masked from &#39;package:stats&#39;:
+
+    filter
+
+
+  |                                                                            
+  |.....                                                                 |   7%
+   inline R code fragments
+
+
+  |                                                                            
+  |......                                                                |   9%
+label: load-data (with options) 
+List of 1
+ $ message: logi FALSE
+
+Info: preparing to read 1 data files (all will be cached), setting up 1 par...
+Info (process 1): reading file &#39;data_raw/OM17_CH4_C2-C6_data/OM17_CH4_C2-C6...
+Info (process 1): loaded data for 43 data files from R Data Storage - check...
+Warning (process 1): version mismatch - 43 of the 43 data files stored in t...
+Warning (process 1): Consider re-reading the original data files using the ...
+Info: finished reading 1 files in 4.21 secs
+Info: encountered 88 problems in total
+
+  |                                                                            
+  |........                                                              |  11%
+  ordinary text without R code
+
+
+  |                                                                            
+  |..........                                                            |  14%
+label: process-file-info
+
+  |                                                                            
+  |...........                                                           |  16%
+  ordinary text without R code
+
+
+  |                                                                            
+  |.............                                                         |  18%
+label: chroms-CH4
+
+  |                                                                            
+  |..............                                                        |  20%
+  ordinary text without R code
+
+
+  |                                                                            
+  |................                                                      |  23%
+label: chroms-C2-C6
+
+  |                                                                            
+  |..................                                                    |  25%
+  ordinary text without R code
+
+
+  |                                                                            
+  |...................                                                   |  27%
+label: set-peak-maps
+
+  |                                                                            
+  |.....................                                                 |  30%
+  ordinary text without R code
+
+
+  |                                                                            
+  |......................                                                |  32%
+label: fetch-peak-table
+
+  |                                                                            
+  |........................                                              |  34%
+  ordinary text without R code
+
+
+  |                                                                            
+  |.........................                                             |  36%
+label: chrom-CH4-labeled
+
+  |                                                                            
+  |...........................                                           |  39%
+  ordinary text without R code
+
+
+  |                                                                            
+  |.............................                                         |  41%
+label: chrom-C2-C6-labeled
+
+  |                                                                            
+  |..............................                                        |  43%
+  ordinary text without R code
+
+
+  |                                                                            
+  |................................                                      |  45%
+label: select-analyte-peaks
+
+  |                                                                            
+  |.................................                                     |  48%
+  ordinary text without R code
+
+
+  |                                                                            
+  |...................................                                   |  50%
+label: set-stnd-d13C
+
+  |                                                                            
+  |.....................................                                 |  52%
+  ordinary text without R code
+
+
+  |                                                                            
+  |......................................                                |  55%
+label: add-stnds-to-peak-table
+
+  |                                                                            
+  |........................................                              |  57%
+  ordinary text without R code
+
+
+  |                                                                            
+  |.........................................                             |  59%
+label: plot-stnds-accepted-measured
+
+  |                                                                            
+  |...........................................                           |  61%
+  ordinary text without R code
+
+
+  |                                                                            
+  |.............................................                         |  64%
+label: plot-amp-d13C
+
+  |                                                                            
+  |..............................................                        |  66%
+  ordinary text without R code
+
+
+  |                                                                            
+  |................................................                      |  68%
+label: plot-d13C-time
+
+  |                                                                            
+  |.................................................                     |  70%
+  ordinary text without R code
+
+
+  |                                                                            
+  |...................................................                   |  73%
+label: generate-calib
+
+  |                                                                            
+  |....................................................                  |  75%
+  ordinary text without R code
+
+
+  |                                                                            
+  |......................................................                |  77%
+label: get-coefs (with options) 
+List of 2
+ $ fig.width : num 7
+ $ fig.height: num 8
+
+
+  |                                                                            
+  |........................................................              |  80%
+  ordinary text without R code
+
+
+  |                                                                            
+  |.........................................................             |  82%
+label: plot-calib-params (with options) 
+List of 3
+ $ fig.width : num 8
+ $ fig.height: num 11
+ $ message   : logi FALSE
+
+
+  |                                                                            
+  |...........................................................           |  84%
+  ordinary text without R code
+
+
+  |                                                                            
+  |............................................................          |  86%
+label: apply-calibs (with options) 
+List of 1
+ $ cache: logi TRUE
+
+
+  |                                                                            
+  |..............................................................        |  89%
+  ordinary text without R code
+
+
+  |                                                                            
+  |................................................................      |  91%
+label: inspect-calib (with options) 
+List of 2
+ $ fig.width : num 7
+ $ fig.height: num 9
+
+
+  |                                                                            
+  |.................................................................     |  93%
+  ordinary text without R code
+
+
+  |                                                                            
+  |...................................................................   |  95%
+label: summarize-calibrated-data
+
+  |                                                                            
+  |....................................................................  |  98%
+  ordinary text without R code
+
+
+  |                                                                            
+  |......................................................................| 100%
+label: export
+
+output file: OM17_CH4_C2-C6.knit.md
+
+/usr/local/bin/pandoc +RTS -K512m -RTS OM17_CH4_C2-C6.utf8.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash+smart --output docs/rmarkdown/OM17_CH4_C2-C6.html --email-obfuscation none --self-contained --standalone --section-divs --table-of-contents --toc-depth 3 --variable toc_float=1 --variable toc_selectors=h1,h2,h3 --variable toc_collapsed=1 --variable toc_smooth_scroll=1 --variable toc_print=1 --template /Library/Frameworks/R.framework/Versions/3.6/Resources/library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --number-sections --css stylesheet.css --variable &#39;theme:bootstrap&#39; --include-in-header /var/folders/pw/9fk_chms0jl85nfldy5rgfyc0000gn/T//RtmpsYZugb/rmarkdown-str1742d4d552791.html --mathjax --variable &#39;mathjax-url:https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&#39; --lua-filter /Library/Frameworks/R.framework/Versions/3.6/Resources/library/rmarkdown/rmd/lua/pagebreak.lua --lua-filter /Library/Frameworks/R.framework/Versions/3.6/Resources/library/rmarkdown/rmd/lua/latex-div.lua --variable code_folding=show --variable code_menu=1 
+
+Output created: docs/rmarkdown/OM17_CH4_C2-C6.html</code></pre>
 </div>
 <div id="summary" class="section level1">
 <h1>summary</h1>
@@ -1799,6 +2121,39 @@ summary %&gt;% knitr::kable()</code></pre>
 <tbody>
 <tr class="odd">
 <td align="left">RMarkdown</td>
+<td align="left">180228_OM18_DIC.Rmd</td>
+<td align="left">docs/rmarkdown/180228_OM18_DIC.Rmd</td>
+<td align="left">566ac686f97fdfade6919c893b930256</td>
+<td align="left">docs/rmarkdown/180228_OM18_DIC.html</td>
+<td align="left">2020-04-23 16:32:22 MDT</td>
+<td align="left">NA</td>
+<td align="left">FALSE</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">RMarkdown</td>
+<td align="left">180306_OM18_DIC.Rmd</td>
+<td align="left">docs/rmarkdown/180306_OM18_DIC.Rmd</td>
+<td align="left">7fe840793969b0aa172a6adf827fd60b</td>
+<td align="left">docs/rmarkdown/180306_OM18_DIC.html</td>
+<td align="left">2020-04-24 12:20:01 MDT</td>
+<td align="left">NA</td>
+<td align="left">FALSE</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">RMarkdown</td>
+<td align="left">200228_DBN_Oman_CH4_paper_figs.Rmd</td>
+<td align="left">docs/rmarkdown/200228_DBN_Oman_CH4_paper_figs.Rmd</td>
+<td align="left">5e6f6368650ebb602ab213b285895361</td>
+<td align="left">docs/rmarkdown/200228_DBN_Oman_CH4_paper_figs.html</td>
+<td align="left">2020-04-24 16:34:13 MDT</td>
+<td align="left">NA</td>
+<td align="left">FALSE</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">RMarkdown</td>
 <td align="left">example.Rmd</td>
 <td align="left">docs/rmarkdown/example.Rmd</td>
 <td align="left">01a53dccf83e6483de2310a941c223bf</td>
@@ -1807,6 +2162,17 @@ summary %&gt;% knitr::kable()</code></pre>
 <td align="left">NA</td>
 <td align="left">FALSE</td>
 <td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">RMarkdown</td>
+<td align="left">OM17_CH4_C2-C6.Rmd</td>
+<td align="left">docs/rmarkdown/OM17_CH4_C2-C6.Rmd</td>
+<td align="left">ac971f9a4237aad25db14fa183efba3a</td>
+<td align="left">docs/rmarkdown/OM17_CH4_C2-C6.html</td>
+<td align="left">2020-04-24 16:55:42 MDT</td>
+<td align="left">NA</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
 </tr>
 </tbody>
 </table>
@@ -1826,7 +2192,7 @@ summary %&gt;% knitr::kable()</code></pre>
 } else {
   message(&quot;No files (re)generated, index stays the same.&quot;)
 }</code></pre>
-<pre><code>No files (re)generated, index stays the same.</code></pre>
+<pre><code>index updated successfully</code></pre>
 </div>
 
 
