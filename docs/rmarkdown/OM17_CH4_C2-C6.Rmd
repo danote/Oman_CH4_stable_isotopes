@@ -44,7 +44,7 @@ iso_files_raw <-
     # read data files in parallel for fast read
   iso_read_continuous_flow(parallel = TRUE)
 
-# global knitting options for automatic saving of all plots as .png and .pdf
+# global knitting options for automatic saving of all plots as .png and .pdf. Also sets cache directory.
 knitr::opts_chunk$set(
   dev = c("png", "pdf"), fig.keep = "all",
   dev.args = list(pdf = list(encoding = "WinAnsi", useDingbats = FALSE)),
@@ -295,7 +295,7 @@ plot_d13C_time
 ## Generate a calibration with linear regression
 
 Note: Separate testing indicated that the effect of peak amplitude on $\delta^{13}$C (i.e. linearity) was within a repeatability of 0.6 per mil over the range of peak amplitudes measured here. Since only CH$_4$ isotope standards were available to us for testing, and the peak amplitude/$\delta^{13}$C effect observed for these standards may differ from those observed for $\text{C}_{2}-\text{C}_6$ alkanes, which have different peak shapes than CH$_4$, calibrations based on peak amplitude are not applied here.
-```{r generate-calib}
+```{r generate-calibs}
 global_calibs <- peak_table_w_stds %>%
   # prepare for calibration
   iso_prepare_for_calibration() %>% 
@@ -418,11 +418,11 @@ peak_data_summary <- peak_data_summary %>% mutate(`d13C rounded tenth` = round(`
 
   # re-apply filters just to be certain no inadequate data gets exported
 
-# peak_data_summary <- peak_data_summary %>%
-#     filter(`amp44 mean` > 300)
-# 
-# peak_data_summary <- peak_data_summary %>%
-#   filter(compound == "CH4" | compound == "C2" | compound == "C3")
+peak_data_summary <- peak_data_summary %>%
+    filter(`amp44 mean` > 300)
+
+peak_data_summary <- peak_data_summary %>%
+  filter(compound == "CH4" | compound == "C2" | compound == "C3")
 
 # print
 peak_data_summary %>% iso_make_units_explicit() %>% knitr::kable(d = 2)

@@ -1,0 +1,338 @@
+---
+title: "OM17-18_CH4_H"
+output:
+  html_document:
+    css: stylesheet.css
+    fig_caption: yes
+    number_sections: yes
+    toc: yes
+    toc_float: true
+    toc_depth: 3
+    code_folding: show
+    df_print: paged
+subtitle: "Source file: OM17-18_CH4_H.Rmd"
+editor_options:
+  chunk_output_type: inline
+date: "`r Sys.Date()`"
+---
+
+# Oman 2017 and 2018 CH$_4$ $\delta^{2}$H - Introduction
+
+CH$_4$ isotopic composition was measured by GC-P-IRMS as described in the methods section of the manuscript. The following code steps through the data processing and calibration to convert measured values to values vs. the international reference standard (Vienna Standard Mean Ocean Water, VSMOW). The gas samples processed in this document were collected in Oman in the February-March 2017 and 2018 field seasons.
+
+# Load libraries
+
+```{r, warning=FALSE, message=FALSE}
+# load libraries
+library(tidyverse) # dplyr, tidyr, ggplot
+library(isoreader) # reading isotope data files
+library(isoprocessor) # processing isotope data files
+```
+
+Data processed using the packages [isoreader](http://isoreader.kopflab.org) version `r packageVersion("isoreader")` and [isoprocessor](http://isoprocessor.kopflab.org/) version `r packageVersion("isoprocessor")`.
+
+# Load Data
+
+```{r, message=FALSE}
+# read files
+iso_files_raw <- 
+  file.path(
+    "data/OM17-18_CH4_H_data", "OM17-18_CH4_H_data.cf.rds"
+  ) %>% 
+    # read data files in parallel for fast read
+  iso_read_continuous_flow(parallel = TRUE)
+```
+
+# Process file info & peak table
+
+```{r}
+# process
+iso_files <- iso_files_raw %>% 
+  # set peak table from vendor data table
+  iso_set_peak_table_from_auto_vendor_data_table() %>% 
+  # convert units from mV to V for amplitudes and area
+  iso_convert_peak_table_units(V = mV, Vs = mVs) %>%
+  # rename key file info columns
+  iso_rename_file_info(id1 = `Identifier 1`, inject_type = `Identifier 2`) %>%
+  # parse text info into numbers
+  iso_parse_file_info(number = Analysis) %>%
+  # process other file information that is specific to the naming conventions
+  # of this particular sequence
+  iso_mutate_file_info(
+    # what was the injection volume?
+    inject_volume = parse_number(Comment) %>% iso_double_with_units("uL"),
+    # what folder are the data files in? (assuming folder = sequence)
+    folder = basename(dirname(file_path))
+  )
+```
+
+## Chromatograms
+
+Display chromatograms of samples and standards for CH$_4$ analyses.
+```{r}
+# plot the chromatograms
+chroms <- iso_files %>%
+  iso_plot_continuous_flow_data(
+     # select data and aesthetics
+    data = c(2),
+    color = id1
+  )
+
+chroms
+```
+
+## Peak maps
+```{r}
+peak_maps <- 
+  tibble::tribble(
+    ~compound, ~ref_nr, ~`rt`,
+    # peak map data (row-by-row)
+    "H2",          1,      29,
+    "H2",          2,      64,
+    "H2",          3,      100,
+    "H2",          4,      130,
+    "CH4",          NA,     547
+  )
+peak_maps %>% knitr::kable(digits = 0)
+```
+
+## Fetch peak table
+```{r}
+# identify peaks
+peak_table_w_ids <- iso_files %>% 
+  iso_map_peaks(peak_maps) %>%
+  # peak table
+  iso_get_peak_table(include_file_info = everything())
+```
+
+Display an example chromatogram for CH$_4$.
+```{r}
+chroms_C1_labeled <- iso_files %>%
+  iso_filter_files(id1 == "OM18-CM2A-BS1A") %>% 
+  iso_plot_continuous_flow_data(
+    # select data and aesthetics
+    data = c(2),
+    color = id1,
+    # provide our peak table with ids
+    peak_table = peak_table_w_ids, 
+    # define peak labels, this can be any valid expression
+    peak_label = iso_format(id = peak_info), 
+    # specify which labels to show (removing the !is_identified or putting a 
+    # restriction by retention time can help a lot with busy chromatograms)
+    peak_label_filter = is_identified | !is_identified | is_missing
+  )+
+  theme(legend.position = "bottom")
+
+chroms_C1_labeled
+```
+
+## Select analyte peaks
+```{r}
+# focus on analyte peaks
+peak_table_analytes <- peak_table_w_ids %>% 
+  filter(compound == "CH4")
+
+peak_table_analytes <- peak_table_analytes %>%
+filter(amp2 > 1) # see GC-IRMS methods development documentation for information on how limit of quantification (1.000 V m/z 2) was determined.
+
+# print
+peak_table_analytes
+```
+
+# Isotope standard values
+
+## Load isotope standards
+
+```{r}
+standards <- 
+  tibble::tribble(
+    ~id1,             ~true_d2H,
+    "T-ISO1",			    -157,
+    "H-ISO1",			    -156,
+    "Bio 1.0 Mid",		-240
+  ) %>% 
+  mutate(
+    true_d2H = iso_double_with_units(true_d2H, "permil")
+  )
+standards %>% knitr::kable()
+```
+
+## Add isotope standards
+```{r}
+peak_table_w_stds <- 
+  peak_table_analytes %>% 
+  iso_add_standards(stds = standards, match_by = c("id1")) 
+```
+
+## Initial overview plots of data
+
+Plot of standards, accepted versus measured $\delta^{2}\text{H}$. Coefficients and $\text{r}^2$ value of regression reported further below.
+```{r}
+# plot
+plot_stnds_accepted_measured <- peak_table_w_stds %>% filter(is_std_peak == TRUE) %>% 
+  # use generic data plot function
+  iso_plot_data(
+    x = true_d2H,
+    y = d2H,
+    color = id1,
+    points = TRUE
+  )
+
+plot_stnds_accepted_measured
+```
+
+Sample peak amplitudes are generally higher than standards. Stability over this range of amplitudes was separately tested. See GC-IRMS methods development documentation.
+```{r}
+# plot
+plot_amp_d2H <- peak_table_w_stds %>% 
+  # use generic data plot function
+  iso_plot_data(
+    x = amp2, y = d2H, color = is_std_peak,
+    points = TRUE
+  )
+
+plot_amp_d2H
+```
+
+Standards cover most of sample time range. Standard delta analyses appear pretty constant over time.
+```{r}
+# plot
+plot_d2H_time <- peak_table_w_stds %>% 
+  # use generic data plot function
+  iso_plot_data(
+    x = file_datetime, y = d2H, color = is_std_peak,
+    points = TRUE
+  )
+
+plot_d2H_time
+```
+
+# Calibration
+
+## Generate a calibration with linear regression
+
+Note: peak amplitude (linearity) correction is not applied over this amplitude range. See GC-IRMS methods development documentation for more information.
+```{r}
+global_calibs <- peak_table_w_stds %>%
+  # prepare for calibration
+  iso_prepare_for_calibration() %>% 
+  # run calibrations
+  iso_generate_calibration(
+    model = c(
+      # reference scale correction
+      delta_only = lm(d2H ~ true_d2H)
+    ), 
+    # specify which peaks to include in the calibration, here:
+    # - all std_peaks (this filter should always be included!)
+    use_in_calib = is_std_peak
+  ) 
+```
+
+## Coefficients
+
+```{r, fig.width=7, fig.height=8}
+# look at coefficients and summary
+global_calibs %>% 
+  # unnest calibration parameters
+  iso_get_calibration_parameters(
+    select_from_coefs = 
+      c(term, estimate, SE = std.error, signif),
+    select_from_summary = 
+      c(fit_R2 = adj.r.squared, fit_RMSD = deviance, residual_df = df.residual)) %>%
+  arrange(term) %>% 
+  knitr::kable(digits = 4)
+```
+
+## Visualize Calibration Parameters
+
+The visualization of the calibration parameters reveals that as expected the scale contraction is statistically relevant (`***` = p.value < 0.001).
+
+```{r, fig.width = 8, fig.height = 11, message=FALSE}
+global_calibs %>% iso_plot_calibration_parameters()
+```
+
+## Apply global calibration
+```{r, cache=TRUE}
+global_calibs_applied <- 
+  global_calibs %>% 
+  # which calibration to use? can include multiple if desired to see the result
+  # in this case, the amplitude- and time-conscious calibrations are not necessary
+  filter(calib == "delta_only") %>% 
+  # apply calibration indication what should be calculated
+  iso_apply_calibration(true_d2H, calculate_error = TRUE)
+# calibration ranges
+global_calibs_with_ranges <-
+  global_calibs_applied %>% 
+  # evaluate calibration range for the measured amplitude and predicted d2H
+  iso_evaluate_calibration_range(amp2, true_d2H_pred) 
+# show calibration ranges
+global_calibs_with_ranges %>% 
+  iso_get_calibration_range() %>% 
+  iso_remove_list_columns() %>% 
+  knitr::kable(d = 2)
+# create calibrated peak table
+peak_table_calibrated <- global_calibs_with_ranges %>% 
+  iso_get_calibration_data()
+```
+
+# Evaluation
+
+## Overview
+
+Some points have lower $\delta^{2}\text{H}$ than standard peak amplitudes. It is hard to find standards as $^{2}$H-depleted as these samples, so there is not much that can be done about that. Anyway, the calibration is pretty linear, so these data are probably OK.
+```{r, fig.width=7, fig.height=9}
+# replicate earlier overview plot but now with the calibrated delta values
+# and with a highlight of the calibration ranges and which points are in range
+peak_table_calibrated %>% 
+  # focus on identified peaks (comment out this line to see ALL peaks)
+  filter(!is.na(compound)) %>% 
+  # visualize with convenience function iso_plot_data
+  iso_plot_data(
+    # choose x and y (multiple y possible)
+    x = amp2, y = true_d2H_pred,
+    # choose aesthetics
+    color = in_range, shape = is_std_peak, label = compound, size = 3,
+    # decide what geoms to include
+    points = TRUE
+  ) %>% 
+  # highlight calibration range
+  iso_mark_calibration_range() +
+  # legend
+  theme(legend.position = "bottom", legend.direction = "vertical")
+```
+
+## Summary
+
+```{r}
+# generate data summary
+peak_data <- 
+  peak_table_calibrated %>% 
+  # focus on identified peaks in the samples
+  filter(!is.na(compound))
+
+# summarize replicates
+peak_data_summary <- 
+  peak_data %>% 
+  # summarize for each sample and compound
+  group_by(id1, compound) %>% 
+  iso_summarize_data_table(amp2, true_d2H_pred, true_d2H_pred_se) %>% select(-`true_d2H_pred_se sd`)
+
+# add column in which d2H is rounded to permil
+peak_data_summary <- peak_data_summary %>% mutate(`d2H rounded to integer` = round(`true_d2H_pred mean`, 0))
+
+# print
+peak_data_summary %>% iso_make_units_explicit() %>% knitr::kable(d = 2)
+```
+
+# Export
+
+Save data to xlsx spreadsheet.
+```{r}
+# export the global calibration with all its information and data to Excel
+peak_table_calibrated %>% 
+  iso_export_calibration_to_excel(
+    filepath = format(Sys.Date(), "data/OM17-18_CH4_H_data/%Y%m%d_OM17-18_CH4_H_data_data_calibrated.xlsx"),
+    # include data summary as an additional useful tab
+    `data summary` = peak_data_summary
+  )
+```
