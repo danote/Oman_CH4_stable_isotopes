@@ -1,0 +1,384 @@
+---
+title: "Oman 2018 Short-chain alkane cycling taxa and Hydrogenophaga"
+output:
+  html_document:
+    css: stylesheet.css
+    fig_caption: yes
+    number_sections: no
+    toc: yes
+    toc_float: true
+    toc_depth: 3
+    code_folding: show
+    df_print: paged
+subtitle: "Source file: OM18_taxa_table_analysis.Rmd"
+author: "Daniel Nothaft"
+editor_options:
+  chunk_output_type: inline
+date: "`r Sys.Date()`"
+---
+
+# Setup
+
+## Load packages
+```{r setup, message=TRUE, warning=FALSE}
+library(mctoolsr) # working with taxonomic data
+library(plyr) # working with data frames
+library(tidyverse) # working with data frames
+library(knitr) # printing things nicely
+
+# global knitting options for automatic saving of all plots as .png and .pdf. Also sets cache directory.
+knitr::opts_chunk$set(
+  dev = c("png", "pdf"), fig.keep = "all",
+  dev.args = list(pdf = list(encoding = "WinAnsi", useDingbats = FALSE)),
+  fig.path = file.path("fig_output/", paste0(gsub("\\.[Rr]md", "/", knitr::current_input()))),
+  cache.path = file.path("cache/", paste0(gsub("\\.[Rr]md", "/", knitr::current_input())))
+)
+```
+
+## Load in map file and otutable
+```{r load-data}
+tax_table_fp <- 'data_output/tax_tab_DADA2_mctoolsr_OM18_Silva138_Bayes.txt'
+map_fp <- 'data_raw/Summary_metadata/oman_map16S_meta.txt'
+input <- load_taxa_table(tax_table_fp, map_fp) #combine data to format for mctoolsr
+```
+
+# Overall trends and data curation
+
+## look at reads per sample
+Samples have more reads than controls (at minimum 5X more reads), which is good.
+
+Show read counts
+```{r show-read-counts}
+sort(colSums(input$data_loaded))
+```
+
+Plot read counts
+```{r plot-read-counts}
+# pull out metadata map
+map <- input$map_loaded
+
+# create data frame of reads
+reads_per_sample_sums <- as.data.frame(colSums(input$data_loaded))
+
+# create data frame of names of sample
+reads_per_sample_names <- as.data.frame(colnames(input$data_loaded))
+
+# combine reads with names to data frame of reads per sample
+reads_per_sample <- cbind(reads_per_sample_sums, reads_per_sample_names)
+
+# rename columns with more descriptive names
+reads_per_sample <- rename(reads_per_sample, reads = "colSums(input$data_loaded)", sample_ID = "colnames(input$data_loaded)")
+
+# add metadata
+reads_per_sample <- left_join(reads_per_sample, map, by = "sample_ID") %>% select(sample_ID, reads, Description, filter_pore_size_um)
+
+# create plot
+read_tally <- reads_per_sample %>% ggplot(
+  
+  # plot data
+  aes(x = reorder(sample_ID, -reads),
+      y = reads,
+      fill = Description)) +
+  geom_bar(stat = "identity") +
+  
+  # axis styling
+  scale_x_discrete(name = "sample ID") +
+  
+  # design
+  theme_classic(base_size = 12) +
+  theme(
+    axis.text.x = element_text(angle = 90, hjust = 1))
+
+# print plot
+read_tally
+```
+
+## Filter out mitochondria, chloroplasts, eurkaryotes, and sequences not assigned taxonomy at the the domain level
+```{r filter-extraneous-reads}
+input_filt <- filter_taxa_from_input(input, taxa_to_remove = c("Chloroplast","Mitochondria", "Eukaryota"))
+input_filt <- filter_taxa_from_input(input_filt, at_spec_level = 1, taxa_to_remove = "NA")
+```
+
+Show read counts of filtered data
+```{r show-read-counts-filtered}
+sort(colSums(input_filt$data_loaded))
+```
+
+## Focus on samples
+
+```{r filter-for-samples}
+# select desired samples
+Oman_samples <- input_filt %>% filter_data(filter_cat = "sample_ID", keep_vals = c("CM2A_45_9D","NSHQ14_45_7J", "WAB103_45_10J", "WAB104_45_5C",  "WAB105_45_6D", "WAB188_45_4J", "WAB55_45_8C", "WAB71_45_3D",  "NSHQ4_S_11D"))
+```
+
+Rarefy to lowest read count among samples
+```{r rarefy}
+Oman_samples = single_rarefy(Oman_samples, min(sort(colSums(Oman_samples$data_loaded))))
+
+# extract metadata for desired samples
+map_Oman_samples <- Oman_samples$map_loaded
+```
+
+Summarize taxonomy at species level
+```{r summ-species}
+# summarize taxonomic classification at species level
+Oman_samples_sum <- summarize_taxonomy(Oman_samples, level = 7, report_higher_tax = TRUE)
+```
+
+# CH$_4$ cycling taxa
+
+## Sort data
+### list taxa of interest
+```{r input-CH4-cycle-taxa}
+# input methane cycle
+all_methane_taxa_oman <- c("Methanobacteria", "Methanomicrobia", "Methanopyrales", "Methanocellales", "Methanoplasmatales", "Methanosarcinales", "Methanomassiliicocc", "Methylococc", "Methylocystis", "Methylosinus", "Methylocella", "Methylocapsa", "Methylacidiphil", "Methylomirabilis", "ANME")
+```
+
+### filter for all CH$_4$-cycling taxa
+```{r filter-for-CH4-cycle-taxa, warning=FALSE}
+# filter for CH4-cycling taxa
+Oman_samples_sum_all_methane_taxa <- filter_taxa_from_table(tax_table =  Oman_samples_sum, taxa_to_keep = all_methane_taxa_oman)
+
+# get rownames of CH4 cycle taxa data frame
+tax_long <- tibble(rownames(Oman_samples_sum_all_methane_taxa))
+colnames(tax_long) <- "tax_long"
+
+# Reshaping data so it is easier to work with
+
+# make rownames into a column
+Oman_samples_sum_all_methane_taxa <- bind_cols(tax_long, Oman_samples_sum_all_methane_taxa)
+
+# print
+Oman_samples_sum_all_methane_taxa
+
+# print CH4-cycling taxa
+Oman_samples_sum_all_methane_taxa
+```
+
+### Show full taxonomy of CH$_4$-cycling taxa in easily searchable format
+```{r show-CH4-taxonomy-searchable}
+# gather data
+Oman_samples_sum_all_methane_taxa_long_gathered <- Oman_samples_sum_all_methane_taxa %>%  gather(key = "sample_ID", value = "rel_abund", -tax_long)
+
+# pretty print
+Oman_samples_sum_all_methane_taxa_long_gathered %>% kable()
+```
+
+Add a shorthand name for taxa
+```{r add-CH4-taxa-short}
+Oman_samples_sum_all_methane_taxa <- Oman_samples_sum_all_methane_taxa  %>% mutate(tax_short = case_when(
+  tax_long == "k__Archaea; p__Euryarchaeota; c__Methanobacteria; o__Methanobacteriales; f__Methanobacteriaceae; g__Methanobacterium; s__NA" ~ "genus Methanobacterium",
+  tax_long == "k__Archaea; p__Halobacterota; c__ANME-1; o__ANME-1b; f__NA; g__NA; s__NA" ~ "order ANME-1b",
+  tax_long == "k__Bacteria; p__Methylomirabilota; c__Methylomirabilia; o__Methylomirabilales; f__Methylomirabilaceae; g__Candidatus_Methylomirabilis; s__NA" ~ "genus Candidatus Methylomirabilis",
+  tax_long == "k__Bacteria; p__Proteobacteria; c__Alphaproteobacteria; o__Rhizobiales; f__Beijerinckiaceae; g__Methylocystis; s__NA" ~ "genus Methylocystis",
+  tax_long == "k__Bacteria; p__Proteobacteria; c__Gammaproteobacteria; o__Methylococcales; f__Methylococcaceae; g__Methylocaldum; s__NA" ~ "genus Methylocaldum",
+  tax_long == "k__Bacteria; p__Proteobacteria; c__Gammaproteobacteria; o__Methylococcales; f__Methylococcaceae; g__Methylococcus; s__NA" ~ "genus Methylococcus",
+  tax_long == "k__Bacteria; p__Proteobacteria; c__Gammaproteobacteria; o__Methylococcales; f__Methylococcaceae; g__Methyloterricola; s__NA" ~ "genus Methyloterricola"
+))
+
+# put into easily searchable format
+Oman_samples_sum_all_methane_taxa_gathered <- Oman_samples_sum_all_methane_taxa %>% gather(key = "sample_ID", value = "rel_abund", -tax_short, -tax_long)
+
+# pretty print
+Oman_samples_sum_all_methane_taxa_gathered %>% select(-tax_long) %>% kable()
+```
+
+```{r}
+# Oman_samples_sum_all_methane_taxa <- Oman_samples_sum_all_methane_taxa  %>% mutate(tax_group = case_when(
+#   str_detect(tax_long, "Methanobacterium") == TRUE ~ "genus Methanobacterium",
+#   str_detect(tax_long, "ANME-1b") == TRUE ~ "order ANME-1b",
+#   str_detect(tax_long, "Methylomirabilis") == TRUE ~ "genus Candidatus Methylomirabilis",
+#   str_detect(tax_long, "Methylocystis") == TRUE ~ "genus Methylocystis",
+#   str_detect(tax_long, "Methylocaldum") == TRUE ~ "genus Methylocaldum",
+#   str_detect(tax_long, "Methylococcus") == TRUE ~ "genus Methylococcus",
+#   str_detect(tax_long, "Methyloterricola") == TRUE ~ "genus Methyloterricola"
+# ))
+# 
+# Oman_samples_sum_all_methane_taxa
+```
+
+```{r}
+# Oman_samples_sum_all_methane_taxa_grouped <- ddply(Oman_samples_sum_all_methane_taxa, .(tax_group), numcolwise(sum))
+# 
+# Oman_samples_sum_all_methane_taxa_grouped
+```
+
+```{r}
+# Oman_samples_sum_all_methane_taxa_gathered <- Oman_samples_sum_all_methane_taxa_grouped %>%  gather(key = "sample_ID", value = "rel_abund", -tax_group)
+# 
+# Oman_samples_sum_all_methane_taxa_gathered %>% kable()
+```
+
+Add metadata map to gathered CH$_4$-cycling taxa data frame
+```{r}
+# join meta data map to CH4-cycling taxa data frame
+gathered_w_map <- left_join(Oman_samples_sum_all_methane_taxa_gathered, map_Oman_samples, by = "sample_ID")
+```
+
+## Plot
+
+### Prepare plot aesthetics
+
+reorder factor levels so bar and legend plot in desired order
+```{r}
+gathered_w_map$tax_short <- factor(gathered_w_map$tax_short, levels = c(
+  "genus Methylococcus",
+  "genus Methylocaldum",
+  "genus Methyloterricola",
+  "genus Methylocystis",
+  "genus Candidatus Methylomirabilis",
+  "order ANME-1b",
+  "genus Methanobacterium"))
+```
+
+```{r}
+# color-blind safe palette :
+#F0E442 yellow
+#E69F00 orange
+#D55E00 red
+#CC79A7 magenta
+#009E73 forest/mint green
+#56B4E9 light blue
+#0072B2 dark blue
+#999999 grey
+#000000 black
+
+fill_taxa_named <- c(
+  "genus Methylococcus" = "#F0E442",
+  "genus Methylocaldum" = "#E69F00",
+  "genus Methyloterricola" = "#D55E00",
+  "genus Methylocystis" = "#CC79A7",
+  "genus Candidatus Methylomirabilis" = "#009E73",
+  "order ANME-1b" = "#0072B2",
+  "genus Methanobacterium" = "#000000")
+```
+
+```{r}
+gathered_w_map$well <- factor(gathered_w_map$well, levels = c("WAB103", "WAB188", "WAB104", "WAB105", "WAB55", "NSHQ04", "WAB71", "CM2A", "NSHQ14"))
+```
+
+```{r}
+formatter100 <- function(x){ 
+    x*100 
+}
+```
+
+### Plot
+```{r fig.width = 5, fig.height = 3, dpi=300}
+# create plot
+OM18_CH4_taxa_bar <- gathered_w_map %>% ggplot(
+  
+  # plot data
+  aes(x = well,
+      y = rel_abund,
+      fill = tax_short)) +
+  geom_bar(stat = "identity") +
+  
+  # axis styling
+  scale_y_continuous(name = "% of 16S rRNA gene reads in sample", labels = formatter100, expand = c(0.004, 0.002), limits = c(0, 0.25))+
+  scale_x_discrete(name = NULL)+
+  
+  # symbol styling
+  scale_fill_manual(name = "taxon", values = fill_taxa_named, labels = unname(latex2exp::TeX(c("genus \\textit{Methylococcus}",
+  "genus \\textit{Methylocaldum}",
+  "genus \\textit{Methyloterricola}",
+  "genus \\textit{Methylocystis}",
+  "genus \\textit{Candidatus Methylomirabilis}",
+  "order ANME-1b",
+  "genus \\textit{Methanobacterium}")))) +
+  
+  # design
+  theme_classic(base_size = 12)+
+  theme(
+    axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 9),
+    legend.direction = "vertical",
+    legend.text.align = 0
+)
+
+# print
+OM18_CH4_taxa_bar
+```
+
+# Hydrogenophaga
+
+## filter for all methanogen cycling taxa
+```{r warning=FALSE}
+# select Hydrogenophaga
+Oman_samples_sum_Hydrogenophaga <- filter_taxa_from_table(tax_table =  Oman_samples_sum, taxa_to_keep = c("Hydrogenophaga"))
+
+# print Hydrogenophaga
+Oman_samples_sum_Hydrogenophaga
+```
+
+Reshaping data so it is easier to work with
+```{r}
+tax_long_Hydrogenophaga <- tibble(rownames(Oman_samples_sum_Hydrogenophaga))
+colnames(tax_long_Hydrogenophaga) <- "tax_long_Hydrogenophaga"
+
+# make rownames into a column
+Oman_samples_sum_all_Hydrogenophaga <- bind_cols(Oman_samples_sum_Hydrogenophaga, tax_long_Hydrogenophaga)
+
+#print
+Oman_samples_sum_all_Hydrogenophaga
+```
+
+## show full taxonomy of Hydrogenophaga in easily searchable format
+```{r}
+Oman_samples_sum_all_Hydrogenophaga_grouped <- ddply(Oman_samples_sum_all_Hydrogenophaga, .(tax_long_Hydrogenophaga), numcolwise(sum))
+
+Oman_samples_sum_all_Hydrogenophaga_gathered <- Oman_samples_sum_all_Hydrogenophaga_grouped %>%  gather(key = "sample_ID", value = "rel_abund", -tax_long_Hydrogenophaga)
+
+Oman_samples_sum_all_Hydrogenophaga_gathered %>% kable()
+```
+
+```{r}
+Oman_samples_sum_all_Hydrogenophaga <- Oman_samples_sum_all_Hydrogenophaga  %>% mutate(tax_group_Hydrogenophaga = case_when(
+  str_detect(tax_long_Hydrogenophaga, "Hydrogenophaga") == TRUE ~ "genus Hydrogenophaga"
+))
+
+Oman_samples_sum_all_Hydrogenophaga
+```
+
+```{r}
+Oman_samples_sum_all_Hydrogenophaga_grouped <- ddply(Oman_samples_sum_all_Hydrogenophaga, .(tax_group_Hydrogenophaga), numcolwise(sum))
+
+Oman_samples_sum_all_Hydrogenophaga_grouped
+```
+
+## show Hydrogenophaga genus abundances in easily searchable format
+```{r}
+Oman_samples_sum_all_Hydrogenophaga_gathered <- Oman_samples_sum_all_Hydrogenophaga_grouped %>%  gather(key = "sample_ID", value = "rel_abund", -tax_group_Hydrogenophaga)
+
+Oman_samples_sum_all_Hydrogenophaga_gathered %>% kable()
+```
+
+
+```{r}
+gathered_w_map_Hydrogenophaga <- left_join(Oman_samples_sum_all_Hydrogenophaga_gathered, map_Oman_samples, by = "sample_ID")
+
+gathered_w_map_Hydrogenophaga
+```
+
+reorder factor levels so bar and legend plot in desired order
+```{r}
+gathered_w_map_Hydrogenophaga$borehole <- factor(gathered_w_map_Hydrogenophaga$borehole, levels = c("WAB103", "WAB188", "WAB104", "WAB105", "WAB55", "NSHQ4", "WAB71", "CM2A", "NSHQ14"))
+```
+
+```{r fig.width = 3.34, fig.height = 4, dpi=300}
+plot_Hydrogenophaga <- gathered_w_map_Hydrogenophaga %>% ggplot(aes(x = borehole, y = rel_abund))+
+  geom_bar(stat = "identity")+
+scale_y_continuous(name= "% of 16S rRNA gene sequences", labels = formatter100, expand = c(0.004, 0.002), limits = c(0, 0.2))+
+  scale_x_discrete(name = NULL)+
+   theme_figure(text_size = 12)+
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 9), panel.grid.major.x = element_blank(), legend.position = "top", legend.direction = "vertical", legend.justification = "left")
+
+plot_Hydrogenophaga
+```
+
+```{r}
+# ggsave(filename = "hydrogenophaga_OM18.pdf", width = 3.34, height = 4, units = "in")
+```
+
+```{r}
+# ggsave(filename = "hydrogenophaga_OM18.png", width = 3.34, height = 4, units = "in")
+```
