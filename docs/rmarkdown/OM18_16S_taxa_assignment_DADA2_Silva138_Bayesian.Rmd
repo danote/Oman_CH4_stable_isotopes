@@ -293,5 +293,5 @@ head(tax_tab_for_mctoolsr_Silva) # print first few rows
 
 # Export output table
 ```{r export-output-table}
-write.table(tax_tab_for_mctoolsr_Silva, "data_output/tax_tab_DADA2_mctoolsr_OM18_Silva132_Bayes.txt", row.names = FALSE, sep="\t", quote=F) # write a .txt file of the taxa table
+write.table(tax_tab_for_mctoolsr_Silva, "data_output/tax_tab_DADA2_mctoolsr_OM18_Silva138_Bayes.txt", row.names = FALSE, sep="\t", quote=F) # write a .txt file of the taxa table
 ```
