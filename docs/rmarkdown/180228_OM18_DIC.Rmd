@@ -54,7 +54,7 @@ Data processed using the packages [isoreader](http://isoreader.kopflab.org) vers
 ```{r load-data, message=FALSE}
 iso_files_raw <- 
   file.path(
-    "data_raw/180228_DBN_DIC", "180228_DBN_DIC.cf.rds"
+    "data_raw/180228_DBN_DIC", "180228_DBN_DIC_data.cf.rds"
   ) %>%
       # read data files in parallel for fast read
   iso_read_continuous_flow(parallel = TRUE)
@@ -67,8 +67,6 @@ iso_files_raw <-
 iso_files <- iso_files_raw %>% 
   # set peak table from vendor data table
   iso_set_peak_table_from_auto_vendor_data_table() %>% 
-  # # convert units from mV to V for amplitudes and area
-  # iso_convert_peak_table_units(V = mV, Vs = mVs) %>%
   # rename key file info columns
   iso_rename_file_info(id1 = `Identifier 1`, type = `Identifier 2`) %>%
   # parse text info into numbers

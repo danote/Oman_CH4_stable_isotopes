@@ -58,8 +58,6 @@ iso_files_raw <-
 iso_files <- iso_files_raw %>% 
   # set peak table from vendor data table
   iso_set_peak_table_from_auto_vendor_data_table() %>% 
-  # # convert units from mV to V for amplitudes and area
-  # iso_convert_peak_table_units(V = mV, Vs = mVs) %>%
   # rename key file info columns
   iso_rename_file_info(id1 = `Identifier 1`, inject_type = `Identifier 2`) %>%
   # parse text info into numbers
@@ -72,9 +70,7 @@ iso_files <- iso_files_raw %>%
     # what was the injection volume?
     inject_volume = parse_number(Comment) %>% iso_double_with_units("uL"),
     # fix an sample id that was input erroneously
-    id1 = ifelse(id1 == "Bio 1.0 Mid", "Bio 1.0 mid", id1),
-    # what folder are the data files in? (assuming folder = sequence)
-    folder = basename(dirname(file_path))
+    id1 = ifelse(id1 == "Bio 1.0 Mid", "Bio 1.0 mid", id1)
   )
 ```
 
