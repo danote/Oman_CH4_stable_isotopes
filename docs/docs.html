@@ -1698,31 +1698,31 @@ docs_files %&gt;% select(-target_folder) %&gt;% knitr::kable()</code></pre>
 </tr>
 <tr class="even">
 <td align="left">RMarkdown</td>
-<td align="left">example.Rmd</td>
-<td align="left">docs/rmarkdown/example.Rmd</td>
-<td align="left">01a53dccf83e6483de2310a941c223bf</td>
-<td align="left">docs/rmarkdown/example.html</td>
-<td align="left">2020-02-17 00:40:27 MST</td>
-<td align="left">NA</td>
-<td align="left">FALSE</td>
-</tr>
-<tr class="odd">
-<td align="left">RMarkdown</td>
 <td align="left">OM17_CH4_C2-C6.Rmd</td>
 <td align="left">docs/rmarkdown/OM17_CH4_C2-C6.Rmd</td>
 <td align="left">50da7cda1fd015f7aa659aa514a510cb</td>
 <td align="left">docs/rmarkdown/OM17_CH4_C2-C6.html</td>
-<td align="left">2020-04-27 12:23:40 MDT</td>
+<td align="left">2020-04-27 13:41:53 MDT</td>
 <td align="left">NA</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">RMarkdown</td>
 <td align="left">OM17-18_CH4_H.Rmd</td>
 <td align="left">docs/rmarkdown/OM17-18_CH4_H.Rmd</td>
 <td align="left">ab00c5881f1a0ba7cb59a12ccde43c0a</td>
 <td align="left">docs/rmarkdown/OM17-18_CH4_H.html</td>
 <td align="left">2020-04-27 12:23:40 MDT</td>
+<td align="left">NA</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">RMarkdown</td>
+<td align="left">OM18_16S_taxa_assignment_DADA2_Silva138_Bayesian.Rmd</td>
+<td align="left">docs/rmarkdown/OM18_16S_taxa_assignment_DADA2_Silva138_Bayesian.Rmd</td>
+<td align="left">f8dfaf7ebdd891a257fd21706db6412c</td>
+<td align="left">docs/rmarkdown/OM18_16S_taxa_assignment_DADA2_Silva138_Bayesian.html</td>
+<td align="left">2020-04-30 21:18:35 MDT</td>
 <td align="left">NA</td>
 <td align="left">FALSE</td>
 </tr>
@@ -1735,6 +1735,16 @@ docs_files %&gt;% select(-target_folder) %&gt;% knitr::kable()</code></pre>
 <td align="left">2020-04-27 12:23:40 MDT</td>
 <td align="left">NA</td>
 <td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">RMarkdown</td>
+<td align="left">OM18_taxa_table_analysis.Rmd</td>
+<td align="left">docs/rmarkdown/OM18_taxa_table_analysis.Rmd</td>
+<td align="left">7632bac68dbf1b698a802a1524f6dedc</td>
+<td align="left">docs/rmarkdown/OM18_taxa_table_analysis.html</td>
+<td align="left">2020-05-01 15:07:13 MDT</td>
+<td align="left">NA</td>
+<td align="left">TRUE</td>
 </tr>
 </tbody>
 </table>
@@ -1835,11 +1845,7 @@ rendered_doc_files &lt;- docs_files %&gt;%
 </h1>
 <pre><code>source file has not changed, docs file will not be re-generated (delete file in docs folder to force re-generation)</code></pre>
 <h1>
-example.Rmd (NC)
-</h1>
-<pre><code>source file has not changed, docs file will not be re-generated (delete file in docs folder to force re-generation)</code></pre>
-<h1>
-OM17_CH4_C2-C6.Rmd (OK)
+OM17_CH4_C2-C6.Rmd (ERROR)
 </h1>
 <pre><code>
 
@@ -1859,12 +1865,12 @@ List of 2
  $ warning: logi FALSE
  $ message: logi FALSE
 
-── Attaching packages ─────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──
-✓ ggplot2 3.2.1     ✓ purrr   0.3.3
-✓ tibble  2.1.3     ✓ dplyr   0.8.4
+── Attaching packages ────────────────────────────────────────────────────── tidyverse 1.3.0 ──
+✓ ggplot2 3.3.0     ✓ purrr   0.3.4
+✓ tibble  3.0.1     ✓ dplyr   0.8.5
 ✓ tidyr   1.0.2     ✓ stringr 1.4.0
-✓ readr   1.3.1     ✓ forcats 0.4.0
-── Conflicts ────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+✓ readr   1.3.1     ✓ forcats 0.5.0
+── Conflicts ───────────────────────────────────────────────────────── tidyverse_conflicts() ──
 x dplyr::filter() masks stats::filter()
 x dplyr::lag()    masks stats::lag()
 
@@ -1880,8 +1886,8 @@ Attaching package: &#39;isoprocessor&#39;
 The following objects are masked from &#39;package:isoreader&#39;:
 
     iso_calculate_ratios, iso_convert_signals, iso_convert_time,
-    iso_plot_continuous_flow_data, iso_plot_dual_inlet_data,
-    iso_plot_raw_data
+    iso_format, iso_plot_continuous_flow_data,
+    iso_plot_dual_inlet_data, iso_plot_raw_data
 
 The following object is masked from &#39;package:stats&#39;:
 
@@ -1901,10 +1907,9 @@ List of 1
 
 Info: preparing to read 1 data files (all will be cached), setting up 1 par...
 Info (process 1): reading file &#39;data_raw/OM17_CH4_C2-C6_data/OM17_CH4_C2-C6...
-Info (process 1): loaded data for 43 data files from R Data Storage - check...
-Warning (process 1): version mismatch - 43 of the 43 data files stored in t...
-Warning (process 1): Consider re-reading the original data files using the ...
-Info: finished reading 1 files in 4.16 secs
+Info (process 1): loaded 43 data files from R Data Storage
+Info (process 1): running compatibility checks for outdated files (43/43) c...
+Info: finished reading 1 files in 4.76 secs
 Info: encountered 88 problems in total
 
   |                                                                            
@@ -1915,6 +1920,110 @@ Info: encountered 88 problems in total
   |                                                                            
   |..........                                                            |  14%
 label: process-file-info
+Quitting from lines 57-79 (OM17_CH4_C2-C6.Rmd) 
+Error in apply_software_files_ids[[i, &quot;func&quot;]](iso_files[apply_software_files_ids[[i,  : 
+  attempt to apply non-function
+Calls: &lt;Anonymous&gt; ... &lt;Anonymous&gt; -&gt; iso_set_peak_table_from_auto_vendor_data_table
+
+Execution halted</code></pre>
+<pre><code>File did not get created successfully.</code></pre>
+<h1>
+OM17-18_CH4_H.Rmd (NC)
+</h1>
+<pre><code>source file has not changed, docs file will not be re-generated (delete file in docs folder to force re-generation)</code></pre>
+<h1>
+OM18_16S_taxa_assignment_DADA2_Silva138_Bayesian.Rmd (NC)
+</h1>
+<pre><code>source file has not changed, docs file will not be re-generated (delete file in docs folder to force re-generation)</code></pre>
+<h1>
+OM18_CH4_C2-C6.Rmd (NC)
+</h1>
+<pre><code>source file has not changed, docs file will not be re-generated (delete file in docs folder to force re-generation)</code></pre>
+<h1>
+OM18_taxa_table_analysis.Rmd (OK)
+</h1>
+<pre><code>
+
+processing file: OM18_taxa_table_analysis.Rmd
+
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |.                                                                     |   1%
+   inline R code fragments
+
+
+  |                                                                            
+  |..                                                                    |   2%
+label: setup (with options) 
+List of 2
+ $ message: logi FALSE
+ $ warning: logi FALSE
+
+You&#39;re using mctoolsr (v.0.1.1.2). Direct inquiries to:
+&#39;https://github.com/leffj/mctoolsr&#39;
+── Attaching packages ────────────────────────────────────────────────────── tidyverse 1.3.0 ──
+✓ ggplot2 3.3.0     ✓ purrr   0.3.4
+✓ tibble  3.0.1     ✓ dplyr   0.8.5
+✓ tidyr   1.0.2     ✓ stringr 1.4.0
+✓ readr   1.3.1     ✓ forcats 0.5.0
+── Conflicts ───────────────────────────────────────────────────────── tidyverse_conflicts() ──
+x dplyr::arrange()   masks plyr::arrange()
+x purrr::compact()   masks plyr::compact()
+x dplyr::count()     masks plyr::count()
+x dplyr::failwith()  masks plyr::failwith()
+x dplyr::filter()    masks stats::filter()
+x dplyr::id()        masks plyr::id()
+x dplyr::lag()       masks stats::lag()
+x dplyr::mutate()    masks plyr::mutate()
+x dplyr::rename()    masks plyr::rename()
+x dplyr::summarise() masks plyr::summarise()
+x dplyr::summarize() masks plyr::summarize()
+
+  |                                                                            
+  |...                                                                   |   4%
+  ordinary text without R code
+
+
+  |                                                                            
+  |....                                                                  |   5%
+label: load-data
+
+  |                                                                            
+  |....                                                                  |   6%
+  ordinary text without R code
+
+
+  |                                                                            
+  |.....                                                                 |   8%
+label: show-read-counts
+
+  |                                                                            
+  |......                                                                |   9%
+  ordinary text without R code
+
+
+  |                                                                            
+  |.......                                                               |  10%
+label: plot-read-counts
+
+  |                                                                            
+  |........                                                              |  11%
+  ordinary text without R code
+
+
+  |                                                                            
+  |.........                                                             |  12%
+label: filter-extraneous-reads
+
+  |                                                                            
+  |..........                                                            |  14%
+  ordinary text without R code
+
+
+  |                                                                            
+  |..........                                                            |  15%
+label: show-read-counts-filtered
 
   |                                                                            
   |...........                                                           |  16%
@@ -1922,35 +2031,65 @@ label: process-file-info
 
 
   |                                                                            
-  |.............                                                         |  18%
-label: chroms-CH4
+  |............                                                          |  18%
+label: filter-for-samples
+
+  |                                                                            
+  |.............                                                         |  19%
+  ordinary text without R code
+
 
   |                                                                            
   |..............                                                        |  20%
+label: rarefy
+
+  |                                                                            
+  |...............                                                       |  21%
   ordinary text without R code
 
 
   |                                                                            
-  |................                                                      |  23%
-label: chroms-C2-C6
+  |................                                                      |  22%
+label: summ-species
+
+  |                                                                            
+  |.................                                                     |  24%
+  ordinary text without R code
+
 
   |                                                                            
   |..................                                                    |  25%
+label: input-CH4-cycle-taxa
+
+  |                                                                            
+  |..................                                                    |  26%
   ordinary text without R code
 
 
   |                                                                            
-  |...................                                                   |  27%
-label: set-peak-maps
+  |...................                                                   |  28%
+label: filter-for-CH4-cycle-taxa (with options) 
+List of 1
+ $ warning: logi FALSE
+
+
+  |                                                                            
+  |....................                                                  |  29%
+  ordinary text without R code
+
 
   |                                                                            
   |.....................                                                 |  30%
+label: show-CH4-taxonomy-searchable
+
+  |                                                                            
+  |......................                                                |  31%
   ordinary text without R code
 
 
   |                                                                            
-  |......................                                                |  32%
-label: fetch-peak-table
+  |.......................                                               |  32%
+label: add-CH4-taxa-short
 
   |                                                                            
   |........................                                              |  34%
@@ -1958,8 +2097,17 @@ label: fetch-peak-table
 
 
   |                                                                            
+  |........................                                              |  35%
+label: add-metadata-map-CH4
+
+  |                                                                            
   |.........................                                             |  36%
-label: chrom-CH4-labeled
+  ordinary text without R code
+
+
+  |                                                                            
+  |..........................                                            |  38%
+label: reorder-factor-levels-CH4-taxa
 
   |                                                                            
   |...........................                                           |  39%
@@ -1967,44 +2115,88 @@ label: chrom-CH4-labeled
 
 
   |                                                                            
-  |.............................                                         |  41%
-label: chrom-C2-C6-labeled
+  |............................                                          |  40%
+label: fill-colors-CH4-taxa
 
   |                                                                            
-  |..............................                                        |  43%
+  |.............................                                         |  41%
+  ordinary text without R code
+
+
+  |                                                                            
+  |..............................                                        |  42%
+label: reorder-factor-levels-CH4-taxa-wells
+
+  |                                                                            
+  |...............................                                       |  44%
   ordinary text without R code
 
 
   |                                                                            
   |................................                                      |  45%
-label: select-analyte-peaks
+label: set-percent-formatter
+
+  |                                                                            
+  |................................                                      |  46%
+  ordinary text without R code
+
 
   |                                                                            
   |.................................                                     |  48%
+label: OM18-CH4-taxa-bar (with options) 
+List of 3
+ $ fig.width : num 5
+ $ fig.height: num 3
+ $ dpi       : num 300
+
+
+  |                                                                            
+  |..................................                                    |  49%
   ordinary text without R code
 
 
   |                                                                            
   |...................................                                   |  50%
-label: set-stnd-d13C
+label: input-Hydrogenophaga
+
+  |                                                                            
+  |....................................                                  |  51%
+  ordinary text without R code
+
 
   |                                                                            
   |.....................................                                 |  52%
+label: filter-for-Hydrogenophaga (with options) 
+List of 1
+ $ warning: logi FALSE
+
+
+  |                                                                            
+  |......................................                                |  54%
   ordinary text without R code
 
 
   |                                                                            
   |......................................                                |  55%
-label: add-stnds-to-peak-table
+label: show-Hydrogenophaga-searchable
 
   |                                                                            
-  |........................................                              |  57%
+  |.......................................                               |  56%
   ordinary text without R code
 
 
   |                                                                            
+  |........................................                              |  58%
+label: group-genus-Hydrogenophaga
+
+  |                                                                            
   |.........................................                             |  59%
-label: plot-stnds-accepted-measured
+  ordinary text without R code
+
+
+  |                                                                            
+  |..........................................                            |  60%
+label: show-Hydrogenophaga-genus-searchable
 
   |                                                                            
   |...........................................                           |  61%
@@ -2012,8 +2204,17 @@ label: plot-stnds-accepted-measured
 
 
   |                                                                            
+  |............................................                          |  62%
+label: add-metadata-Hydrogenophaga
+
+  |                                                                            
   |.............................................                         |  64%
-label: plot-amp-d13C
+  ordinary text without R code
+
+
+  |                                                                            
+  |..............................................                        |  65%
+label: reorder-wells-Hydrogenophaga
 
   |                                                                            
   |..............................................                        |  66%
@@ -2021,44 +2222,73 @@ label: plot-amp-d13C
 
 
   |                                                                            
-  |................................................                      |  68%
-label: plot-d13C-time
+  |...............................................                       |  68%
+label: OM18-Hydrogenophaga-bar (with options) 
+List of 3
+ $ fig.width : num 3
+ $ fig.height: num 3
+ $ dpi       : num 300
+
+
+  |                                                                            
+  |................................................                      |  69%
+  ordinary text without R code
+
 
   |                                                                            
   |.................................................                     |  70%
+label: list-SCA-taxa
+
+  |                                                                            
+  |..................................................                    |  71%
   ordinary text without R code
 
 
   |                                                                            
-  |...................................................                   |  73%
-label: generate-calibs
+  |...................................................                   |  72%
+label: list-SCA-taxa-broader
+
+  |                                                                            
+  |....................................................                  |  74%
+  ordinary text without R code
+
 
   |                                                                            
   |....................................................                  |  75%
+label: filter-SCA-consuming-taxa (with options) 
+List of 1
+ $ warning: logi FALSE
+
+
+  |                                                                            
+  |.....................................................                 |  76%
   ordinary text without R code
 
 
   |                                                                            
-  |......................................................                |  77%
-label: get-coefs (with options) 
-List of 2
- $ fig.width : num 7
- $ fig.height: num 8
+  |......................................................                |  78%
+label: filter-SCA-consuming-taxa-broader (with options) 
+List of 1
+ $ warning: logi FALSE
+
+
+  |                                                                            
+  |.......................................................               |  79%
+  ordinary text without R code
 
 
   |                                                                            
   |........................................................              |  80%
+label: remove-Methanobacterium-from-SCA-broader
+
+  |                                                                            
+  |.........................................................             |  81%
   ordinary text without R code
 
 
   |                                                                            
-  |.........................................................             |  82%
-label: plot-calib-params (with options) 
-List of 3
- $ fig.width : num 8
- $ fig.height: num 11
- $ message   : logi FALSE
-
+  |..........................................................            |  82%
+label: reshape-SCA-data
 
   |                                                                            
   |...........................................................           |  84%
@@ -2066,11 +2296,17 @@ List of 3
 
 
   |                                                                            
-  |............................................................          |  86%
-label: apply-calibs (with options) 
-List of 1
- $ cache: logi TRUE
+  |............................................................          |  85%
+label: reshape-SCA-data-broader
 
+  |                                                                            
+  |............................................................          |  86%
+  ordinary text without R code
+
+
+  |                                                                            
+  |.............................................................         |  88%
+label: show-SCA-taxonomy-searchable
 
   |                                                                            
   |..............................................................        |  89%
@@ -2078,44 +2314,56 @@ List of 1
 
 
   |                                                                            
-  |................................................................      |  91%
-label: inspect-calib (with options) 
-List of 2
- $ fig.width : num 7
- $ fig.height: num 9
-
+  |...............................................................       |  90%
+label: add-SCA-taxa-short
 
   |                                                                            
-  |.................................................................     |  93%
+  |................................................................      |  91%
   ordinary text without R code
 
 
   |                                                                            
-  |...................................................................   |  95%
-label: summarize-calibrated-data
+  |.................................................................     |  92%
+label: Oman_samples_sum_all_SCA_taxa_gathered
+
+  |                                                                            
+  |..................................................................    |  94%
+  ordinary text without R code
+
+
+  |                                                                            
+  |..................................................................    |  95%
+label: set-cbPalette
+
+  |                                                                            
+  |...................................................................   |  96%
+  ordinary text without R code
+
 
   |                                                                            
   |....................................................................  |  98%
+label: add-metadata-to-SCA-data
+
+  |                                                                            
+  |..................................................................... |  99%
   ordinary text without R code
 
 
   |                                                                            
   |......................................................................| 100%
-label: export
+label: OM18_SCA_taxa_bar (with options) 
+List of 3
+ $ fig.width : num 5
+ $ fig.height: num 3
+ $ dpi       : num 300
 
-output file: OM17_CH4_C2-C6.knit.md
 
-/usr/local/bin/pandoc +RTS -K512m -RTS OM17_CH4_C2-C6.utf8.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash+smart --output docs/rmarkdown/OM17_CH4_C2-C6.html --email-obfuscation none --self-contained --standalone --section-divs --table-of-contents --toc-depth 3 --variable toc_float=1 --variable toc_selectors=h1,h2,h3 --variable toc_collapsed=1 --variable toc_smooth_scroll=1 --variable toc_print=1 --template /Library/Frameworks/R.framework/Versions/3.6/Resources/library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --number-sections --css stylesheet.css --variable &#39;theme:bootstrap&#39; --include-in-header /var/folders/pw/9fk_chms0jl85nfldy5rgfyc0000gn/T//Rtmp9jowpJ/rmarkdown-str453b710b1a92.html --mathjax --variable &#39;mathjax-url:https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&#39; --lua-filter /Library/Frameworks/R.framework/Versions/3.6/Resources/library/rmarkdown/rmd/lua/pagebreak.lua --lua-filter /Library/Frameworks/R.framework/Versions/3.6/Resources/library/rmarkdown/rmd/lua/latex-div.lua --variable code_folding=show --variable code_menu=1 
+output file: OM18_taxa_table_analysis.knit.md
 
-Output created: docs/rmarkdown/OM17_CH4_C2-C6.html</code></pre>
-<h1>
-OM17-18_CH4_H.Rmd (NC)
-</h1>
-<pre><code>source file has not changed, docs file will not be re-generated (delete file in docs folder to force re-generation)</code></pre>
-<h1>
-OM18_CH4_C2-C6.Rmd (NC)
-</h1>
-<pre><code>source file has not changed, docs file will not be re-generated (delete file in docs folder to force re-generation)</code></pre>
+/usr/local/bin/pandoc +RTS -K512m -RTS OM18_taxa_table_analysis.utf8.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash+smart --output docs/rmarkdown/OM18_taxa_table_analysis.html --email-obfuscation none --self-contained --standalone --section-divs --table-of-contents --toc-depth 3 --variable toc_float=1 --variable toc_selectors=h1,h2,h3 --variable toc_collapsed=1 --variable toc_smooth_scroll=1 --variable toc_print=1 --template /Library/Frameworks/R.framework/Versions/3.6/Resources/library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --css stylesheet.css --variable &#39;theme:bootstrap&#39; --include-in-header /var/folders/pw/9fk_chms0jl85nfldy5rgfyc0000gn/T//Rtmp6YFvut/rmarkdown-str16cee465e65b4.html --mathjax --variable &#39;mathjax-url:https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&#39; --lua-filter /Library/Frameworks/R.framework/Versions/3.6/Resources/library/rmarkdown/rmd/lua/pagebreak.lua --lua-filter /Library/Frameworks/R.framework/Versions/3.6/Resources/library/rmarkdown/rmd/lua/latex-div.lua --variable code_folding=show --variable code_menu=1 
+
+Output created: docs/rmarkdown/OM18_taxa_table_analysis.html
+There were 31 warnings (use warnings() to see them)</code></pre>
 </div>
 <div id="summary" class="section level1">
 <h1>summary</h1>
@@ -2182,33 +2430,33 @@ summary %&gt;% knitr::kable()</code></pre>
 </tr>
 <tr class="even">
 <td align="left">RMarkdown</td>
-<td align="left">example.Rmd</td>
-<td align="left">docs/rmarkdown/example.Rmd</td>
-<td align="left">01a53dccf83e6483de2310a941c223bf</td>
-<td align="left">docs/rmarkdown/example.html</td>
-<td align="left">2020-02-17 00:40:27 MST</td>
-<td align="left">NA</td>
-<td align="left">FALSE</td>
-<td align="left">NA</td>
-</tr>
-<tr class="odd">
-<td align="left">RMarkdown</td>
 <td align="left">OM17_CH4_C2-C6.Rmd</td>
 <td align="left">docs/rmarkdown/OM17_CH4_C2-C6.Rmd</td>
 <td align="left">50da7cda1fd015f7aa659aa514a510cb</td>
 <td align="left">docs/rmarkdown/OM17_CH4_C2-C6.html</td>
 <td align="left">2020-04-27 13:41:53 MDT</td>
-<td align="left">NA</td>
+<td align="left">2020-05-01 15:14:42 MDT</td>
 <td align="left">TRUE</td>
-<td align="left">TRUE</td>
+<td align="left">FALSE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">RMarkdown</td>
 <td align="left">OM17-18_CH4_H.Rmd</td>
 <td align="left">docs/rmarkdown/OM17-18_CH4_H.Rmd</td>
 <td align="left">ab00c5881f1a0ba7cb59a12ccde43c0a</td>
 <td align="left">docs/rmarkdown/OM17-18_CH4_H.html</td>
 <td align="left">2020-04-27 12:23:40 MDT</td>
+<td align="left">NA</td>
+<td align="left">FALSE</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">RMarkdown</td>
+<td align="left">OM18_16S_taxa_assignment_DADA2_Silva138_Bayesian.Rmd</td>
+<td align="left">docs/rmarkdown/OM18_16S_taxa_assignment_DADA2_Silva138_Bayesian.Rmd</td>
+<td align="left">f8dfaf7ebdd891a257fd21706db6412c</td>
+<td align="left">docs/rmarkdown/OM18_16S_taxa_assignment_DADA2_Silva138_Bayesian.html</td>
+<td align="left">2020-04-30 21:18:35 MDT</td>
 <td align="left">NA</td>
 <td align="left">FALSE</td>
 <td align="left">NA</td>
@@ -2223,6 +2471,17 @@ summary %&gt;% knitr::kable()</code></pre>
 <td align="left">NA</td>
 <td align="left">FALSE</td>
 <td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">RMarkdown</td>
+<td align="left">OM18_taxa_table_analysis.Rmd</td>
+<td align="left">docs/rmarkdown/OM18_taxa_table_analysis.Rmd</td>
+<td align="left">7632bac68dbf1b698a802a1524f6dedc</td>
+<td align="left">docs/rmarkdown/OM18_taxa_table_analysis.html</td>
+<td align="left">2020-05-01 15:14:42 MDT</td>
+<td align="left">NA</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
 </tr>
 </tbody>
 </table>
