@@ -54,7 +54,7 @@ Data processed using the packages [isoreader](http://isoreader.kopflab.org) vers
 ```{r load-data, message=FALSE}
 iso_files_raw <- 
   file.path(
-    "data_raw/180306_DBN_DIC", "180306_DBN_DIC.cf.rds"
+    "data_raw/180306_DBN_DIC", "180306_DBN_DIC_data.cf.rds"
   ) %>%
       # read data files in parallel for fast read
   iso_read_continuous_flow(parallel = TRUE)
