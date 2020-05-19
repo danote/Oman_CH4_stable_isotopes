@@ -96,6 +96,8 @@ chroms
 
 ## Peak maps
 ```{r peak-maps}
+# note: we do not consider first two sample inject peaks as analyte peaks to be sure that there is no carryover between samples
+
 peak_maps <- 
   tibble::tribble(
     ~compound,          ~ref_nr,    ~`rt`,
@@ -105,7 +107,7 @@ peak_maps <-
     "CO2 ref",          3,      75,
     "CO2 ref",          4,      100,
     "CO2 half inject",  NA,     148,
-    "CO2 analyte",      NA,     169,
+    "CO2 first sample peak",      NA,     169,
     "CO2 analyte",      NA,     219,
     "CO2 analyte",      NA,     269,
     "CO2 analyte",      NA,     319,
