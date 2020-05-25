@@ -1,9 +1,9 @@
 type,source_file,source_copy,source_file_hash,doc_file,last_success,last_fail
 RMarkdown,180228_OM18_DIC.Rmd,docs/rmarkdown/180228_OM18_DIC.Rmd,ca7c7d1a4300eb397c2c2523b480967d,docs/rmarkdown/180228_OM18_DIC.html,2020-05-19 13:56:53 MDT,NA
 RMarkdown,180306_OM18_DIC.Rmd,docs/rmarkdown/180306_OM18_DIC.Rmd,54f6f5744e3c67d39c52d7e26cb319db,docs/rmarkdown/180306_OM18_DIC.html,2020-05-19 13:56:53 MDT,NA
-RMarkdown,200228_DBN_Oman_CH4_paper_figs.Rmd,docs/rmarkdown/200228_DBN_Oman_CH4_paper_figs.Rmd,8581daafd219122f4d6be7a41ae5d8d3,docs/rmarkdown/200228_DBN_Oman_CH4_paper_figs.html,2020-05-08 00:24:42 MDT,NA
+RMarkdown,200228_DBN_Oman_CH4_paper_figs.Rmd,docs/rmarkdown/200228_DBN_Oman_CH4_paper_figs.Rmd,bc7541fd8441d654dedc390e44bf3e35,docs/rmarkdown/200228_DBN_Oman_CH4_paper_figs.html,2020-05-25 13:41:29 MDT,NA
 RMarkdown,OM17_CH4_C2-C6.Rmd,docs/rmarkdown/OM17_CH4_C2-C6.Rmd,6209e20542ba02e43172c9e07e72c914,docs/rmarkdown/OM17_CH4_C2-C6.html,2020-05-01 16:41:31 MDT,NA
 RMarkdown,OM17-18_CH4_H.Rmd,docs/rmarkdown/OM17-18_CH4_H.Rmd,ab00c5881f1a0ba7cb59a12ccde43c0a,docs/rmarkdown/OM17-18_CH4_H.html,2020-05-01 17:11:08 MDT,NA
 RMarkdown,OM18_16S_taxa_assignment_DADA2_Silva138_Bayesian.Rmd,docs/rmarkdown/OM18_16S_taxa_assignment_DADA2_Silva138_Bayesian.Rmd,f8dfaf7ebdd891a257fd21706db6412c,docs/rmarkdown/OM18_16S_taxa_assignment_DADA2_Silva138_Bayesian.html,2020-04-30 21:18:35 MDT,NA
 RMarkdown,OM18_CH4_C2-C6.Rmd,docs/rmarkdown/OM18_CH4_C2-C6.Rmd,ff7910a8ae2cf8b5c13d8a3dd3d20bba,docs/rmarkdown/OM18_CH4_C2-C6.html,2020-05-01 17:11:08 MDT,NA
-RMarkdown,OM18_taxa_table_analysis.Rmd,docs/rmarkdown/OM18_taxa_table_analysis.Rmd,7632bac68dbf1b698a802a1524f6dedc,docs/rmarkdown/OM18_taxa_table_analysis.html,2020-05-01 15:14:42 MDT,NA
+RMarkdown,OM18_taxa_table_analysis.Rmd,docs/rmarkdown/OM18_taxa_table_analysis.Rmd,319bd7469bc72631b7430788a41b05dc,docs/rmarkdown/OM18_taxa_table_analysis.html,2020-05-25 13:27:18 MDT,NA
