@@ -22,7 +22,6 @@ date: "`r Sys.Date()`"
 ## Load packages
 ```{r setup, message=FALSE, warning=FALSE}
 library(mctoolsr) # working with taxonomic data
-library(plyr) # working with data frames
 library(tidyverse) # working with data frames
 library(knitr) # printing things nicely
 
@@ -119,10 +118,19 @@ Oman_samples = single_rarefy(Oman_samples, min(sort(colSums(Oman_samples$data_lo
 map_Oman_samples <- Oman_samples$map_loaded
 ```
 
+# Taxonomic overview
+
 Summarize taxonomy at species level
 ```{r summ-species}
 # summarize taxonomic classification at species level
 Oman_samples_sum <- summarize_taxonomy(Oman_samples, level = 7, report_higher_tax = TRUE)
+```
+
+```{r heat-map, fig.height=9, fig.width=9}
+Oman_samples_sum_higher_plot <- plot_ts_heatmap(Oman_samples_sum, map_Oman_samples, 0.01,  "well")
+
+Oman_samples_sum_higher_plot +
+  theme(axis.text.x = element_text(angle = 75, hjust = 1, vjust = 1, size = 7))
 ```
 
 # CH$_4$-cycling taxa
@@ -318,7 +326,7 @@ Oman_samples_sum_all_Hydrogenophaga <- Oman_samples_sum_all_Hydrogenophaga  %>% 
 ))
 
 # sum grouped taxa relative abundances
-Oman_samples_sum_all_Hydrogenophaga_grouped <- ddply(Oman_samples_sum_all_Hydrogenophaga, .(tax_group), numcolwise(sum))
+Oman_samples_sum_all_Hydrogenophaga_grouped <- plyr::ddply(Oman_samples_sum_all_Hydrogenophaga, plyr::.(tax_group), plyr::numcolwise(sum))
 
 # print
 Oman_samples_sum_all_Hydrogenophaga_grouped
