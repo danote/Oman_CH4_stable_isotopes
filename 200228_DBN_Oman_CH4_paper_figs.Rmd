@@ -69,7 +69,7 @@ abiotic_color <- "#999999" # grey
 
 microbial_opacity <- 0.05
 thermo_opacity <- 0.1
-abiotic_opacity <- 0.08
+abiotic_opacity <- 0.05
 
 gabbro_color <- "#CC79A7" # magenta
 Mg_HCO3_color <- "#E69F00" # gold
@@ -82,7 +82,7 @@ cbPalette_MWL <- c("#D55E00", "#0072B2", "#000000")
 
 color_rock_crush_named <- c("rock crushing" = "#D55E00", "vent/well fluid" = "black")
 
-fill_4_wells_named <- c("WAB71" = "#999999", "NSHQ14" = "#000000", "NSHQ04" = "#56B4E9", "CM2A" = "#0072B2")
+fill_4_wells_named <- c("WAB71" = "#0072B2", "NSHQ14" = "#000000", "NSHQ04" = "#56B4E9", "CM2A" = "#999999")
 
 # levels (for order of appearance in legend)
 
