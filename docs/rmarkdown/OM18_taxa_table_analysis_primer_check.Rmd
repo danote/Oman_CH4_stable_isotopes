@@ -1,4 +1,6 @@
 ---
+---
+---
 title: "Oman 2018 Short-chain alkane cycling taxa and Hydrogenophaga"
 output:
   html_document:
@@ -36,7 +38,7 @@ knitr::opts_chunk$set(
 
 ## Load in map file and otutable
 ```{r load-data}
-tax_table_fp <- 'data_output/tax_tab_DADA2_mctoolsr_OM18_Silva138_Bayes.txt'
+tax_table_fp <- 'data_output/tax_tab_DADA2_mctoolsr_OM18_Silva138_Bayes_linker_trimmed.txt'
 map_fp <- 'data_raw/Summary_metadata/oman_map16S_meta.txt'
 input <- load_taxa_table(tax_table_fp, map_fp) #combine data to format for mctoolsr
 ```
@@ -160,6 +162,7 @@ Oman_samples_sum_higher_plot_NSHQ14 <- plot_ts_heatmap(Oman_samples_sum_NSHQ14, 
 Oman_samples_sum_higher_plot_NSHQ14 +
   theme(axis.text.x = element_text(angle = 75, hjust = 1, vjust = 1, size = 7))
 ```
+
 
 # CH$_4$-cycling taxa
 

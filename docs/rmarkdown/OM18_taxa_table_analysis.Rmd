@@ -135,6 +135,34 @@ Oman_samples_sum_higher_plot +
   theme(axis.text.x = element_text(angle = 75, hjust = 1, vjust = 1, size = 7))
 ```
 
+Just NSHQ14
+
+```{r filter-for-samples-NSHQ14}
+# select desired samples
+Oman_samples_NSHQ14 <- input_filt %>% filter_data(filter_cat = "sample_ID", keep_vals = c("NSHQ14_45_7J",  "NSHQ4_S_11D"))
+```
+
+Rarefy to lowest read count among samples
+```{r get-NSHQ14-map}
+# extract metadata for desired samples
+map_Oman_samples_NSHQ14 <- Oman_samples_NSHQ14$map_loaded
+```
+
+# Taxonomic overview
+
+Summarize taxonomy at species level
+```{r summ-species-NSHQ14}
+# summarize taxonomic classification at species level
+Oman_samples_sum_NSHQ14 <- summarize_taxonomy(Oman_samples_NSHQ14, level = 7, report_higher_tax = TRUE)
+```
+
+```{r heat-map-NSHQ14, fig.height=7, fig.width=11}
+Oman_samples_sum_higher_plot_NSHQ14 <- plot_ts_heatmap(Oman_samples_sum_NSHQ14, map_Oman_samples_NSHQ14, 0.001,  "well")
+
+Oman_samples_sum_higher_plot_NSHQ14 +
+  theme(axis.text.x = element_text(angle = 75, hjust = 1, vjust = 1, size = 7))
+```
+
 # CH$_4$-cycling taxa
 
 ## Sort data
