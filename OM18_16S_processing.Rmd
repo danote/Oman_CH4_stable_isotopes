@@ -1,5 +1,5 @@
 ---
-title: "Oman 2014-2019 16S amplicon sequencing comparison"
+title: "Oman 2018 16S rRNA gene amplicon sequencing data processing"
 output:
   html_document:
     css: stylesheet.css
@@ -10,7 +10,7 @@ output:
     toc_depth: 3
     code_folding: show
     df_print: paged
-subtitle: "Source file: OM14-19_ampliverse_1.Rmd"
+subtitle: "Source file: OM18_16S_processing.Rmd"
 author: "Daniel Nothaft"
 editor_options:
   chunk_output_type: inline
@@ -47,6 +47,7 @@ source(file.path("scripts", "plotting_functions.R"))
 # Load data
 Load DADA2 output data
 ```{r load-dada2-output}
+# taxa and sequence tables obtained from https://github.com/danote/Samail_16S_compilation
 seqtab_OM18 <- read_rds("data_raw/16S_sequencing_data/seqtab_nochim_OM18_processed_20200719.rds")
 taxtab_OM18 <- read_rds("data_raw/16S_sequencing_data/taxa_OM18_processed_20200720.rds")
 ```
