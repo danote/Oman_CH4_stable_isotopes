@@ -1,0 +1,349 @@
+---
+---
+---
+title: "Oman 2014-2019 16S amplicon sequencing comparison"
+output:
+  html_document:
+    css: stylesheet.css
+    fig_caption: yes
+    number_sections: no
+    toc: yes
+    toc_float: true
+    toc_depth: 3
+    code_folding: show
+    df_print: paged
+subtitle: "Source file: OM14-19_ampliverse_1.Rmd"
+author: "Daniel Nothaft"
+editor_options:
+  chunk_output_type: inline
+date: "`r Sys.Date()`"
+---
+
+# Setup
+
+Set knitting options
+```{r knitting-options}
+# global knitting options for automatic saving of all plots as .png and .pdf. Also sets cache directory.
+knitr::opts_chunk$set(
+  dev = c("png", "pdf"), fig.keep = "all",
+  dev.args = list(pdf = list(encoding = "WinAnsi", useDingbats = FALSE)),
+  fig.path = file.path("fig_output/", paste0(gsub("\\.[Rr]md", "/", knitr::current_input()))),
+  cache.path = file.path("cache/", paste0(gsub("\\.[Rr]md", "/", knitr::current_input())))
+)
+```
+
+```{r setup}
+library(tidyverse)
+library(rlang)
+library(glue)
+library(latex2exp)
+library(scales)
+```
+
+```{r source}
+# source all relevant scripting files
+source(file.path("scripts", "ampliverse_05.R"))
+source(file.path("scripts", "plotting_functions.R"))
+```
+
+# Load data
+Load DADA2 output data
+```{r load-dada2-output}
+seqtab_OM18 <- read_rds("data_raw/16S_sequencing_data/seqtab_nochim_OM18_processed_20200719.rds")
+taxtab_OM18 <- read_rds("data_raw/16S_sequencing_data/taxa_OM18_processed_20200720.rds")
+```
+
+Load metadata
+
+```{r load-metadata, warning = FALSE}
+meta_map_OM18 <- read_delim("data_raw/16S_sequencing_data/map_for_compilation_OM18.txt", delim = "\t",
+                            col_types = cols(
+  sample_id = col_character(),
+  barcode_sequence = col_character(),
+  forward_linker_primer_sequence = col_character(),
+  reverse_primer_sequence = col_character(),
+  sample_type = col_character(),
+  nucleic_acid_type = col_character(),
+  sampling_site = col_character(),
+  year_sampled = col_double(),
+  month_sampled = col_double(),
+  day_sampled = col_double(),
+  depth_fluid_intake_mbct = col_double(),
+  notes = col_character(),
+  sampling_method = col_character(),
+  upper_packer_inflated = col_logical(),
+  upper_packer_depth_mbct = col_double(),
+  lower_packer_inflated = col_logical(),
+  lower_packer_depth_mbct = col_double(),
+  well_depth_mbgl = col_double(),
+  casing_extent_mbct = col_double(),
+  casing_height_magl = col_double(),
+  screened_interval_mbct = col_character(),
+  depth_to_water_mbct = col_double()
+)
+                            ) %>% select(1:22)
+```
+
+# Tidy up the data, concatenate taxa levels, and add metadata
+
+```{r tidy-data}
+ampli_data_OM18 <- ampli_tidy_dada2(seqtab_OM18, taxtab_OM18) %>% ampli_concat_tax() %>% ampli_join_metadata_map(meta_map_OM18)
+```
+
+# Initial data examination
+
+## Read counts, full dataset
+
+```{r initial-data-exam}
+ampli_data_OM18_sum <- ampli_data_OM18 %>% ampli_tally_reads(c("year_sampled","sample_type"))
+
+# sort by read counts
+ampli_data_OM18_sum %>% arrange(desc(reads_sum))
+
+# generate summary stats of read counts
+summary(ampli_data_OM18_sum %>% select(reads_sum))
+```
+
+Plot read counts
+
+Oman groundwater samples have significantly higher read counts than extraction or PCR controls, which is good.
+```{r plot-read-counts}
+plot_reads_sums_1 <- ampli_data_OM18_sum %>% ggplot(aes(
+  x = fct_reorder(sample_id, desc(reads_sum)),
+  y = reads_sum,
+  fill = sample_type
+)) +
+  geom_bar(stat = "identity") +
+  scale_y_continuous(name = "Reads") +
+  scale_x_discrete(name = "Sample ID") +
+  scale_fill_discrete(name = "Sample type") +
+  theme_bw()+
+  theme(
+    axis.text.x = element_text(angle = 90, vjust = .5, hjust = 1),
+    legend.position = "bottom"
+  )
+
+plot_reads_sums_1
+```
+# Focus on data of interest
+## Filter for only desired samples
+
+```{r filter-for-interesting-data, warning = FALSE}
+# define sample set ID's
+samples_to_keep <- c("CM2A_45_9D", "NSHQ14_45_7J", "NSHQ4_S_11D", "WAB103_45_10J", "WAB104_45_5C", "WAB105_45_6D", "WAB188_45_4J", "WAB55_45_8C", "WAB71_45_3D")
+
+# keep just those samples
+ampli_data_OM18_focus_samples <- ampli_data_OM18 %>% ampli_filter_strings(col_to_filter = sample_id, strings_to_filter = samples_to_keep, detection_method = "complete", action = "keep")  %>% 
+  # remove taxa with zero reads (messes up plotting later if kept)
+  ampli_rm_0_read_taxa()
+```
+
+
+## Filter out unwanted taxa
+Filter out mitochondria, chloroplasts, eukaryotes, and sequences not assigned taxonomy at the the domain level
+
+```{r rm-unwanted-taxa-OM17-18-19}
+ampli_data_OM18_focus_samples_taxa_filtered <- ampli_data_OM18_focus_samples %>% ampli_filter_strings(col_to_filter = taxonomy, strings_to_filter =   c("Chloroplast", "Mitochondria", "Eukaryota", "k__NA"), detection_method = "substring", action = "remove")
+```
+
+## Read counts, filtered dataset
+
+Tally reads per sample
+
+```{r tally-reads-OM17-18-19}
+ampli_data_OM18_focus_samples_taxa_filtered_sum <- ampli_data_OM18_focus_samples_taxa_filtered %>% ampli_tally_reads(c("year_sampled","sample_type"))
+
+# sort by read counts
+ampli_data_OM18_focus_samples_taxa_filtered_sum %>% arrange(desc(reads_sum))
+
+# generate summary stats of read counts
+summary(ampli_data_OM18_focus_samples_taxa_filtered_sum %>% select(reads_sum))
+```
+
+Plot read counts
+```{r plot-read-counts-filt}
+plot_reads_sums_2 <- ampli_data_OM18_focus_samples_taxa_filtered_sum %>% ggplot(aes(
+  x = fct_reorder(sample_id, desc(reads_sum)),
+  y = reads_sum,
+  label = reads_sum
+)) +
+  geom_bar(stat = "identity") +
+  geom_text(nudge_y = 1200) +
+  scale_x_discrete(name = "Sample ID") +
+  scale_y_continuous(name = "Reads") +
+  theme_bw()+
+  theme(
+    axis.text.x = element_text(angle = 90, vjust = .5, hjust = 1),
+    legend.position = "bottom",
+    panel.grid = element_blank()
+  )
+
+plot_reads_sums_2
+```
+
+# Calculate relative abundances
+```{r cal-rel-abund-OM17-18-19}
+ampli_data_OM18_focus_samples_taxa_filtered <- ampli_data_OM18_focus_samples_taxa_filtered %>% ampli_calc_rel_abund()
+
+ampli_data_OM18_focus_samples_taxa_filtered %>% head()
+```
+
+Check that relative abundances add up to 1, as expected
+```{r check-rel-abund}
+ampli_data_OM18_focus_samples_taxa_filtered %>% group_by(sample_id) %>% summarise(rel_abund_sum = sum(rel_abund), .groups = "drop") %>%  summary()
+```
+# Heat map, full dataset
+
+```{r OM18-top50-heat-round, fig.width=10, fig.height=6.8}
+OM18_heat <- ampli_data_OM18_focus_samples_taxa_filtered %>%
+  ampli_heat_map(x_sample_group_col = sampling_site, text_label_scalar = 100, text_label_decimal_places = 0, text_label_threshold = 0.01, text_label_zero = "n.r.", text_label_threshold_round_priority = "round", top_n = 50, y_taxa_arrangement = "abund")
+
+OM18_heat +
+  # plot geometry
+  geom_text(parse = FALSE, size = 2.25) +
+  
+  # plot styling
+  scale_fill_gradient(name = "Read relative\nabundance / [%]", low = "white", high = "red", labels = label_percent(accuracy = 1, suffix = "")) +
+  scale_x_discrete(name = NULL, expand = c(0,0)) +
+  scale_y_discrete(name = NULL, expand = c(0,0)) +
+
+  theme_bw(base_size = 8.1) +
+
+  theme(
+    legend.position = "bottom",
+    panel.grid = element_blank()
+        )
+```
+
+# OM18 CH4 taxa
+
+```{r OM18-simple-CH4-heat-sci, fig.width=8, fig.height=2}
+CH4_taxa <- c("Methanobacteria", "Methanomicrobia", "Methanopyrales", "Methanocellales", "Methanoplasmatales", "Methanosarcinales", "Methanomassiliicocc", "Methylococc", "Methylocystis", "Methylosinus", "Methylocella", "Methylocapsa", "Methylacidiphil", "Methylomirabilis", "ANME")
+
+ampli_data_OM18_focus_samples_taxa_filtered %>%
+  ampli_heat_map(x_sample_group_col = sampling_site, taxa_selection_method = "custom_taxa_char_vector", custom_taxa_char_vector = CH4_taxa, plot_other_taxa_bin = FALSE, y_taxa_arrangement = "alpha", text_label_scalar = 100, text_label_decimal_places = 1, text_label_format = "scientific") +
+  # plot geometry
+  geom_text(parse = TRUE, size = 2.1) +
+  
+  # plot styling
+  scale_fill_gradient(name = "Read relative\nabundance / [%]", low = "white", high = "red", labels = label_percent(accuracy = 1, suffix = "")) +
+  scale_x_discrete(name = NULL, expand = c(0,0)) +
+  scale_y_discrete(name = NULL, expand = c(0,0)) +
+
+  theme_bw(base_size = 6.5) +
+
+  theme(
+    legend.position = "bottom",
+    panel.grid = element_blank()
+        )
+```
+
+```{r OM18-CH4-heat-tbl}
+CH4_plotted_taxa_names_tbl <- ampli_data_OM18_focus_samples_taxa_filtered %>%
+  ampli_heat_map(x_sample_group_col = sampling_site, taxa_selection_method = "custom_taxa_char_vector", custom_taxa_char_vector = CH4_taxa, plot_other_taxa_bin = FALSE, y_taxa_arrangement = "alpha", return_plot_data_tbl = TRUE)
+
+CH4_plotted_taxa_names_tbl 
+```
+
+```{r OM18-CH4-heat-tbl-add-tax-short}
+CH4_plotted_taxa_names_tbl_edit <- CH4_plotted_taxa_names_tbl  %>% mutate(tax_short = case_when(
+  taxonomy == "k__Archaea; p__Euryarchaeota; c__Methanobacteria; o__Methanobacteriales; f__Methanobacteriaceae; g__Methanobacterium; s__NA" ~ "g. $\\textit{Methanobacterium}$",
+  taxonomy == "k__Archaea; p__Thermoplasmatota; c__Thermoplasmata; o__Methanomassiliicoccales; f__NA; g__NA; s__NA" ~ "o. Methanomassiliicoccales",
+  taxonomy == "k__Archaea; p__Halobacterota; c__ANME-1; o__ANME-1b; f__NA; g__NA; s__NA" ~ "o. ANME-1b",
+  taxonomy == "k__Bacteria; p__Methylomirabilota; c__Methylomirabilia; o__Methylomirabilales; f__Methylomirabilaceae; g__Candidatus_Methylomirabilis; s__NA" ~ "g. \\textit{Ca.} Methylomirabilis",
+  taxonomy == "k__Bacteria; p__Proteobacteria; c__Alphaproteobacteria; o__Rhizobiales; f__Beijerinckiaceae; g__Methylocystis; s__NA" ~ "g. \\textit{Methylocystis}",
+  taxonomy == "k__Bacteria; p__Proteobacteria; c__Gammaproteobacteria; o__Methylococcales; f__Methylococcaceae; g__Methylocaldum; s__NA" ~ "g. \\textit{Methylocaldum}",
+  taxonomy == "k__Bacteria; p__Proteobacteria; c__Gammaproteobacteria; o__Methylococcales; f__Methylococcaceae; g__Methylococcus; s__NA" ~ "g. \\textit{Methylococcus}",
+  taxonomy == "k__Bacteria; p__Proteobacteria; c__Gammaproteobacteria; o__Methylococcales; f__Methylococcaceae; g__Methyloterricola; s__NA" ~ "g. \\textit{Methyloterricola}"
+))
+
+CH4_plotted_taxa_names_tbl_edit$tax_short <- factor(CH4_plotted_taxa_names_tbl_edit$tax_short, levels = c(
+  "g. $\\textit{Methanobacterium}$",
+  "o. Methanomassiliicoccales",
+  "o. ANME-1b",
+  "g. \\textit{Ca.} Methylomirabilis",
+  "g. \\textit{Methylocystis}",
+  "g. \\textit{Methyloterricola}",
+  "g. \\textit{Methylocaldum}",
+  "g. \\textit{Methylococcus}"))
+
+CH4_plotted_taxa_names_tbl_edit
+```
+
+```{r OM18-CH4-heat-tbl-water-type}
+ampli_data_OM18_focus_samples_taxa_filtered_water_type <- ampli_data_OM18_focus_samples_taxa_filtered %>% mutate(water_type = case_when(
+  sampling_site == "CM2A" ~ "Ca$^{2+}$ - OH$^{-}$",
+  sampling_site == "NSHQ04" ~ "Ca$^{2+}$ - OH$^{-}$",
+  sampling_site == "NSHQ14" ~ "Ca$^{2+}$ - OH$^{-}$",
+  sampling_site == "WAB71" ~ "Ca$^{2+}$ - OH$^{-}$",
+  sampling_site == "WAB104" ~ "Mg$^{2+}$ - HCO$_{3}^{-}$",
+  sampling_site == "WAB105" ~ "Mg$^{2+}$ - HCO$_{3}^{-}$",
+  sampling_site == "WAB55" ~ "Mg$^{2+}$ - HCO$_{3}^{-}$",
+  sampling_site == "WAB188" ~ "gabbro",
+  sampling_site == "WAB103" ~ "gabbro",
+))
+
+ampli_data_OM18_focus_samples_taxa_filtered_water_type$water_type <- factor(ampli_data_OM18_focus_samples_taxa_filtered_water_type$water_type, levels = c(
+  "gabbro",
+  "Mg$^{2+}$ - HCO$_{3}^{-}$",
+  "Ca$^{2+}$ - OH$^{-}$"
+  ))
+
+ampli_data_OM18_focus_samples_taxa_filtered_water_type
+```
+
+```{r OM18-CH4-heat-tbl-sample-levels}
+ampli_data_OM18_focus_samples_taxa_filtered_water_type$sampling_site <- factor(ampli_data_OM18_focus_samples_taxa_filtered_water_type$sampling_site, levels = c(
+  "WAB103",
+  "WAB188",
+  "WAB104",
+  "WAB105",
+  "WAB55",
+  "NSHQ04",
+  "WAB71",
+  "CM2A",
+  "NSHQ14"
+))
+```
+
+```{r OM18-CH4-heat-tbl-tax-fun}
+ampli_data_OM18_focus_samples_taxa_filtered_water_type_tax_fun <- ampli_data_OM18_focus_samples_taxa_filtered_water_type %>%
+  mutate(tax_fun = case_when(
+  taxonomy == "k__Archaea; p__Euryarchaeota; c__Methanobacteria; o__Methanobacteriales; f__Methanobacteriaceae; g__Methanobacterium; s__NA" ~ "Methanogenesis",
+  taxonomy == "k__Archaea; p__Thermoplasmatota; c__Thermoplasmata; o__Methanomassiliicoccales; f__NA; g__NA; s__NA" ~ "Methanogenesis",
+  taxonomy == "k__Archaea; p__Halobacterota; c__ANME-1; o__ANME-1b; f__NA; g__NA; s__NA" ~ "Methanotrophy\nusing sulfate",
+  taxonomy == "k__Bacteria; p__Methylomirabilota; c__Methylomirabilia; o__Methylomirabilales; f__Methylomirabilaceae; g__Candidatus_Methylomirabilis; s__NA" ~ "Methanotrophy\nusing nitrite",
+  taxonomy == "k__Bacteria; p__Proteobacteria; c__Alphaproteobacteria; o__Rhizobiales; f__Beijerinckiaceae; g__Methylocystis; s__NA" ~ "Methanotrophy\nusing oxygen",
+  taxonomy == "k__Bacteria; p__Proteobacteria; c__Gammaproteobacteria; o__Methylococcales; f__Methylococcaceae; g__Methylocaldum; s__NA" ~ "Methanotrophy\nusing oxygen",
+  taxonomy == "k__Bacteria; p__Proteobacteria; c__Gammaproteobacteria; o__Methylococcales; f__Methylococcaceae; g__Methylococcus; s__NA" ~ "Methanotrophy\nusing oxygen",
+  taxonomy == "k__Bacteria; p__Proteobacteria; c__Gammaproteobacteria; o__Methylococcales; f__Methylococcaceae; g__Methyloterricola; s__NA" ~ "Methanotrophy\nusing oxygen"
+))
+
+ampli_data_OM18_focus_samples_taxa_filtered_water_type_tax_fun$tax_fun <- factor(ampli_data_OM18_focus_samples_taxa_filtered_water_type_tax_fun$tax_fun, levels = c(
+  "Methanotrophy\nusing oxygen",
+  "Methanotrophy\nusing nitrite",
+  "Methanotrophy\nusing sulfate",
+  "Methanogenesis"
+  ))
+```
+
+```{r OM18-CH4-heat-structured-pretty, fig.width=7, fig.height = 4}
+ampli_data_OM18_focus_samples_taxa_filtered_water_type_tax_fun %>%
+  ampli_heat_map(x_sample_group_col = sampling_site, facet_grid_sample_group_col = water_type, facet_grid_taxa_group_col = tax_fun, taxa_selection_method = "custom_taxa_char_vector", custom_taxa_char_vector = CH4_taxa, plot_other_taxa_bin = FALSE, custom_taxa_names_tbl = CH4_plotted_taxa_names_tbl_edit, custom_taxa_names_col = tax_short, facet_labeller = latex_labeller, text_label_format = "normal", text_label_scalar = 100, text_label_decimal_places = 0, text_label_threshold = 0.01, text_label_threshold_round_priority = "round", text_label_zero = "n.r.", y_taxa_arrangement = "custom") +
+
+  # plot geometry
+  geom_text(parse = FALSE, size = 2.65) +
+ 
+  # plot styling
+  scale_fill_gradient(name = "Read relative abundance / [%]", low = "white", high = "red", labels = label_percent(accuracy = 1, suffix = "")) +
+  scale_x_discrete(name = "Well grouped by water type", expand = c(0,0)) +
+  scale_y_discrete(name = "Deepest taxonomic assignment grouped by\nmetabolic capability inferred from phylogeny", expand = c(0,0), labels = TeX) +
+
+  theme_bw(base_size = 9.35) +
+
+  theme(
+    strip.text.y = element_text(angle = 0, vjust = 0.3),
+    legend.position = "bottom",
+    panel.grid = element_blank()
+        )
+```
