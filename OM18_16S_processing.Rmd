@@ -346,3 +346,26 @@ ampli_data_OM18_focus_samples_taxa_filtered_water_type_tax_fun %>%
     panel.grid = element_blank()
         )
 ```
+
+# Short-Chain Alkane oxidizers
+
+```{r OM18-simple-CH4-heat-sci, fig.width=8, fig.height=2}
+CH4_taxa <- c("Methanobacteria", "Methanomicrobia", "Methanopyrales", "Methanocellales", "Methanoplasmatales", "Methanosarcinales", "Methanomassiliicocc", "Methylococc", "Methylocystis", "Methylosinus", "Methylocella", "Methylocapsa", "Methylacidiphil", "Methylomirabilis", "ANME")
+
+ampli_data_OM18_focus_samples_taxa_filtered %>%
+  ampli_heat_map(x_sample_group_col = sampling_site, taxa_selection_method = "custom_taxa_char_vector", custom_taxa_char_vector = CH4_taxa, plot_other_taxa_bin = FALSE, y_taxa_arrangement = "alpha", text_label_scalar = 100, text_label_decimal_places = 1, text_label_format = "scientific") +
+  # plot geometry
+  geom_text(parse = TRUE, size = 2.1) +
+  
+  # plot styling
+  scale_fill_gradient(name = "Read relative\nabundance / [%]", low = "white", high = "red", labels = label_percent(accuracy = 1, suffix = "")) +
+  scale_x_discrete(name = NULL, expand = c(0,0)) +
+  scale_y_discrete(name = NULL, expand = c(0,0)) +
+
+  theme_bw(base_size = 6.5) +
+
+  theme(
+    legend.position = "bottom",
+    panel.grid = element_blank()
+        )
+```
