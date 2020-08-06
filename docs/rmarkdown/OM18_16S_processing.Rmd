@@ -348,3 +348,61 @@ ampli_data_OM18_focus_samples_taxa_filtered_water_type_tax_fun %>%
     panel.grid = element_blank()
         )
 ```
+
+# $\text{C}_{2}$-$\text{C}_{6}$ Short-Chain Alkane (SCA)-consuming taxa
+
+```{r list-SCA-taxa}
+# input SCA-consuming taxa from Singh et al. (2017), Laso-Pérez et al. (2019), and Shennan et al. (2006)
+
+all_SCA_taxa_oman <- c("BuS5", "Syntrophoarchaeum", "HotSeep-1", "Argoarchaeum", "ethanivorans", "Methanoliparia", "GoM", "Actinomyces", "Arthrobacter", "Brevibacterium", "Corynebacterium", "Gordonia", "Mycobacterium", "Nocardia", "Nocardiodes", "Rhodococcus", "Acinetobacter", "cepacia", "Pseudomonas", "Ralstonia")
+```
+
+```{r OM18-SCA-heat-sci, fig.width=8, fig.height=2}
+ampli_data_OM18_focus_samples_taxa_filtered %>%
+  ampli_heat_map(x_sample_group_col = sampling_site, taxa_selection_method = "custom_taxa_char_vector", custom_taxa_char_vector = all_SCA_taxa_oman, plot_other_taxa_bin = FALSE, y_taxa_arrangement = "alpha", text_label_scalar = 100, text_label_decimal_places = 1, text_label_format = "scientific") +
+  # plot geometry
+  geom_text(parse = TRUE, size = 2.1) +
+  
+  # plot styling
+  scale_fill_gradient(name = "Read relative\nabundance / [%]", low = "white", high = "red", labels = label_percent(accuracy = 1, suffix = "")) +
+  scale_x_discrete(name = NULL, expand = c(0,0)) +
+  scale_y_discrete(name = NULL, expand = c(0,0)) +
+
+  theme_bw(base_size = 6.5) +
+
+  theme(
+    legend.position = "bottom",
+    panel.grid = element_blank()
+        )
+```
+
+There were no species-level assignments to known short-chain alkane oxidizing taxa. The genera shown above contain organisms capable of many metabolic processes unrelated to short-chain alkane oxidation, so their presence is not strong evidence for microbial short-chain alkane oxidation.
+
+Now, let's look at a broader taxonomic level. The main point of this is to see if any close relatives to SCA-consuming taxa that were not directly identified in Silva 138. For example, Ca. Syntrophoarchaeum should be a clade within Methanomicrobia, and Ca. Methanoliparia should form its own class within Euryarchaeota (Laso-Pérez, 2019). As we will see, there are no unidentified Methanomicrobia, nor Euryarchaeota.
+
+Regarding symbiotic SRB, I was interested if there was anything related to the Desulfosarcina/Desulfococcus (DSS) cluster within Deltaproteobacteria because this is the clade within which strain BuS5 (Laso-Pérez 2016) resides, but we see no evidence of closely related organisms in this Oman dataset.
+```{r list-SCA-taxa-broader}
+# input SCA-consuming
+all_SCA_taxa_oman_broader <- c("Desulfobacteriaceae", "Desulfococcus", "Desulfosarcina", "Desulfobacterales", "Deltaproteobacteria", "Euryarchaeota")
+```
+
+```{r OM18-SCA-broader-heat-sci, fig.width=8, fig.height=2}
+ampli_data_OM18_focus_samples_taxa_filtered %>%
+  ampli_heat_map(x_sample_group_col = sampling_site, taxa_selection_method = "custom_taxa_char_vector", custom_taxa_char_vector = all_SCA_taxa_oman_broader, plot_other_taxa_bin = FALSE, y_taxa_arrangement = "alpha", text_label_scalar = 100, text_label_decimal_places = 1, text_label_format = "scientific") +
+  # plot geometry
+  geom_text(parse = TRUE, size = 2.1) +
+  
+  # plot styling
+  scale_fill_gradient(name = "Read relative\nabundance / [%]", low = "white", high = "red", labels = label_percent(accuracy = 1, suffix = "")) +
+  scale_x_discrete(name = NULL, expand = c(0,0)) +
+  scale_y_discrete(name = NULL, expand = c(0,0)) +
+
+  theme_bw(base_size = 6.5) +
+
+  theme(
+    legend.position = "bottom",
+    panel.grid = element_blank()
+        )
+```
+
+
