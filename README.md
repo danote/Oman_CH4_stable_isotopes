@@ -4,4 +4,7 @@ This repository holds all supplementary source code needed to reproduce the calc
 
 The fully compiled analysis files are available as [HTML reports](https://danote.github.io/Oman_CH4_stable_isotopes/).
 
+The code can be run on [binder](https://mybinder.org/v2/gh/danote/Oman_CH4_stable_isotopes/master)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/danote/Oman_CH4_stable_isotopes/master)
+
 We hope that this code, or any part of it, might prove useful to other members of the scientific community interested in the subject matter. All code is completely open-access and can be modified and repurposed in every way. If significant portions are reused in a scientific publication, please consider citing our work. Please make sure to cite this work if re-using any of our data.
