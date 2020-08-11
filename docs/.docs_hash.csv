@@ -1,8 +1,8 @@
 type,source_file,source_copy,source_file_hash,doc_file,last_success,last_fail
-RMarkdown,180228_OM18_DIC.Rmd,docs/rmarkdown/180228_OM18_DIC.Rmd,ca7c7d1a4300eb397c2c2523b480967d,docs/rmarkdown/180228_OM18_DIC.html,2020-05-19 13:56:53 MDT,NA
-RMarkdown,180306_OM18_DIC.Rmd,docs/rmarkdown/180306_OM18_DIC.Rmd,54f6f5744e3c67d39c52d7e26cb319db,docs/rmarkdown/180306_OM18_DIC.html,2020-05-19 13:56:53 MDT,NA
-RMarkdown,200228_DBN_Oman_CH4_paper_figs.Rmd,docs/rmarkdown/200228_DBN_Oman_CH4_paper_figs.Rmd,235cc83ac39a7803c48d4237cb3641b1,docs/rmarkdown/200228_DBN_Oman_CH4_paper_figs.html,2020-08-05 12:39:39 MDT,NA
-RMarkdown,OM17_CH4_C2-C6.Rmd,docs/rmarkdown/OM17_CH4_C2-C6.Rmd,6209e20542ba02e43172c9e07e72c914,docs/rmarkdown/OM17_CH4_C2-C6.html,2020-05-01 16:41:31 MDT,NA
-RMarkdown,OM17-18_CH4_H.Rmd,docs/rmarkdown/OM17-18_CH4_H.Rmd,ab00c5881f1a0ba7cb59a12ccde43c0a,docs/rmarkdown/OM17-18_CH4_H.html,2020-05-01 17:11:08 MDT,NA
-RMarkdown,OM18_16S_processing.Rmd,docs/rmarkdown/OM18_16S_processing.Rmd,d35ac2e85388aceb2bcf59871f816629,docs/rmarkdown/OM18_16S_processing.html,2020-08-05 21:23:56 MDT,NA
-RMarkdown,OM18_CH4_C2-C6.Rmd,docs/rmarkdown/OM18_CH4_C2-C6.Rmd,ff7910a8ae2cf8b5c13d8a3dd3d20bba,docs/rmarkdown/OM18_CH4_C2-C6.html,2020-05-01 17:11:08 MDT,NA
+RMarkdown,180228_OM18_DIC.Rmd,docs/rmarkdown/180228_OM18_DIC.Rmd,ca7c7d1a4300eb397c2c2523b480967d,docs/rmarkdown/180228_OM18_DIC.html,2020-08-11 15:06:07 MDT,NA
+RMarkdown,180306_OM18_DIC.Rmd,docs/rmarkdown/180306_OM18_DIC.Rmd,54f6f5744e3c67d39c52d7e26cb319db,docs/rmarkdown/180306_OM18_DIC.html,2020-08-11 15:06:07 MDT,NA
+RMarkdown,200228_DBN_Oman_CH4_paper_figs.Rmd,docs/rmarkdown/200228_DBN_Oman_CH4_paper_figs.Rmd,235cc83ac39a7803c48d4237cb3641b1,docs/rmarkdown/200228_DBN_Oman_CH4_paper_figs.html,2020-08-11 15:06:07 MDT,NA
+RMarkdown,OM17_CH4_C2-C6.Rmd,docs/rmarkdown/OM17_CH4_C2-C6.Rmd,6209e20542ba02e43172c9e07e72c914,docs/rmarkdown/OM17_CH4_C2-C6.html,2020-08-11 15:06:07 MDT,NA
+RMarkdown,OM17-18_CH4_H.Rmd,docs/rmarkdown/OM17-18_CH4_H.Rmd,ab00c5881f1a0ba7cb59a12ccde43c0a,docs/rmarkdown/OM17-18_CH4_H.html,2020-08-11 15:06:07 MDT,NA
+RMarkdown,OM18_16S_processing.Rmd,docs/rmarkdown/OM18_16S_processing.Rmd,d35ac2e85388aceb2bcf59871f816629,docs/rmarkdown/OM18_16S_processing.html,2020-08-11 15:06:07 MDT,NA
+RMarkdown,OM18_CH4_C2-C6.Rmd,docs/rmarkdown/OM18_CH4_C2-C6.Rmd,ff7910a8ae2cf8b5c13d8a3dd3d20bba,docs/rmarkdown/OM18_CH4_C2-C6.html,2020-08-11 15:06:07 MDT,NA
