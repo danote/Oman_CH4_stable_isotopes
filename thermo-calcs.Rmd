@@ -1,0 +1,51 @@
+---
+title: "Thermodynamics of Methanogenesis in Samail Ophiolite"
+subtitle: "Source file: thermo-calcs.Rmd"
+author: "Daniel Nothaft"
+date: "`r format(Sys.Date(), '%d %b %Y')`"
+output:
+  html_document: 
+    df_print: paged # omit to disable paged data table output
+    css: stylesheet.css # omit if no need for custom stylesheet
+    number_sections: yes # change to no for unnumbered sections
+    toc: yes # change to no to disable table of contents
+    toc_float: true # change to false to keep toc at the top
+    toc_depth: 3 # change to specify which headings to include in toc
+    code_folding: show # change to hide to hide code by default
+editor_options:
+  chunk_output_type: inline
+---
+
+# Load libraries
+
+```{r setup, warning=FALSE, message=FALSE}
+# load libraries
+library(tidyverse) # dplyr, tidyr, ggplot
+library(knitr) # generating reports
+
+# source all relevant scripting files
+source(file.path("scripts", "plotting_functions.R"))
+
+# global knitting options for automatic saving of all plots as .png and .pdf
+knitr::opts_chunk$set(
+  dev = c("png", "pdf"), fig.keep = "all",
+  dev.args = list(pdf = list(encoding = "WinAnsi", useDingbats = FALSE)),
+  fig.path = file.path("fig_output/", paste0(gsub("\\.[Rr]md", "/", knitr::current_input()))),
+  cache.path = file.path("cache/", paste0(gsub("\\.[Rr]md", "/", knitr::current_input())))
+)
+```
+
+Data processed using the packages [isoreader](http://isoreader.kopflab.org) version `r packageVersion("isoreader")` and [isoprocessor](http://isoprocessor.kopflab.org/) version `r packageVersion("isoprocessor")`.
+
+# Setting up data for speciation
+## Eh to pe calculator
+```{r pe, message=FALSE}
+Eh_Ca_OH <- -0.290 # V corresponds to measured Eh of well NSHQ14 in 2019
+T_C <- 35 # an approximate average temperature of Samail Ophiolite groundwaters
+T_K <- T_C + 273.15 # convert T to Kelvin
+(pe_Ca_OH <- 5040 * Eh_Ca_OH / T_K) # calculate pe from Eh (e.g. Anderson, 2005 "Thermodynamics of natural systems")
+
+Eh_Mg_HCO3 <- 0.162 # V corresponds to measured Eh of well WAB105 in 2018
+(pe_Mg_HCO3 <- 5040 * Eh_Mg_HCO3 / T_K) # calculate pe from Eh (e.g. Anderson, 2005 "Thermodynamics of natural systems")
+```
+
