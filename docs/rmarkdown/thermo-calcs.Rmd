@@ -1,4 +1,6 @@
 ---
+---
+---
 title: "Thermodynamics of Methanogenesis in Samail Ophiolite"
 subtitle: "Source file: thermo-calcs.Rmd"
 author: "Daniel Nothaft"
