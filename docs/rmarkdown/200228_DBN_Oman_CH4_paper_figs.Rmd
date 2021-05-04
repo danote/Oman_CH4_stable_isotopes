@@ -84,6 +84,8 @@ cbPalette_MWL <- c("#D55E00", "#0072B2", "#000000")
 
 color_rock_crush_named <- c("rock crushing" = "#D55E00", "vent/well fluid" = "black")
 
+color_TF <- c("TRUE" = "black", "FALSE" = gray(0, 0.15))
+
 fill_4_wells_named <- c("WAB71" = "#999999", "NSHQ14" = "#000000", "NSHQ04" = "#56B4E9", "CM2A" = "#0072B2")
 
 # levels (for order of appearance in legend)
@@ -480,7 +482,7 @@ CD_plot
 Make a dummy plot for extracting plot legend
 ```{r extract-fill-legend, fig.width=3.5, fig.height=2.35}
 # add factors to data to organize legend entries labels
-data_CD_gathered$sampling_site <- factor(data_CD_gathered$sampling_site, levels = c("NSHQ04", "WAB71", "CM2A", "NSHQ14"))
+data_CD_gathered_factored <- data_CD_gathered$sampling_site <- factor(data_CD_gathered$sampling_site, levels = c("NSHQ04", "WAB71", "CM2A", "NSHQ14"))
 
 # create plot
 CD_leg_fill_plot <-
@@ -537,6 +539,59 @@ leg_fill_plot <- plot_grid(leg_fill)
 # print plot
 leg_fill_plot
 ```
+
+# $c_{\Sigma\text{CO}_2}$ vs. $\delta^{13}\text{C}_{\text{CH}_4}$
+
+```{r prepare-DIC-and-d13CH4-data}
+# make data frame of CH4 d13C and dD data for all wells
+data_CD_DIC  <- data %>% select(sampling_site, year_sampled, depth_fluid_intake_mbct, water_type, CH4_d13C_permil_VPDB_LBNL, CH4_dD_permil_VSMOW_LBNL,
+CH4_d13C_permil_VPDB_CUB, CH4_dD_permil_VSMOW_CUB, CH4_d13C_permil_VPDB_MIT, CH4_dD_permil_VSMOW_MIT, CH4_d13C_permil_VPDB_UCLA, CH4_dD_permil_VSMOW_UCLA, site, DIC_uM, DIC_was_measured, DIC_unc_uM, DIC_LQ_uM)
+
+# compute means between analyses in multiple labs
+data_CD_DIC  <- data_CD_DIC %>%
+    rowwise() %>%
+    mutate(CH4_d13C_permil_VPDB_interlab_mean  = mean(c(CH4_d13C_permil_VPDB_LBNL, CH4_d13C_permil_VPDB_CUB, CH4_d13C_permil_VPDB_MIT, CH4_d13C_permil_VPDB_UCLA), na.rm = TRUE))
+
+data_CD_DIC <- data_CD_DIC %>%
+    rowwise() %>%
+    mutate(CH4_dD_permil_VSMOW_interlab_mean  = mean(c(CH4_dD_permil_VSMOW_LBNL, CH4_dD_permil_VSMOW_CUB, CH4_dD_permil_VSMOW_MIT, CH4_dD_permil_VSMOW_UCLA), na.rm = TRUE))
+
+# remove samples without C isotope data
+data_CD_DIC <- data_CD_DIC %>% filter(!is.nan(CH4_d13C_permil_VPDB_interlab_mean))
+
+data_CD_DIC <- data_CD_DIC %>% mutate(DIC_uM_LQ_sub = if_else(is.na(DIC_uM), 8, DIC_uM))
+
+data_CD_DIC <- data_CD_DIC %>% mutate(DIC_was_quantitated = if_else(is.na(DIC_uM), FALSE, TRUE))
+
+# print
+data_CD_DIC %>% select(sampling_site, year_sampled, CH4_d13C_permil_VPDB_interlab_mean, DIC_was_measured, DIC_uM, DIC_LQ_uM, DIC_uM_LQ_sub, DIC_was_quantitated)
+
+```
+
+
+```{r plot-DIC-and-d13CH4, fig.width = 6.5, fig.height = 3.5}
+# create plot
+DIC_d13C_CH4_plot <- data_CD_DIC %>% filter(!is.na(DIC_uM_LQ_sub)) %>% ggplot() +
+  
+  # plot data
+  aes(
+    x = DIC_uM_LQ_sub,
+    y = CH4_d13C_permil_VPDB_interlab_mean,
+    shape = sampling_site,
+    color = DIC_was_quantitated
+    ) +
+  # plot styling
+  geom_point(size = 2) +
+  scale_color_manual(name = latex2exp::TeX("$\\textit{c}_{\\Sigma CO_2}$ was quantitated"),values = color_TF) +
+  scale_shape_discrete(name = "sampling site") +
+  scale_y_continuous(name = latex2exp::TeX("$\\delta ^{13}C_{CH_4}$$\\,$/$\\,$$\\lbrack$‰ VPDB$\\rbrack$")) +
+  scale_x_continuous(name = latex2exp::TeX("$\\textit{c}_{\\Sigma CO_2}$ / $\\lbrack$µmol $\\cdot$ L$^{-1}$$\\rbrack$")) +
+  theme_classic(base_size = 12)
+
+# print plot
+DIC_d13C_CH4_plot
+```
+
 
 # C$_1$ / (C$_2$ + C$_3$) vs. $\delta^{13}\text{C}_{\text{CH}_4}$ ("Bernard") Plot
 ## Prepare data
@@ -1420,3 +1475,4 @@ leg_color_plot <- plot_grid(leg_color
 
 leg_color_plot
 ```
+

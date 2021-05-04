@@ -11,7 +11,7 @@
 
 <meta name="author" content="Daniel Nothaft" />
 
-<meta name="date" content="2021-04-24" />
+<meta name="date" content="2021-04-28" />
 
 <title>Thermodynamics of Methanogenesis in Samail Ophiolite</title>
 
@@ -2917,7 +2917,7 @@ div.tocify {
 <h1 class="title toc-ignore">Thermodynamics of Methanogenesis in Samail Ophiolite</h1>
 <h3 class="subtitle">Source file: thermo-calcs.Rmd</h3>
 <h4 class="author">Daniel Nothaft</h4>
-<h4 class="date">24 Apr 2021</h4>
+<h4 class="date">28 Apr 2021</h4>
 
 </div>
 
@@ -2996,18 +2996,14 @@ thermo_data</code></pre>
 <p>The reactions are:</p>
 <p>Hydrogenotrophic methanogenesis (HT) <span class="math inline">\(\text{CO}_2\text{(aq)}+4\text{H}_2\text{(aq)}=\text{CH}_4\text{(aq)}+\text{H}_2\text{O}\text{(l)}\)</span></p>
 <p>Acetoclastic methanogenesis (AC) <span class="math inline">\(\text{CH}_3\text{COO}^{-}+\text{H}^+=\text{CH}_4\text{(aq)}+\text{CO}_2\text{(aq)}\)</span></p>
-<p>Formatotrophic methanogenesis (FT) <span class="math inline">\(\text{HCOO}^{-}+\text{H}^++3\text{H}_2\text{(aq)}=\text{CH}_4\text{(aq)}+2\text{H}_2\text{O}\text{(l)}\)</span></p>
-<p>Formate disproportiation (FD) <span class="math inline">\(4\text{HCOO}^{-}+4\text{H}^+=\text{CH}_4\text{(aq)}+3\text{CO}_2\text{(aq)}+2\text{H}_2\text{O}\text{(l)}\)</span></p>
+<p>Formate disproportionation (FD) <span class="math inline">\(4\text{HCOO}^{-}+4\text{H}^+=\text{CH}_4\text{(aq)}+3\text{CO}_2\text{(aq)}+2\text{H}_2\text{O}\text{(l)}\)</span></p>
 <pre class="r"><code># Hydrogenotrophic methanogenesis (HT)
 dG_r_standard_HT_kJ_per_mol &lt;- -192.445
 
 # Acetoclastic methanogenesis (AC)
 dG_r_standard_AC_kJ_per_mol &lt;- -52.374
 
-# Formatotrophic methanogenesis (FT)
-dG_r_standard_FT_kJ_per_mol &lt;- -210.741
-
-# Formate disproportiation (FD)
+# Formate disproportionation (FD)
 dG_r_standard_FD_kJ_per_mol &lt;- -265.629</code></pre>
 <p>Calculate <span class="math inline">\(\Delta G_r\)</span></p>
 <p><span class="math inline">\(\Delta G_r=\Delta G_r^\circ+RT\ln Q_r\)</span></p>
@@ -3019,35 +3015,31 @@ thermo_data &lt;- thermo_data %&gt;% mutate(dG_r_HT_kJ_per_mol = (dG_r_standard_
 
 # Acetoclastic methanogenesis (AC)
 thermo_data &lt;- thermo_data %&gt;% mutate(dG_r_AC_kJ_per_mol = (dG_r_standard_AC_kJ_per_mol * 1e3 + R * Temp * log(a_CH4_aq * a_CO2_aq * a_formate^(1) * a_proton^(-1)))*1e-3)
-
-# Formatotrophic methanogenesis (FT)
-thermo_data &lt;- thermo_data %&gt;% mutate(dG_r_FT_kJ_per_mol = (dG_r_standard_FT_kJ_per_mol * 1e3 + R * Temp * log(a_CH4_aq * a_formate^{-1} * a_H2_aq^{-3} * a_proton^{-1}))*1e-3)
  
-# Formate disproportiation (FD)
+# Formate disproportionation (FD)
 thermo_data &lt;- thermo_data %&gt;% mutate(dG_r_FD_kJ_per_mol = (dG_r_standard_FD_kJ_per_mol * 1e3 + R * Temp * log(a_CH4_aq * a_CO2_aq^(3) * a_formate^{-4} * a_proton^{-4}))*1e-3)
 
 thermo_data</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["a_proton"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["a_CO2_aq"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["a_formate"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["a_acetate"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["a_CH4_aq"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["a_H2_aq"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["dG_r_HT_kJ_per_mol"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["dG_r_AC_kJ_per_mol"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["dG_r_FT_kJ_per_mol"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["dG_r_FD_kJ_per_mol"],"name":[10],"type":["dbl"],"align":["right"]}],"data":[{"1":"8.511e-12","2":"2.637e-12","3":"8.457664e-07","4":"8.457664e-07","5":"1e-04","6":"1e-09","7":"64.646790","8":"-114.7998","9":"26.079543","10":"-89.62220"},{"1":"8.511e-12","2":"2.637e-12","3":"8.457664e-07","4":"8.457664e-07","5":"1e-04","6":"1e-06","7":"-6.146695","8":"-114.7998","9":"-27.015571","10":"-89.62220"},{"1":"8.511e-12","2":"2.637e-12","3":"8.457664e-07","4":"8.457664e-07","5":"1e-04","6":"1e-03","7":"-76.940180","8":"-114.7998","9":"-80.110685","10":"-89.62220"},{"1":"2.188e-09","2":"1.266e-05","3":"9.082572e-07","4":"9.082572e-07","5":"1e-07","6":"1e-09","7":"7.532237","8":"-107.1175","9":"-6.019552","10":"-46.67492"},{"1":"2.188e-09","2":"1.266e-05","3":"9.082572e-07","4":"9.082572e-07","5":"1e-07","6":"1e-06","7":"-63.261248","8":"-107.1175","9":"-59.114665","10":"-46.67492"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["a_proton"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["a_CO2_aq"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["a_formate"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["a_acetate"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["a_CH4_aq"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["a_H2_aq"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["dG_r_HT_kJ_per_mol"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["dG_r_AC_kJ_per_mol"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["dG_r_FD_kJ_per_mol"],"name":[9],"type":["dbl"],"align":["right"]}],"data":[{"1":"8.511e-12","2":"2.637e-12","3":"8.457664e-07","4":"8.457664e-07","5":"1e-04","6":"1e-09","7":"64.646790","8":"-114.7998","9":"-89.62220"},{"1":"8.511e-12","2":"2.637e-12","3":"8.457664e-07","4":"8.457664e-07","5":"1e-04","6":"1e-06","7":"-6.146695","8":"-114.7998","9":"-89.62220"},{"1":"8.511e-12","2":"2.637e-12","3":"8.457664e-07","4":"8.457664e-07","5":"1e-04","6":"1e-03","7":"-76.940180","8":"-114.7998","9":"-89.62220"},{"1":"2.188e-09","2":"1.266e-05","3":"9.082572e-07","4":"9.082572e-07","5":"1e-07","6":"1e-09","7":"7.532237","8":"-107.1175","9":"-46.67492"},{"1":"2.188e-09","2":"1.266e-05","3":"9.082572e-07","4":"9.082572e-07","5":"1e-07","6":"1e-06","7":"-63.261248","8":"-107.1175","9":"-46.67492"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <p>print activities in log form</p>
 <pre class="r"><code>thermo_data %&gt;% mutate(log_a_proton = log10(a_proton), log_a_CO2_aq = log10(a_CO2_aq), log_a_formate = log10(a_formate), log_a_acetate = log10(a_acetate), log_a_CH4_aq = log10(a_CH4_aq), log_a_H2_aq = log10(a_H2_aq)) %&gt;% 
-  select(log_a_proton, log_a_CO2_aq, log_a_formate, log_a_acetate, log_a_CH4_aq, log_a_H2_aq, dG_r_HT_kJ_per_mol, dG_r_AC_kJ_per_mol, dG_r_FT_kJ_per_mol, dG_r_FD_kJ_per_mol) %&gt;% 
+  select(log_a_proton, log_a_CO2_aq, log_a_formate, log_a_acetate, log_a_CH4_aq, log_a_H2_aq, dG_r_HT_kJ_per_mol, dG_r_AC_kJ_per_mol, dG_r_FD_kJ_per_mol) %&gt;% 
   kable(digits = 1)</code></pre>
 <table style="width:100%;">
 <colgroup>
-<col width="8%" />
-<col width="8%" />
 <col width="9%" />
 <col width="9%" />
+<col width="10%" />
+<col width="10%" />
+<col width="9%" />
 <col width="8%" />
-<col width="7%" />
-<col width="12%" />
-<col width="12%" />
-<col width="12%" />
-<col width="12%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -3059,7 +3051,6 @@ thermo_data</code></pre>
 <th align="right">log_a_H2_aq</th>
 <th align="right">dG_r_HT_kJ_per_mol</th>
 <th align="right">dG_r_AC_kJ_per_mol</th>
-<th align="right">dG_r_FT_kJ_per_mol</th>
 <th align="right">dG_r_FD_kJ_per_mol</th>
 </tr>
 </thead>
@@ -3073,7 +3064,6 @@ thermo_data</code></pre>
 <td align="right">-9</td>
 <td align="right">64.6</td>
 <td align="right">-114.8</td>
-<td align="right">26.1</td>
 <td align="right">-89.6</td>
 </tr>
 <tr class="even">
@@ -3085,7 +3075,6 @@ thermo_data</code></pre>
 <td align="right">-6</td>
 <td align="right">-6.1</td>
 <td align="right">-114.8</td>
-<td align="right">-27.0</td>
 <td align="right">-89.6</td>
 </tr>
 <tr class="odd">
@@ -3097,7 +3086,6 @@ thermo_data</code></pre>
 <td align="right">-3</td>
 <td align="right">-76.9</td>
 <td align="right">-114.8</td>
-<td align="right">-80.1</td>
 <td align="right">-89.6</td>
 </tr>
 <tr class="even">
@@ -3109,7 +3097,6 @@ thermo_data</code></pre>
 <td align="right">-9</td>
 <td align="right">7.5</td>
 <td align="right">-107.1</td>
-<td align="right">-6.0</td>
 <td align="right">-46.7</td>
 </tr>
 <tr class="odd">
@@ -3121,7 +3108,6 @@ thermo_data</code></pre>
 <td align="right">-6</td>
 <td align="right">-63.3</td>
 <td align="right">-107.1</td>
-<td align="right">-59.1</td>
 <td align="right">-46.7</td>
 </tr>
 </tbody>

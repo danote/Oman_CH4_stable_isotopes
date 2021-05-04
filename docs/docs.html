@@ -1603,7 +1603,7 @@ div.tocify {
 rmd_files &lt;- tibble(
   type = &quot;RMarkdown&quot;, 
   target_folder = rmd_docs_folder,
-  source_file = &quot;thermo-calcs.Rmd&quot;
+  source_file = &quot;200228_DBN_Oman_CH4_paper_figs.Rmd&quot;
     # list.files(
     # path = &quot;.&quot;, 
     # pattern = sprintf(&quot;(%s)$&quot;, paste(rmd_ext, collapse = &quot;|&quot;)))
@@ -1668,14 +1668,14 @@ docs_files &lt;-
 docs_files %&gt;% select(-target_folder) %&gt;% knitr::kable()</code></pre>
 <table>
 <colgroup>
-<col width="5%" />
-<col width="10%" />
-<col width="19%" />
-<col width="19%" />
-<col width="19%" />
-<col width="14%" />
-<col width="5%" />
-<col width="5%" />
+<col width="4%" />
+<col width="16%" />
+<col width="23%" />
+<col width="15%" />
+<col width="24%" />
+<col width="6%" />
+<col width="4%" />
+<col width="4%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1692,11 +1692,11 @@ docs_files %&gt;% select(-target_folder) %&gt;% knitr::kable()</code></pre>
 <tbody>
 <tr class="odd">
 <td align="left">RMarkdown</td>
-<td align="left">thermo-calcs.Rmd</td>
-<td align="left">docs/rmarkdown/thermo-calcs.Rmd</td>
-<td align="left">44cee581bb6b911534ced3d2b8490075</td>
-<td align="left">docs/rmarkdown/thermo-calcs.html</td>
-<td align="left">2021-04-23 16:30:09 EDT</td>
+<td align="left">200228_DBN_Oman_CH4_paper_figs.Rmd</td>
+<td align="left">docs/rmarkdown/200228_DBN_Oman_CH4_paper_figs.Rmd</td>
+<td align="left">a2b565c2d146e4d7492d9579b888f9e4</td>
+<td align="left">docs/rmarkdown/200228_DBN_Oman_CH4_paper_figs.html</td>
+<td align="left">NA</td>
 <td align="left">NA</td>
 <td align="left">TRUE</td>
 </tr>
@@ -1787,25 +1787,25 @@ rendered_doc_files &lt;- docs_files %&gt;%
     render_file
   ))</code></pre>
 <h1>
-thermo-calcs.Rmd (OK)
+200228_DBN_Oman_CH4_paper_figs.Rmd (OK)
 </h1>
 <pre><code>
 
-processing file: thermo-calcs.Rmd
+processing file: 200228_DBN_Oman_CH4_paper_figs.Rmd
 
   |                                                                            
   |                                                                      |   0%
   |                                                                            
-  |.....                                                                 |   7%
+  |.                                                                     |   1%
    inline R code fragments
 
 
   |                                                                            
-  |.........                                                             |  13%
+  |.                                                                     |   2%
 label: setup (with options) 
 List of 2
- $ warning: logi FALSE
  $ message: logi FALSE
+ $ warning: logi FALSE
 
 ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──
 ✓ ggplot2 3.3.2     ✓ purrr   0.3.4
@@ -1816,35 +1816,351 @@ List of 2
 x dplyr::filter() masks stats::filter()
 x dplyr::lag()    masks stats::lag()
 
+Attaching package: &#39;plotly&#39;
+
+The following object is masked from &#39;package:ggplot2&#39;:
+
+    last_plot
+
+The following object is masked from &#39;package:stats&#39;:
+
+    filter
+
+The following object is masked from &#39;package:graphics&#39;:
+
+    layout
+
+
+Attaching package: &#39;scales&#39;
+
+The following object is masked from &#39;package:purrr&#39;:
+
+    discard
+
+The following object is masked from &#39;package:readr&#39;:
+
+    col_factor
+
+
+********************************************************
+Note: As of version 1.0.0, cowplot does not change the
+  default ggplot2 theme anymore. To recover the previous
+  behavior, execute:
+  theme_set(theme_cowplot())
+********************************************************
+
+
+  |                                                                            
+  |..                                                                    |   3%
+  ordinary text without R code
+
+
+label: load-Oman-well-data
+
+  |                                                                            
+  |...                                                                   |   4%
+  ordinary text without R code
+
+
+  |                                                                            
+  |....                                                                  |   5%
+label: load-lit-data
+
+  |                                                                            
+  |....                                                                  |   6%
+  ordinary text without R code
+
+
+  |                                                                            
+  |.....                                                                 |   7%
+label: set-plot-aesthetics
+
+  |                                                                            
+  |.....                                                                 |   8%
+  ordinary text without R code
+
+
+  |                                                                            
+  |......                                                                |   9%
+label: get-water-isotopes
+
+  |                                                                            
+  |.......                                                               |  10%
+  ordinary text without R code
+
+
+label: summ-water-isotopes-well-year
+
+  |                                                                            
+  |........                                                              |  11%
+  ordinary text without R code
+
+
+  |                                                                            
+  |.........                                                             |  12%
+label: summ-water-isotopes-well
+
+  |                                                                            
+  |.........                                                             |  13%
+  ordinary text without R code
+
+
+  |                                                                            
+  |..........                                                            |  14%
+label: summ-water-isotopes
+
+  |                                                                            
+  |..........                                                            |  15%
+  ordinary text without R code
+
+
+  |                                                                            
+  |...........                                                           |  16%
+label: MWL-plot (with options) 
+List of 3
+ $ fig.width : num 5.8
+ $ fig.height: num 4.5
+ $ warning   : logi FALSE
+
+
+  |                                                                            
+  |............                                                          |  17%
+  ordinary text without R code
+
+
+label: summ-CD
+
+  |                                                                            
+  |.............                                                         |  18%
+  ordinary text without R code
+
+
+  |                                                                            
+  |.............                                                         |  19%
+label: summ-WAB188
+
   |                                                                            
   |..............                                                        |  20%
-   inline R code fragments
+  ordinary text without R code
 
+
+  |                                                                            
+  |...............                                                       |  21%
+label: summ-WAB188-CH4-d13C
+
+  |                                                                            
+  |...............                                                       |  22%
+  ordinary text without R code
+
+
+  |                                                                            
+  |................                                                      |  23%
+label: summ-WAB188-DIC-all-years
+
+  ordinary text without R code
+
+
+  |                                                                            
+  |.................                                                     |  24%
+label: summ-WAB188-DIC
+
+  |                                                                            
+  |..................                                                    |  25%
+  ordinary text without R code
+
+
+  |                                                                            
+  |..................                                                    |  26%
+label: summ-WAB71-d13C-CH4-all-years
 
   |                                                                            
   |...................                                                   |  27%
-label: pe (with options) 
-List of 1
- $ message: logi FALSE
+  ordinary text without R code
+
+
+  |                                                                            
+  |...................                                                   |  28%
+label: summ-WAB71-d13C-CH4
+
+  |                                                                            
+  |....................                                                  |  29%
+  ordinary text without R code
+
+
+  |                                                                            
+  |.....................                                                 |  30%
+label: summ-CM2A-d13C-CH4-all-labs
+
+  ordinary text without R code
+
+
+  |                                                                            
+  |......................                                                |  31%
+label: summ-CM2A-d13C
+
+  |                                                                            
+  |.......................                                               |  32%
+  ordinary text without R code
 
 
   |                                                                            
   |.......................                                               |  33%
+label: summ-CD-all-wells-interlab
+
+  |                                                                            
+  |........................                                              |  34%
+  ordinary text without R code
+
+
+  |                                                                            
+  |........................                                              |  35%
+label: summ-CD-all-wells-interannual
+
+  |                                                                            
+  |.........................                                             |  36%
+  ordinary text without R code
+
+
+  |                                                                            
+  |..........................                                            |  37%
+label: get-CH4-H2-conc-data
+
+  ordinary text without R code
+
+
+  |                                                                            
+  |...........................                                           |  38%
+label: process-CH4-H2-conc-data
+
+  |                                                                            
+  |...........................                                           |  39%
   ordinary text without R code
 
 
   |                                                                            
   |............................                                          |  40%
-label: load-thermo-data
+label: H2-CH4-plot (with options) 
+List of 2
+ $ fig.width : num 3.54
+ $ fig.height: num 4.5
+
 
   |                                                                            
-  |.................................                                     |  47%
+  |.............................                                         |  41%
   ordinary text without R code
 
 
   |                                                                            
+  |.............................                                         |  42%
+label: get_CD_data
+
+  |                                                                            
+  |..............................                                        |  43%
+  ordinary text without R code
+
+
+label: CD-plot (with options) 
+List of 3
+ $ fig.width : num 3.5
+ $ fig.height: num 2.7
+ $ warning   : logi FALSE
+
+
+  |                                                                            
+  |...............................                                       |  44%
+  ordinary text without R code
+
+
+  |                                                                            
+  |................................                                      |  45%
+label: extract-fill-legend (with options) 
+List of 2
+ $ fig.width : num 3.5
+ $ fig.height: num 2.35
+
+
+  |                                                                            
+  |................................                                      |  46%
+  ordinary text without R code
+
+
+  |                                                                            
+  |.................................                                     |  47%
+label: leg-fill-plot (with options) 
+List of 4
+ $ fig.width : num 1.2
+ $ fig.height: num 1.2
+ $ warning   : logi FALSE
+ $ message   : logi FALSE
+
+
+  |                                                                            
+  |.................................                                     |  48%
+  ordinary text without R code
+
+
+  |                                                                            
+  |..................................                                    |  49%
+label: prepare-DIC-and-d13CH4-data
+
+  |                                                                            
+  |...................................                                   |  50%
+  ordinary text without R code
+
+
+label: plot-DIC-and-d13CH4 (with options) 
+List of 2
+ $ fig.width : num 6.5
+ $ fig.height: num 3.5
+
+
+  |                                                                            
+  |....................................                                  |  51%
+  ordinary text without R code
+
+
+  |                                                                            
+  |.....................................                                 |  52%
+label: get-Oman-C1-C1-C3-data
+
+  |                                                                            
   |.....................................                                 |  53%
-label: calc-activities
+  ordinary text without R code
+
+
+  |                                                                            
+  |......................................                                |  54%
+label: get-lit-C1-C1-C3-data
+
+  |                                                                            
+  |......................................                                |  55%
+  ordinary text without R code
+
+
+  |                                                                            
+  |.......................................                               |  56%
+label: C1_C2_C3_plot (with options) 
+List of 3
+ $ fig.width : num 3.4
+ $ fig.height: num 3.4
+ $ warning   : logi FALSE
+
+
+  |                                                                            
+  |........................................                              |  57%
+  ordinary text without R code
+
+
+label: get-Oman-clumps-data
+
+  |                                                                            
+  |.........................................                             |  58%
+  ordinary text without R code
+
+
+  |                                                                            
+  |.........................................                             |  59%
+label: add-dD-H2O-data-to-clumps
 
   |                                                                            
   |..........................................                            |  60%
@@ -1852,37 +2168,253 @@ label: calc-activities
 
 
   |                                                                            
+  |...........................................                           |  61%
+label: calc-eps-methane-water
+
+  |                                                                            
+  |...........................................                           |  62%
+  ordinary text without R code
+
+
+  |                                                                            
+  |............................................                          |  63%
+label: make-cap13CH3D-one-column
+
+  ordinary text without R code
+
+
+  |                                                                            
+  |.............................................                         |  64%
+label: summ-cap13CH3D-well-year
+
+  |                                                                            
+  |..............................................                        |  65%
+  ordinary text without R code
+
+
+  |                                                                            
+  |..............................................                        |  66%
+label: summ-cap13CH3D-well
+
+  |                                                                            
   |...............................................                       |  67%
-label: standard_Gs
+  ordinary text without R code
+
+
+  |                                                                            
+  |...............................................                       |  68%
+label: generate-eq-curve-cap13CH3D-CH4-H2O
+
+  |                                                                            
+  |................................................                      |  69%
+  ordinary text without R code
+
+
+  |                                                                            
+  |.................................................                     |  70%
+label: get-lit-cap13CH3D-data
+
+  ordinary text without R code
+
+
+  |                                                                            
+  |..................................................                    |  71%
+label: calc-lit-eps-CH4-H2O
+
+  |                                                                            
+  |...................................................                   |  72%
+  ordinary text without R code
+
 
   |                                                                            
   |...................................................                   |  73%
+label: eps-CH4-H2O-cap13CH3D-plot (with options) 
+List of 4
+ $ fig.width : num 3.5
+ $ fig.height: num 3.1
+ $ message   : logi FALSE
+ $ warning   : logi FALSE
+
+`geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;
+
+  |                                                                            
+  |....................................................                  |  74%
+  ordinary text without R code
+
+
+  |                                                                            
+  |....................................................                  |  75%
+label: cap13CH3D-eps-CH4-H2O-plot (with options) 
+List of 4
+ $ fig.width : num 4.7
+ $ fig.height: num 3.5
+ $ warning   : logi FALSE
+ $ message   : logi FALSE
+
+`geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;
+
+  |                                                                            
+  |.....................................................                 |  76%
+  ordinary text without R code
+
+
+  |                                                                            
+  |......................................................                |  77%
+label: get-cap12CH2D2-data
+
+  ordinary text without R code
+
+
+  |                                                                            
+  |.......................................................               |  78%
+label: set-up-shape-legend
+
+  |                                                                            
+  |.......................................................               |  79%
   ordinary text without R code
 
 
   |                                                                            
   |........................................................              |  80%
-label: Delta_Gs
+label: eq-curves-cap13CH3D-cap12CH2D2
 
   |                                                                            
-  |.............................................................         |  87%
+  |.........................................................             |  81%
   ordinary text without R code
 
 
   |                                                                            
+  |.........................................................             |  82%
+label: cap12CH2D2-cap13CH3D-plot (with options) 
+List of 4
+ $ fig.width : num 3.47
+ $ fig.height: num 3.33
+ $ warning   : logi FALSE
+ $ message   : logi FALSE
+
+`geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;
+
+  |                                                                            
+  |..........................................................            |  83%
+  ordinary text without R code
+
+
+label: cap12CH2D2-cap13CH3D-plot-leg (with options) 
+List of 3
+ $ fig.width : num 7
+ $ fig.height: num 3
+ $ warning   : logi FALSE
+
+
+  |                                                                            
+  |...........................................................           |  84%
+  ordinary text without R code
+
+
+  |                                                                            
+  |............................................................          |  85%
+label: leg-shape-plot (with options) 
+List of 4
+ $ fig.width : num 2.5
+ $ fig.height: num 1.8
+ $ warning   : logi FALSE
+ $ message   : logi FALSE
+
+
+  |                                                                            
+  |............................................................          |  86%
+  ordinary text without R code
+
+
+  |                                                                            
+  |.............................................................         |  87%
+label: get-alkane-d13C-data
+
+  |                                                                            
+  |.............................................................         |  88%
+  ordinary text without R code
+
+
+  |                                                                            
+  |..............................................................        |  89%
+label: gather-alkane-d13C-data
+
+  |                                                                            
+  |...............................................................       |  90%
+  ordinary text without R code
+
+
+label: mutate-alkane-d13C-data-site
+
+  |                                                                            
+  |................................................................      |  91%
+  ordinary text without R code
+
+
+  |                                                                            
+  |.................................................................     |  92%
+label: get-alkane-d13C-lit-data
+
+  |                                                                            
   |.................................................................     |  93%
-label: log-activities-table
+  ordinary text without R code
+
+
+  |                                                                            
+  |..................................................................    |  94%
+label: gather-alkane-d13C-data-lit
+
+  |                                                                            
+  |..................................................................    |  95%
+  ordinary text without R code
+
+
+  |                                                                            
+  |...................................................................   |  96%
+label: alkanes-d13C-oman-wells-and-lit-plot (with options) 
+List of 3
+ $ fig.height: num 6
+ $ fig.width : num 3.54
+ $ warning   : logi FALSE
+
+
+  |                                                                            
+  |....................................................................  |  97%
+  ordinary text without R code
+
+
+label: alkanes-d13C-oman-wells-and-lit-plot-leg (with options) 
+List of 2
+ $ fig.width : num 3.54
+ $ fig.height: num 6
+
+
+  |                                                                            
+  |..................................................................... |  98%
+  ordinary text without R code
+
+
+  |                                                                            
+  |..................................................................... |  99%
+label: leg_color-plot (with options) 
+List of 4
+ $ fig.width : num 1.5
+ $ fig.height: num 0.7
+ $ warning   : logi FALSE
+ $ message   : logi FALSE
+
 
   |                                                                            
   |......................................................................| 100%
   ordinary text without R code
 
 
-output file: thermo-calcs.knit.md
+output file: 200228_DBN_Oman_CH4_paper_figs.knit.md
 
-/usr/local/bin/pandoc +RTS -K512m -RTS thermo-calcs.utf8.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output docs/rmarkdown/thermo-calcs.html --email-obfuscation none --self-contained --standalone --section-divs --table-of-contents --toc-depth 3 --variable toc_float=1 --variable toc_selectors=h1,h2,h3 --variable toc_collapsed=1 --variable toc_smooth_scroll=1 --variable toc_print=1 --template /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --number-sections --css stylesheet.css --variable &#39;theme:bootstrap&#39; --include-in-header /var/folders/pw/9fk_chms0jl85nfldy5rgfyc0000gn/T//RtmpQ6vAvj/rmarkdown-str15165e50d41a.html --mathjax --variable &#39;mathjax-url:https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&#39; --lua-filter /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmd/lua/pagebreak.lua --lua-filter /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmd/lua/latex-div.lua --variable code_folding=show --variable code_menu=1 
+/usr/local/bin/pandoc +RTS -K512m -RTS 200228_DBN_Oman_CH4_paper_figs.utf8.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output docs/rmarkdown/200228_DBN_Oman_CH4_paper_figs.html --email-obfuscation none --self-contained --standalone --section-divs --table-of-contents --toc-depth 3 --variable toc_float=1 --variable toc_selectors=h1,h2,h3 --variable toc_collapsed=1 --variable toc_smooth_scroll=1 --variable toc_print=1 --template /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --number-sections --css stylesheet.css --variable &#39;theme:bootstrap&#39; --include-in-header /var/folders/pw/9fk_chms0jl85nfldy5rgfyc0000gn/T//RtmpTrcPFz/rmarkdown-str4a50653f23cb.html --mathjax --variable &#39;mathjax-url:https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&#39; --lua-filter /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmd/lua/pagebreak.lua --lua-filter /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmd/lua/latex-div.lua --variable code_folding=show --variable code_menu=1 
 
-Output created: docs/rmarkdown/thermo-calcs.html</code></pre>
+Output created: docs/rmarkdown/200228_DBN_Oman_CH4_paper_figs.html
+There were 50 or more warnings (use warnings() to see the first 50)</code></pre>
 </div>
 <div id="summary" class="section level1">
 <h1>summary</h1>
@@ -1901,15 +2433,15 @@ write_csv(select(summary, -generate, -success), path = hash_file)
 summary %&gt;% knitr::kable()</code></pre>
 <table style="width:100%;">
 <colgroup>
-<col width="5%" />
-<col width="9%" />
-<col width="18%" />
-<col width="18%" />
-<col width="18%" />
-<col width="13%" />
-<col width="5%" />
-<col width="5%" />
 <col width="4%" />
+<col width="15%" />
+<col width="21%" />
+<col width="14%" />
+<col width="22%" />
+<col width="10%" />
+<col width="4%" />
+<col width="3%" />
+<col width="3%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1927,11 +2459,11 @@ summary %&gt;% knitr::kable()</code></pre>
 <tbody>
 <tr class="odd">
 <td align="left">RMarkdown</td>
-<td align="left">thermo-calcs.Rmd</td>
-<td align="left">docs/rmarkdown/thermo-calcs.Rmd</td>
-<td align="left">44cee581bb6b911534ced3d2b8490075</td>
-<td align="left">docs/rmarkdown/thermo-calcs.html</td>
-<td align="left">2021-04-24 22:39:24 EDT</td>
+<td align="left">200228_DBN_Oman_CH4_paper_figs.Rmd</td>
+<td align="left">docs/rmarkdown/200228_DBN_Oman_CH4_paper_figs.Rmd</td>
+<td align="left">a2b565c2d146e4d7492d9579b888f9e4</td>
+<td align="left">docs/rmarkdown/200228_DBN_Oman_CH4_paper_figs.html</td>
+<td align="left">2021-04-29 10:48:21 EDT</td>
 <td align="left">NA</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>

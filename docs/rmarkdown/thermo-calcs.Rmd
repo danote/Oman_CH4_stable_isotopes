@@ -102,10 +102,7 @@ $\text{CO}_2\text{(aq)}+4\text{H}_2\text{(aq)}=\text{CH}_4\text{(aq)}+\text{H}_2
 Acetoclastic methanogenesis (AC)
 $\text{CH}_3\text{COO}^{-}+\text{H}^+=\text{CH}_4\text{(aq)}+\text{CO}_2\text{(aq)}$
 
-Formatotrophic methanogenesis (FT)
-$\text{HCOO}^{-}+\text{H}^++3\text{H}_2\text{(aq)}=\text{CH}_4\text{(aq)}+2\text{H}_2\text{O}\text{(l)}$
-
-Formate disproportiation (FD)
+Formate disproportionation (FD)
 $4\text{HCOO}^{-}+4\text{H}^+=\text{CH}_4\text{(aq)}+3\text{CO}_2\text{(aq)}+2\text{H}_2\text{O}\text{(l)}$
 
 ```{r standard_Gs}
@@ -115,10 +112,7 @@ dG_r_standard_HT_kJ_per_mol <- -192.445
 # Acetoclastic methanogenesis (AC)
 dG_r_standard_AC_kJ_per_mol <- -52.374
 
-# Formatotrophic methanogenesis (FT)
-dG_r_standard_FT_kJ_per_mol <- -210.741
-
-# Formate disproportiation (FD)
+# Formate disproportionation (FD)
 dG_r_standard_FD_kJ_per_mol <- -265.629
 ```
 
@@ -134,11 +128,8 @@ thermo_data <- thermo_data %>% mutate(dG_r_HT_kJ_per_mol = (dG_r_standard_HT_kJ_
 
 # Acetoclastic methanogenesis (AC)
 thermo_data <- thermo_data %>% mutate(dG_r_AC_kJ_per_mol = (dG_r_standard_AC_kJ_per_mol * 1e3 + R * Temp * log(a_CH4_aq * a_CO2_aq * a_formate^(1) * a_proton^(-1)))*1e-3)
-
-# Formatotrophic methanogenesis (FT)
-thermo_data <- thermo_data %>% mutate(dG_r_FT_kJ_per_mol = (dG_r_standard_FT_kJ_per_mol * 1e3 + R * Temp * log(a_CH4_aq * a_formate^{-1} * a_H2_aq^{-3} * a_proton^{-1}))*1e-3)
  
-# Formate disproportiation (FD)
+# Formate disproportionation (FD)
 thermo_data <- thermo_data %>% mutate(dG_r_FD_kJ_per_mol = (dG_r_standard_FD_kJ_per_mol * 1e3 + R * Temp * log(a_CH4_aq * a_CO2_aq^(3) * a_formate^{-4} * a_proton^{-4}))*1e-3)
 
 thermo_data
@@ -146,7 +137,7 @@ thermo_data
 print activities in log form
 ```{r log-activities-table}
 thermo_data %>% mutate(log_a_proton = log10(a_proton), log_a_CO2_aq = log10(a_CO2_aq), log_a_formate = log10(a_formate), log_a_acetate = log10(a_acetate), log_a_CH4_aq = log10(a_CH4_aq), log_a_H2_aq = log10(a_H2_aq)) %>% 
-  select(log_a_proton, log_a_CO2_aq, log_a_formate, log_a_acetate, log_a_CH4_aq, log_a_H2_aq, dG_r_HT_kJ_per_mol, dG_r_AC_kJ_per_mol, dG_r_FT_kJ_per_mol, dG_r_FD_kJ_per_mol) %>% 
+  select(log_a_proton, log_a_CO2_aq, log_a_formate, log_a_acetate, log_a_CH4_aq, log_a_H2_aq, dG_r_HT_kJ_per_mol, dG_r_AC_kJ_per_mol, dG_r_FD_kJ_per_mol) %>% 
   kable(digits = 1)
 ```
 

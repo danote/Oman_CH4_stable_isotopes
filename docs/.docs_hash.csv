@@ -1,2 +1,2 @@
 type,source_file,source_copy,source_file_hash,doc_file,last_success,last_fail
-RMarkdown,thermo-calcs.Rmd,docs/rmarkdown/thermo-calcs.Rmd,44cee581bb6b911534ced3d2b8490075,docs/rmarkdown/thermo-calcs.html,2021-04-24 22:39:24 EDT,NA
+RMarkdown,200228_DBN_Oman_CH4_paper_figs.Rmd,docs/rmarkdown/200228_DBN_Oman_CH4_paper_figs.Rmd,a2b565c2d146e4d7492d9579b888f9e4,docs/rmarkdown/200228_DBN_Oman_CH4_paper_figs.html,2021-04-29 10:48:21 EDT,NA
