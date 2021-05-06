@@ -43,8 +43,9 @@ hash_file <- file.path(docs_folder, ".docs_hash.csv")
 rmd_files <- tibble(
   type = "RMarkdown", 
   target_folder = rmd_docs_folder,
-  source_file = list.files(
-    path = ".", 
+  source_file = 
+    list.files(
+    path = ".",
     pattern = sprintf("(%s)$", paste(rmd_ext, collapse = "|")))
 )
 nb_files <- tibble(

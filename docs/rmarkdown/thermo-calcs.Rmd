@@ -1,0 +1,146 @@
+---
+---
+---
+title: "Thermodynamics of Methanogenesis in Samail Ophiolite"
+subtitle: "Source file: thermo-calcs.Rmd"
+author: "Daniel Nothaft"
+date: "`r format(Sys.Date(), '%d %b %Y')`"
+output:
+  html_document: 
+    df_print: paged # omit to disable paged data table output
+    css: stylesheet.css # omit if no need for custom stylesheet
+    number_sections: yes # change to no for unnumbered sections
+    toc: yes # change to no to disable table of contents
+    toc_float: true # change to false to keep toc at the top
+    toc_depth: 3 # change to specify which headings to include in toc
+    code_folding: show # change to hide to hide code by default
+editor_options:
+  chunk_output_type: inline
+---
+
+# Load libraries
+
+```{r setup, warning=FALSE, message=FALSE}
+# load libraries
+library(tidyverse) # dplyr, tidyr, ggplot
+library(knitr) # generating reports
+library(readxl) # load excel files into r
+
+# source all relevant scripting files
+source(file.path("scripts", "plotting_functions.R"))
+
+# global knitting options for automatic saving of all plots as .png and .pdf
+knitr::opts_chunk$set(
+  dev = c("png", "pdf"), fig.keep = "all",
+  dev.args = list(pdf = list(encoding = "WinAnsi", useDingbats = FALSE)),
+  fig.path = file.path("fig_output/", paste0(gsub("\\.[Rr]md", "/", knitr::current_input()))),
+  cache.path = file.path("cache/", paste0(gsub("\\.[Rr]md", "/", knitr::current_input())))
+)
+```
+
+Data processed using the packages [isoreader](http://isoreader.kopflab.org) version `r packageVersion("isoreader")` and [isoprocessor](http://isoprocessor.kopflab.org/) version `r packageVersion("isoprocessor")`.
+
+# Setting up data for speciation
+## Eh to pe calculator
+```{r pe, message=FALSE}
+Eh_Ca_OH <- -0.290 # V corresponds to measured Eh of well NSHQ14 in 2019
+T_C <- 35 # an approximate average temperature of Samail Ophiolite groundwaters
+T_K <- T_C + 273.15 # convert T to Kelvin
+(pe_Ca_OH <- 5040 * Eh_Ca_OH / T_K) # calculate pe from Eh (e.g. Anderson, 2005 "Thermodynamics of natural systems")
+
+Eh_Mg_HCO3 <- 0.162 # V corresponds to measured Eh of well WAB105 in 2018
+(pe_Mg_HCO3 <- 5040 * Eh_Mg_HCO3 / T_K) # calculate pe from Eh (e.g. Anderson, 2005 "Thermodynamics of natural systems")
+```
+
+# Calculating $\Delta G_r$
+## Load data
+```{r load-thermo-data}
+(thermo_data <- read_excel("data_raw/Summary_metadata/thermo_data.xlsx"))
+```
+## Calculate activities
+
+For electrolytes, use Debye-Hückel equation
+$\log \gamma_{i}=-0.5z_{i}^{2}\sqrt{I}$
+
+where
+$\gamma_{i}$ is activity coefficient of solute $i$
+$z_{i}$ is charge of solute $i$
+$I$ is ionic strength of solution
+
+activity is product of concentration and activity coefficient:
+$a_i=\gamma_{i}c_{i}$
+
+(Graham and Farmer, 2007, Principles of environmental chemistry, CH. 3, Chemistry of freshwaters)
+
+For neutrals, activity is assumed equivalent to concentrations, which should be a reasonable approximation given the relative low ionic strengths of the solutions of interest here.
+```{r calc-activities}
+#calculate activity coefficient
+thermo_data <- thermo_data %>% mutate(gamma_formate = 10^(-.5 * ion_strength_mol_per_kgw^(1/2)), gamma_acetate = 10^(-.5 * ion_strength_mol_per_kgw^(1/2)))
+# calculate activities
+thermo_data <- thermo_data %>% mutate(a_formate = gamma_formate * c_formate_molal, a_acetate = gamma_acetate * c_acetate_molal, a_CH4_aq = c_CH4_aq_molal, a_H2_aq = c_H2_aq_molal) %>% 
+  select(a_proton, a_CO2_aq, a_formate, a_acetate, a_CH4_aq, a_H2_aq)
+
+# print
+thermo_data
+```
+
+## Calculate $\Delta G_r$
+
+Save $\Delta G_r^\circ$ of reactions of interest at 1 bar 35˚C as calculated from SUPCRTBL
+
+https://models.earth.indiana.edu/supcrtbl.php
+
+Zimmer, K., Zhang, Y.L., Lu, P., Chen, Y.Y., Zhang, G.R., Dalkilic, M. and Zhu, C. (2016) SUPCRTBL: A revised and extended thermodynamic dataset and software package of SUPCRT92. Computer and Geosciences 90:97-111. DOI
+
+Johnson, J.W., Oelkers, E.H. and Helgeson, H.C. (1992) SUPCRT92 - A software package for calculating the standard molal thermodynamic properties of minerals, gases, aqueous species, and reactions from 1-bar to 5000-bar and 0°C to 1000°C. Computer and Geosciences 18:899-947.
+
+The reactions are:
+
+Hydrogenotrophic methanogenesis (HT)
+$\text{CO}_2\text{(aq)}+4\text{H}_2\text{(aq)}=\text{CH}_4\text{(aq)}+\text{H}_2\text{O}\text{(l)}$
+
+Acetoclastic methanogenesis (AC)
+$\text{CH}_3\text{COO}^{-}+\text{H}^+=\text{CH}_4\text{(aq)}+\text{CO}_2\text{(aq)}$
+
+Formate disproportionation (FD)
+$4\text{HCOO}^{-}+4\text{H}^+=\text{CH}_4\text{(aq)}+3\text{CO}_2\text{(aq)}+2\text{H}_2\text{O}\text{(l)}$
+
+```{r standard_Gs}
+# Hydrogenotrophic methanogenesis (HT)
+dG_r_standard_HT_kJ_per_mol <- -192.445
+
+# Acetoclastic methanogenesis (AC)
+dG_r_standard_AC_kJ_per_mol <- -52.374
+
+# Formate disproportionation (FD)
+dG_r_standard_FD_kJ_per_mol <- -265.629
+```
+
+Calculate $\Delta G_r$
+
+$\Delta G_r=\Delta G_r^\circ+RT\ln Q_r$
+```{r Delta_Gs}
+R <- 8.31446261815324 #J⋅K−1⋅mol−1
+Temp <- 35 + 273.15 # K
+
+# Hydrogenotrophic methanogenesis (HT)
+thermo_data <- thermo_data %>% mutate(dG_r_HT_kJ_per_mol = (dG_r_standard_HT_kJ_per_mol * 1e3 + R * Temp * log(a_CH4_aq * a_CO2_aq^(-1) * a_H2_aq^(-4)))*1e-3)
+
+# Acetoclastic methanogenesis (AC)
+thermo_data <- thermo_data %>% mutate(dG_r_AC_kJ_per_mol = (dG_r_standard_AC_kJ_per_mol * 1e3 + R * Temp * log(a_CH4_aq * a_CO2_aq * a_formate^(1) * a_proton^(-1)))*1e-3)
+ 
+# Formate disproportionation (FD)
+thermo_data <- thermo_data %>% mutate(dG_r_FD_kJ_per_mol = (dG_r_standard_FD_kJ_per_mol * 1e3 + R * Temp * log(a_CH4_aq * a_CO2_aq^(3) * a_formate^{-4} * a_proton^{-4}))*1e-3)
+
+thermo_data
+```
+print activities in log form
+```{r log-activities-table}
+thermo_data %>% mutate(log_a_proton = log10(a_proton), log_a_CO2_aq = log10(a_CO2_aq), log_a_formate = log10(a_formate), log_a_acetate = log10(a_acetate), log_a_CH4_aq = log10(a_CH4_aq), log_a_H2_aq = log10(a_H2_aq)) %>% 
+  select(log_a_proton, log_a_CO2_aq, log_a_formate, log_a_acetate, log_a_CH4_aq, log_a_H2_aq, dG_r_HT_kJ_per_mol, dG_r_AC_kJ_per_mol, dG_r_FD_kJ_per_mol) %>% 
+  kable(digits = 1)
+```
+
+
+
+
