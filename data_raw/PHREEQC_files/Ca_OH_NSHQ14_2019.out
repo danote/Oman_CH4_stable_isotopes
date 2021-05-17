@@ -1,0 +1,319 @@
+   Input file: /Users/melo.d/Desktop/Research/PHREEQC/test_Oman/Ca_OH_NSHQ14_2019
+  Output file: /Users/melo.d/Desktop/Research/PHREEQC/test_Oman/Ca_OH_NSHQ14_2019.out
+Database file: /Users/melo.d/Desktop/Research/PHREEQC/phreeqc-3.5.0-14000/database/llnl.dat
+
+------------------
+Reading data base.
+------------------
+
+	LLNL_AQUEOUS_MODEL_PARAMETERS
+	NAMED_EXPRESSIONS
+	SOLUTION_MASTER_SPECIES
+	SOLUTION_SPECIES
+	PHASES
+	EXCHANGE_MASTER_SPECIES
+	EXCHANGE_SPECIES
+	SURFACE_MASTER_SPECIES
+	SURFACE_SPECIES
+	RATES
+	END
+------------------------------------
+Reading input data for simulation 1.
+------------------------------------
+
+	TITLE Samail Ca++ OH- example NSHQ14 2019
+	SOLUTION 1  Ca OH water
+	        units   umol/L
+	        pH      11.07
+	        pe      -4.74 # corresponds to -290 mV Eh (as measured for well NSHQ14 in 2019)
+	        density 1
+	        temp    35
+	        Ca              4.02E+03
+	        Mg              2.43E+00
+	        Na              8.92E+03
+	        K               2.10E+02
+	        Si              2.70E+00
+	        Cl              1.45E+04
+	        C(4)            8 # total dissolved inorganic C from Leong and Shock 2020
+	        S(6)            4.73E+01
+	END
+-----
+TITLE
+-----
+
+ Samail Ca++ OH- example NSHQ14 2019
+
+-------------------------------------------
+Beginning of initial solution calculations.
+-------------------------------------------
+
+Initial solution 1.	Ca OH water
+
+-----------------------------Solution composition------------------------------
+
+	Elements           Molality       Moles
+
+	C(4)              8.007e-06   8.007e-06
+	Ca                4.024e-03   4.024e-03
+	Cl                1.451e-02   1.451e-02
+	K                 2.102e-04   2.102e-04
+	Mg                2.432e-06   2.432e-06
+	Na                8.928e-03   8.928e-03
+	S(6)              4.734e-05   4.734e-05
+	Si                2.702e-06   2.702e-06
+
+----------------------------Description of solution----------------------------
+
+                                       pH  =  11.070    
+                                       pe  =  -4.740    
+                        Activity of water  =   0.999
+                 Ionic strength (mol/kgw)  =   2.117e-02
+                       Mass of water (kg)  =   1.000e+00
+                 Total alkalinity (eq/kg)  =   2.753e-03
+                       Total CO2 (mol/kg)  =   8.007e-06
+                         Temperature (°C)  =  35.00
+                  Electrical balance (eq)  =  -1.707e-04
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.50
+                               Iterations  =   4
+                                  Total H  = 1.110534e+02
+                                  Total O  = 5.552828e+01
+
+----------------------------Distribution of species----------------------------
+
+                                               Log       Log       Log    mole V
+   Species          Molality    Activity  Molality  Activity     Gamma   cm³/mol
+
+   OH-             2.687e-03   2.319e-03    -2.571    -2.635    -0.064     (0)  
+   H+              9.596e-12   8.511e-12   -11.018   -11.070    -0.052      0.00
+   H2O             5.553e+01   9.995e-01     1.744    -0.000     0.000     18.12
+C(4)          8.007e-06
+   CaCO3           6.171e-06   6.171e-06    -5.210    -5.210     0.000     (0)  
+   CO3-2           1.636e-06   9.228e-07    -5.786    -6.035    -0.249     (0)  
+   HCO3-           1.714e-07   1.483e-07    -6.766    -6.829    -0.063     (0)  
+   NaCO3-          2.155e-08   1.865e-08    -7.667    -7.729    -0.063     (0)  
+   CaHCO3+         4.860e-09   4.206e-09    -8.313    -8.376    -0.063     (0)  
+   MgCO3           1.623e-09   1.623e-09    -8.790    -8.790     0.000     (0)  
+   NaHCO3          1.361e-09   1.361e-09    -8.866    -8.866     0.000     (0)  
+   MgHCO3+         3.028e-12   2.621e-12   -11.519   -11.582    -0.063     (0)  
+   CO2             2.624e-12   2.637e-12   -11.581   -11.579     0.002     (0)  
+Ca            4.024e-03
+   Ca+2            3.958e-03   2.306e-03    -2.403    -2.637    -0.235     (0)  
+   CaOH+           4.419e-05   3.825e-05    -4.355    -4.417    -0.063     (0)  
+   CaSO4           7.823e-06   7.823e-06    -5.107    -5.107     0.000     (0)  
+   CaCl+           7.341e-06   6.353e-06    -5.134    -5.197    -0.063     (0)  
+   CaCO3           6.171e-06   6.171e-06    -5.210    -5.210     0.000     (0)  
+   CaCl2           8.506e-08   8.506e-08    -7.070    -7.070     0.000     (0)  
+   CaHCO3+         4.860e-09   4.206e-09    -8.313    -8.376    -0.063     (0)  
+Cl(-1)        1.451e-02
+   Cl-             1.449e-02   1.246e-02    -1.839    -1.904    -0.065     (0)  
+   NaCl            1.819e-05   1.819e-05    -4.740    -4.740     0.000     (0)  
+   CaCl+           7.341e-06   6.353e-06    -5.134    -5.197    -0.063     (0)  
+   KCl             9.160e-08   9.160e-08    -7.038    -7.038     0.000     (0)  
+   CaCl2           8.506e-08   8.506e-08    -7.070    -7.070     0.000     (0)  
+   MgCl+           1.653e-08   1.430e-08    -7.782    -7.845    -0.063     (0)  
+   HCl             2.387e-14   2.387e-14   -13.622   -13.622     0.000     (0)  
+Cl(1)         0.000e+00
+   ClO-            0.000e+00   0.000e+00   -45.553   -45.616    -0.063     (0)  
+   HClO            0.000e+00   0.000e+00   -49.116   -49.116     0.000     (0)  
+Cl(3)         0.000e+00
+   ClO2-           0.000e+00   0.000e+00   -82.260   -82.323    -0.063     (0)  
+   HClO2           0.000e+00   0.000e+00   -90.223   -90.223     0.000     (0)  
+Cl(5)         0.000e+00
+   ClO3-           0.000e+00   0.000e+00  -105.560  -105.624    -0.064     (0)  
+Cl(7)         0.000e+00
+   ClO4-           0.000e+00   0.000e+00  -133.093  -133.157    -0.064     (0)  
+H(0)          5.519e-16
+   H2              2.760e-16   2.774e-16   -15.559   -15.557     0.002     (0)  
+K             2.102e-04
+   K+              2.100e-04   1.806e-04    -3.678    -3.743    -0.065     (0)  
+   KCl             9.160e-08   9.160e-08    -7.038    -7.038     0.000     (0)  
+   KOH             7.354e-08   7.354e-08    -7.133    -7.133     0.000     (0)  
+   KSO4-           3.776e-08   3.268e-08    -7.423    -7.486    -0.063     (0)  
+   KHSO4           3.536e-19   3.536e-19   -18.451   -18.451     0.000     (0)  
+Mg            2.432e-06
+   Mg+2            2.403e-06   1.454e-06    -5.619    -5.837    -0.218     (0)  
+   MgCl+           1.653e-08   1.430e-08    -7.782    -7.845    -0.063     (0)  
+   MgSO4           1.077e-08   1.077e-08    -7.968    -7.968     0.000     (0)  
+   MgCO3           1.623e-09   1.623e-09    -8.790    -8.790     0.000     (0)  
+   MgHCO3+         3.028e-12   2.621e-12   -11.519   -11.582    -0.063     (0)  
+   Mg4(OH)4+4      1.375e-18   1.511e-19   -17.862   -18.821    -0.959     (0)  
+Na            8.928e-03
+   Na+             8.905e-03   7.707e-03    -2.050    -2.113    -0.063     (0)  
+   NaCl            1.819e-05   1.819e-05    -4.740    -4.740     0.000     (0)  
+   NaOH            3.045e-06   3.045e-06    -5.516    -5.516     0.000     (0)  
+   NaSO4-          1.254e-06   1.085e-06    -5.902    -5.965    -0.063     (0)  
+   NaHSiO3         5.359e-07   5.359e-07    -6.271    -6.271     0.000     (0)  
+   NaCO3-          2.155e-08   1.865e-08    -7.667    -7.729    -0.063     (0)  
+   NaHCO3          1.361e-09   1.361e-09    -8.866    -8.866     0.000     (0)  
+O(0)          0.000e+00
+   O2              0.000e+00   0.000e+00   -57.939   -57.937     0.002     (0)  
+S(6)          4.734e-05
+   SO4-2           3.822e-05   2.131e-05    -4.418    -4.671    -0.254     (0)  
+   CaSO4           7.823e-06   7.823e-06    -5.107    -5.107     0.000     (0)  
+   NaSO4-          1.254e-06   1.085e-06    -5.902    -5.965    -0.063     (0)  
+   KSO4-           3.776e-08   3.268e-08    -7.423    -7.486    -0.063     (0)  
+   MgSO4           1.077e-08   1.077e-08    -7.968    -7.968     0.000     (0)  
+   HSO4-           2.815e-14   2.437e-14   -13.550   -13.613    -0.063     (0)  
+   KHSO4           3.536e-19   3.536e-19   -18.451   -18.451     0.000     (0)  
+   H2SO4           1.471e-28   1.471e-28   -27.832   -27.832     0.000     (0)  
+Si            2.702e-06
+   HSiO3-          2.046e-06   1.771e-06    -5.689    -5.752    -0.063     (0)  
+   NaHSiO3         5.359e-07   5.359e-07    -6.271    -6.271     0.000     (0)  
+   SiO2            9.467e-08   9.467e-08    -7.024    -7.024     0.000     (0)  
+   H2SiO4-2        2.567e-08   1.431e-08    -7.591    -7.844    -0.254     (0)  
+   H4(H2SiO4)4-4   1.821e-19   1.750e-20   -18.740   -19.757    -1.017     (0)  
+   H6(H2SiO4)4-2   4.536e-20   2.530e-20   -19.343   -19.597    -0.254     (0)  
+
+------------------------------Saturation indices-------------------------------
+
+  Phase               SI** log IAP   log K(308 K,   1 atm)
+
+  Afwillite       -13.70     44.46   58.16  Ca3Si2O4(OH)6
+  Akermanite       -2.33     41.26   43.59  Ca2MgSi2O7
+  Anhydrite        -2.84     -7.31   -4.47  CaSO4
+  Antarcticite    -10.54     -6.45    4.09  CaCl2:6H2O
+  Anthophyllite    -5.79     57.93   63.72  Mg7Si8O22(OH)2
+  Antigorite       87.18    543.69  456.51  Mg48Si34O85(OH)62
+  Aphthitalite    -18.80    -22.69   -3.89  NaK3(SO4)2
+  Aragonite        -0.22      1.60    1.82  CaCO3
+  Arcanite        -10.44    -12.16   -1.72  K2SO4
+  Artinite         -4.18     14.71   18.89  Mg2CO3(OH)2:3H2O
+  Bassanite        -3.49     -7.31   -3.82  CaSO4:0.5H2O
+  Bischofite      -14.04     -9.65    4.39  MgCl2:6H2O
+  Bloedite        -16.93    -19.41   -2.48  Na2Mg(SO4)2:4H2O
+  Brucite           0.65     16.30   15.65  Mg(OH)2
+  Burkeite        -27.27    -17.78    9.49  Na6CO3(SO4)2
+  C               -21.87     40.04   61.91  C
+  C(g)           -135.42     40.04  175.46  C
+  Ca              -86.68     48.47  135.15  Ca
+  Ca(g)          -110.91     48.47  159.38  Ca
+  Ca2Cl2(OH)2:H2O -13.23     13.06   26.29  Ca2Cl2(OH)2:H2O
+  Ca4Cl2(OH)6:13H2O -16.27     52.06   68.33  Ca4Cl2(OH)6:13H2O
+  Calcite          -0.07      1.60    1.67  CaCO3
+  Carnallite      -19.57    -15.30    4.27  KMgCl3:6H2O
+  CaSO4:0.5H2O(beta)  -3.64     -7.31   -3.66  CaSO4:0.5H2O
+  Chalcedony       -3.44     -7.02   -3.58  SiO2
+  Chloromagnesite -30.55     -9.65   20.90  MgCl2
+  Chrysotile        5.07     34.86   29.79  Mg3Si2O5(OH)4
+  Cl2(g)          -57.60    -54.92    2.68  Cl2
+  CO2(g)          -10.00    -17.90   -7.89  CO2
+  Coesite          -3.97     -7.02   -3.06  SiO2
+  Cristobalite(alpha)  -3.71     -7.02   -3.31  SiO2
+  Cristobalite(beta)  -4.13     -7.02   -2.90  SiO2
+  Dicalcium_silicate  -3.90     31.98   35.89  Ca2SiO4
+  Diopside          1.63     21.76   20.12  CaMgSi2O6
+  Dolomite         -2.12      0.01    2.12  CaMg(CO3)2
+  Dolomite-dis     -3.59      0.01    3.59  CaMg(CO3)2
+  Dolomite-ord     -2.11      0.01    2.12  CaMg(CO3)2
+  Enstatite        -1.54      9.28   10.82  MgSiO3
+  Epsomite         -8.55    -10.51   -1.96  MgSO4:7H2O
+  Forsterite       -1.06     25.58   26.64  Mg2SiO4
+  Foshagite        -6.81     56.94   63.75  Ca4Si3O9(OH)2:0.5H2O
+  Gaylussite       -9.55      1.62   11.16  CaNa2(CO3)2:5H2O
+  Glauberite      -10.74    -16.21   -5.47  Na2Ca(SO4)2
+  Gypsum           -2.76     -7.31   -4.55  CaSO4:2H2O
+  Gyrolite         -4.39     17.93   22.33  Ca2Si3O7(OH)2:1.5H2O
+  H2(g)           -12.44    -15.56   -3.12  H2
+  H2O(g)           -1.34     -0.00    1.34  H2O
+  Halite           -5.60     -4.02    1.58  NaCl
+  Hatrurite       -19.40     51.48   70.88  Ca3SiO5
+  HCl(g)          -18.85    -12.97    5.87  HCl
+  Hexahydrite      -8.78    -10.51   -1.73  MgSO4:6H2O
+  Hillebrandite    -3.63     31.98   35.62  Ca2SiO3(OH)2:0.17H2O
+  Huntite         -12.41     -3.18    9.23  CaMg3(CO3)4
+  Hydromagnesite  -19.10      9.92   29.02  Mg5(CO3)4(OH)2:4H2O
+  Hydrophilite    -17.72     -6.45   11.27  CaCl2
+  Ice              -0.18     -0.00    0.18  H2O
+  K               -46.94     21.81   68.75  K
+  K(g)            -57.03     21.81   78.84  K
+  K2CO3:1.5H2O    -16.62     -3.25   13.38  K2CO3:1.5H2O
+  K2O             -66.96     14.65   81.61  K2O
+  K3H(SO4)2       -28.02    -31.64   -3.62  K3H(SO4)2
+  K8H4(CO3)6:3H2O -76.49    -48.78   27.71  K8H4(CO3)6:3H2O
+  Kainite         -15.85    -16.16   -0.31  KMgClSO4:3H2O
+  Kalicinite      -10.86    -10.57    0.28  KHCO3
+  Kieserite       -10.24    -10.51   -0.27  MgSO4:H2O
+  KMgCl3          -35.78    -15.29   20.49  KMgCl3
+  KMgCl3:2H2O     -28.82    -15.29   13.52  KMgCl3:2H2O
+  KNaCO3:6H2O     -11.88     -1.62   10.26  KNaCO3:6H2O
+  Lansfordite      -6.44     -1.60    4.84  MgCO3:5H2O
+  Larnite          -5.15     31.98   37.13  Ca2SiO4
+  Leonite         -18.56    -22.67   -4.11  K2Mg(SO4)2:4H2O
+  Lime            -11.97     19.50   31.47  CaO
+  Magnesite        -3.61     -1.60    2.02  MgCO3
+  Mercallite      -18.05    -19.48   -1.44  KHSO4
+  Merwinite        -5.20     60.76   65.96  MgCa3(SiO4)2
+  Mg              -73.01     45.27  118.28  Mg
+  Mg(g)           -91.90     45.27  137.17  Mg
+  Mg1.25SO4(OH)0.5:0.5H2O -11.07     -6.43    4.63  Mg1.25SO4(OH)0.5:0.5H2O
+  Mg1.5SO4(OH)    -10.84     -2.36    8.48  Mg1.5SO4(OH)
+  MgCl2:2H2O      -21.85     -9.65   12.20  MgCl2:2H2O
+  MgCl2:4H2O      -16.69     -9.65    7.04  MgCl2:4H2O
+  MgCl2:H2O       -25.03     -9.65   15.38  MgCl2:H2O
+  MgOHCl          -11.88      3.33   15.21  MgOHCl
+  MgSO4           -14.81    -10.51    4.30  MgSO4
+  Mirabilite       -8.22     -8.90   -0.68  Na2SO4:10H2O
+  Misenite       -117.99   -129.07  -11.08  K8H6(SO4)7
+  Monohydrocalcite  -0.96      1.60    2.56  CaCO3:H2O
+  Monticellite      0.36     28.78   28.42  CaMgSiO4
+  Na              -41.77     23.44   65.21  Na
+  Na(g)           -54.65     23.44   78.09  Na
+  Na2CO3          -10.92      0.01   10.93  Na2CO3
+  Na2CO3:7H2O     -10.10      0.01   10.11  Na2CO3:7H2O
+  Na2O            -47.51     17.91   65.42  Na2O
+  Na2SiO3         -10.84     10.89   21.73  Na2SiO3
+  Na3H(SO4)2      -25.86    -26.75   -0.89  Na3H(SO4)2
+  Na4Ca(SO4)3:2H2O -19.21    -25.10   -5.89  Na4Ca(SO4)3:2H2O
+  Na4SiO4         -39.93     28.80   68.74  Na4SiO4
+  Na6Si2O7        -59.16     39.69   98.85  Na6Si2O7
+  Nahcolite        -8.89     -8.94   -0.05  NaHCO3
+  Natron           -9.87      0.01    9.88  Na2CO3:10H2O
+  Natrosilite     -13.90      3.87   17.77  Na2Si2O5
+  Nesquehonite     -6.65     -1.60    5.05  MgCO3:3H2O
+  O2(g)           -54.98    -57.94   -2.96  O2
+  Okenite          -4.75      5.45   10.20  CaSi2O4(OH)2:H2O
+  Oxychloride-Mg   -6.20     19.63   25.83  Mg2Cl(OH)3:4H2O
+  Pentahydrite     -9.12    -10.51   -1.39  MgSO4:5H2O
+  Periclase        -4.17     16.30   20.47  MgO
+  Picromerite     -18.23    -22.67   -4.44  K2Mg(SO4)2:6H2O
+  Pirssonite       -9.70      1.62   11.32  Na2Ca(CO3)2:2H2O
+  Polyhalite      -22.97    -37.28  -14.31  K2MgCa2(SO4)4:2H2O
+  Portlandite      -2.31     19.50   21.82  Ca(OH)2
+  Pseudowollastonite  -1.03     12.48   13.51  CaSiO3
+  Quartz           -3.18     -7.02   -3.84  SiO2
+  Rankinite        -5.64     44.46   50.10  Ca3Si2O7
+  Sepiolite        -6.26     23.06   29.32  Mg4Si6O15(OH)2:6H2O
+  Si              -93.01     50.91  143.93  Si
+  Si(g)          -161.54     50.91  212.46  Si
+  SiO2(am)         -4.39     -7.02   -2.63  SiO2
+  Starkeyite       -9.51    -10.51   -1.00  MgSO4:4H2O
+  Sylvite          -6.57     -5.65    0.92  KCl
+  Syngenite       -11.87    -19.47   -7.60  K2Ca(SO4)2:H2O
+  Tachyhydrite    -42.89    -25.74   17.14  Mg2CaCl6:12H2O
+  Talc              0.67     20.81   20.14  Mg3Si4O10(OH)2
+  Thenardite       -8.52     -8.90   -0.38  Na2SO4
+  Thermonatrite   -10.76      0.01   10.78  Na2CO3:H2O
+  Tobermorite-11A  -8.38     55.37   63.75  Ca5Si6H11O22.5
+  Tobermorite-14A  -6.92     55.37   62.29  Ca5Si6H21O27.5
+  Tobermorite-9A  -11.60     55.37   66.97  Ca5Si6H6O20
+  Tremolite         5.72     64.33   58.61  Ca2Mg5Si8O22(OH)2
+  Tridymite        -3.36     -7.02   -3.66  SiO2
+  Trona-K         -23.78    -12.19   11.59  K2NaH(CO3)2:2H2O
+  Wollastonite     -0.81     12.48   13.29  CaSiO3
+  Xonotlite       -14.07     74.87   88.94  Ca6Si6O17(OH)2
+
+**For a gas, SI = log10(fugacity). Fugacity = pressure * phi / 1 atm.
+  For ideal gases, phi = 1.
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 2.
+------------------------------------
+
+----------------------------------
+End of Run after 0.066623 Seconds.
+----------------------------------
+

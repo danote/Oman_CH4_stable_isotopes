@@ -1,0 +1,90 @@
+
+********** SUPCRTBL: input/output specifications for this run
+
+            USER-SPECIFIED  CON FILE  containing 
+            T-P-D grid & option switches: ACF.con             
+
+            USER-SPECIFIED  RXN FILE  containing 
+            chemical reactions: ACF.rxn             
+
+            THERMODYNAMIC DATABASE: bin/dpronsbl        
+
+            SUPCRT-GENERATED  TAB FILE  containing 
+            tabulated reaction properties (this file): ACF.out             
+
+            SUPCRT-GENERATED  PLT FILES  containing 
+            reaction properties for x-y plots: ACF.kxy              etc.
+
+********** summary of option switches 
+
+            isat, iopt, iplot, univar, noninc:   0  2  2  0  0
+
+********** summary of state conditions 
+
+            ISOTHERMS(degC):  min, max, increment:     35.0000     35.0000      0.0000
+            PRES(bars) range: min, max, increment:      1.0000      1.0000      0.0000
+
+
+************************************ REACTION   1 ************************************
+
+
+
+Reaction 1                                                                      
+
+
+ REACTION STOICHIOMETRY: 
+
+         COEFF.   NAME                   FORMULA
+        -------   --------------------   --------------------
+         -1.000   Acetate-               C2H3O2-                       
+         -1.000   H+                     H+                            
+          1.000   CH4,aq                 CH4                           
+          1.000   CO2,aq                 CO2                           
+
+
+ STANDARD STATE PROPERTIES OF THE SPECIES AT 25 DEG C AND 1 BAR
+
+
+
+                                     ...... AQUEOUS SPECIES ...... 
+
+
+                           DELTA G        DELTA H           S              V              Cp     
+       NAME                (kJ/mol)       (kJ/mol)       (J/mol/K)       (J/bar)       (J/mol/K) 
+  --------------------  -------------  -------------  -------------  -------------  -------------
+  Acetate-                 -369.322       -486.013         86.190         4.010            26.975
+  H+                          0.000          0.000          0.000         0.000             0.000
+  CH4,aq                    -34.451        -87.906         87.822         3.740           277.264
+  CO2,aq                   -385.974       -413.798        117.570         3.281           243.082
+
+
+                                                  EQUATION-OF-STATE COEFFICIENTS
+       NAME              a1(10**1)     a2(10**-2)    a3(10**0)     a4(10**-4)    c1(10**0)     c2(10**-4)   omega(10**-5)
+                        (J/mol/bar)     (J/mol)     (J*K/mol/bar)   (J*K/mol)    (J/mol/K)     (J*K/mol)       (J/mol)  
+  --------------------  ------------  ------------  ------------  ------------  ------------  ------------  -------------
+  Acetate-                  32.4365       36.3991       31.7252      -13.1315      110.0392      -16.1502        5.5153
+  H+                         0.0000        0.0000        0.0000        0.0000        0.0000        0.0000        0.0000
+  CH4,aq                    28.2910       36.5175        9.7119      -13.1365      176.1217       43.8094       -1.3301
+  CO2,aq                    26.1358       31.2591       11.7721      -12.9198      167.4960       36.8209       -0.0837
+
+
+
+ STANDARD STATE PROPERTIES OF THE REACTION AT 25 DEG C AND 1 BAR
+
+
+                                                   DELTA G     DELTA H     DELTA S     DELTA V    DELTA Cp 
+  TEMP(degC)  PRES(bars)  DH2O(g/cc)    LOG K      (kJ/mol)    (kJ/mol)    (J/mol/K)    (J/bar)    (J/mol/K)
+  ----------  ----------  ----------  ----------  ----------  ----------  ----------  ----------  ----------
+     25.000       1.000       0.997       8.953     -51.103     -15.691    119.202       3.011       493.372
+
+
+
+ STANDARD STATE PROPERTIES OF THE REACTION AT ELEVATED TEMPERATURES AND PRESSURES 
+
+
+                                                   DELTA G     DELTA H     DELTA S     DELTA V    DELTA Cp 
+  TEMP(degC)  PRES(bars)  DH2O(g/cc)    LOG K      (kJ/mol)    (kJ/mol)    (J/mol/K)   (J/bar)     (J/mol/K)
+  ----------  ----------  ----------  ----------  ----------  ----------  ----------  ----------  ----------
+
+     35.000       1.000       0.994       8.878     -52.374     -10.994    134.700       3.139       449.236
+

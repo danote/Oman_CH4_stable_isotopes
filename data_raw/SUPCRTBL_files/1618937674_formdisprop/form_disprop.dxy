@@ -1,0 +1,32 @@
+
+ ***** SUPCRTBL: input/output specifications for this run
+
+            USER-SPECIFIED  CON FILE  containing 
+            T-P-D grid & option switches: form_disprop.con    
+
+            USER-SPECIFIED  RXN FILE  containing 
+            chemical reactions: form_disprop.rxn    
+
+            THERMODYNAMIC DATABASE: bin/dpronsbl        
+
+            SUPCRT-GENERATED  TAB FILE  containing 
+            tabulated reaction properties: form_disprop.out    
+
+*********** summary of option switches 
+
+            isat, iopt, iplot, univar, noninc:   0  2  2  0  0
+
+*********** summary of state conditions 
+
+            ISOTHERMS(degC):  min, max, increment:     35.0000     35.0000      0.0000
+            PRES(bars) range: min, max, increment:      1.0000      1.0000      0.0000
+
+**************************************************************************************
+
+
+ REACTION  1
+ TITLE: Reaction 1                                                                      
+
+ TEMP(degC) =    35.0000 ; PRES(bars), DH2O(g/cc)
+
+  0.1000000E+01  0.9940305E+00

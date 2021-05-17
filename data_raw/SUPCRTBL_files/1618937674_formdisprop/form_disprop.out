@@ -1,0 +1,92 @@
+
+********** SUPCRTBL: input/output specifications for this run
+
+            USER-SPECIFIED  CON FILE  containing 
+            T-P-D grid & option switches: form_disprop.con    
+
+            USER-SPECIFIED  RXN FILE  containing 
+            chemical reactions: form_disprop.rxn    
+
+            THERMODYNAMIC DATABASE: bin/dpronsbl        
+
+            SUPCRT-GENERATED  TAB FILE  containing 
+            tabulated reaction properties (this file): form_disprop.out    
+
+            SUPCRT-GENERATED  PLT FILES  containing 
+            reaction properties for x-y plots: form_disprop.kxy     etc.
+
+********** summary of option switches 
+
+            isat, iopt, iplot, univar, noninc:   0  2  2  0  0
+
+********** summary of state conditions 
+
+            ISOTHERMS(degC):  min, max, increment:     35.0000     35.0000      0.0000
+            PRES(bars) range: min, max, increment:      1.0000      1.0000      0.0000
+
+
+************************************ REACTION   1 ************************************
+
+
+
+Reaction 1                                                                      
+
+
+ REACTION STOICHIOMETRY: 
+
+         COEFF.   NAME                   FORMULA
+        -------   --------------------   --------------------
+         -4.000   FORMATE                HCO2-                         
+         -4.000   H+                     H+                            
+          1.000   CH4,aq                 CH4                           
+          3.000   CO2,aq                 CO2                           
+          2.000   H2O                    H2O
+
+
+ STANDARD STATE PROPERTIES OF THE SPECIES AT 25 DEG C AND 1 BAR
+
+
+
+                                     ...... AQUEOUS SPECIES ...... 
+
+
+                           DELTA G        DELTA H           S              V              Cp     
+       NAME                (kJ/mol)       (kJ/mol)       (J/mol/K)       (J/bar)       (J/mol/K) 
+  --------------------  -------------  -------------  -------------  -------------  -------------
+  FORMATE                  -350.879       -425.429         90.793         2.576           -83.865
+  H+                          0.000          0.000          0.000         0.000             0.000
+  CH4,aq                    -34.451        -87.906         87.822         3.740           277.264
+  CO2,aq                   -385.974       -413.798        117.570         3.281           243.082
+  H2O                      -237.181       -285.837         69.924         1.807            75.361
+
+
+                                                  EQUATION-OF-STATE COEFFICIENTS
+       NAME              a1(10**1)     a2(10**-2)    a3(10**0)     a4(10**-4)    c1(10**0)     c2(10**-4)   omega(10**-5)
+                        (J/mol/bar)     (J/mol)     (J*K/mol/bar)   (J*K/mol)    (J/mol/K)     (J*K/mol)       (J/mol)  
+  --------------------  ------------  ------------  ------------  ------------  ------------  ------------  -------------
+  FORMATE                   24.2011       19.7661       30.8068      -12.4441       71.1280      -51.8816        5.4405
+  H+                         0.0000        0.0000        0.0000        0.0000        0.0000        0.0000        0.0000
+  CH4,aq                    28.2910       36.5175        9.7119      -13.1365      176.1217       43.8094       -1.3301
+  CO2,aq                    26.1358       31.2591       11.7721      -12.9198      167.4960       36.8209       -0.0837
+
+
+
+ STANDARD STATE PROPERTIES OF THE REACTION AT 25 DEG C AND 1 BAR
+
+
+                                                   DELTA G     DELTA H     DELTA S     DELTA V    DELTA Cp 
+  TEMP(degC)  PRES(bars)  DH2O(g/cc)    LOG K      (kJ/mol)    (kJ/mol)    (J/mol/K)    (J/bar)    (J/mol/K)
+  ----------  ----------  ----------  ----------  ----------  ----------  ----------  ----------  ----------
+     25.000       1.000       0.997      46.114    -263.220    -199.259    217.208       6.890      1492.691
+
+
+
+ STANDARD STATE PROPERTIES OF THE REACTION AT ELEVATED TEMPERATURES AND PRESSURES 
+
+
+                                                   DELTA G     DELTA H     DELTA S     DELTA V    DELTA Cp 
+  TEMP(degC)  PRES(bars)  DH2O(g/cc)    LOG K      (kJ/mol)    (kJ/mol)    (J/mol/K)   (J/bar)     (J/mol/K)
+  ----------  ----------  ----------  ----------  ----------  ----------  ----------  ----------  ----------
+
+     35.000       1.000       0.994      45.026    -265.629    -185.221    263.532       7.129      1326.990
+

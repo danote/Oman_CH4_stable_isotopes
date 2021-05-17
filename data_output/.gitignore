@@ -3,4 +3,9 @@
 *
 
 # if you want to ADD any particular file to GitHub anyways, list it here (1 file per line) starting with !
-!example_file_to_add.csv
+
+!20200811_180228_DBN_DIC_calibrated.xlsx
+!20200811_180306_DBN_DIC_calibrated.xlsx
+!20200811_OM17-18_CH4_H_data_data_calibrated.xlsx
+!20200811_OM17_CH4_C2-C6_data_calibrated.xlsx
+!20200811_OM18_CH4_C2-C6_data_calibrated.xlsx

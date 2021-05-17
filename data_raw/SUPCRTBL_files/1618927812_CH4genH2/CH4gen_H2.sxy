@@ -1,0 +1,33 @@
+
+ ***** SUPCRTBL: input/output specifications for this run
+
+            USER-SPECIFIED  CON FILE  containing 
+            T-P-D grid & option switches: CH4gen_H2.con       
+
+            USER-SPECIFIED  RXN FILE  containing 
+            chemical reactions: CH4gen_H2.rxn       
+
+            THERMODYNAMIC DATABASE: bin/dpronsbl        
+
+            SUPCRT-GENERATED  TAB FILE  containing 
+            tabulated reaction properties: CH4gen_H2.out       
+
+*********** summary of option switches 
+
+            isat, iopt, iplot, univar, noninc:   0  2  1  0  0
+
+*********** summary of state conditions 
+
+            ISOBARS(bars)  :  min, max, increment:      1.0000      1.0000      0.0000
+            TEMP(degC) range: min, max, increment:     25.0000     35.0000     10.0000
+
+**************************************************************************************
+
+
+ REACTION  1
+ TITLE: Reaction 1                                                                      
+
+ PRES(bars) =     1.0000 ; TEMP(degC), delS (J/mol/K
+
+  0.2500000E+02 -0.1208556E+03
+  0.3500000E+02 -0.1361312E+03

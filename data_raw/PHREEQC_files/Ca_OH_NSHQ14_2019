@@ -1,0 +1,16 @@
+TITLE Samail Ca++ OH- example NSHQ14 2019
+SOLUTION 1  Ca OH water
+        units   umol/L
+        pH      11.07
+        pe      -4.74 # corresponds to -290 mV Eh (as measured for well NSHQ14 in 2019)
+        density 1
+        temp    35
+        Ca              4.02E+03
+        Mg              2.43E+00
+        Na              8.92E+03
+        K               2.10E+02
+        Si              2.70E+00
+        Cl              1.45E+04
+        C(4)            8 # total dissolved inorganic C from Leong and Shock 2020
+        S(6)            4.73E+01
+END
